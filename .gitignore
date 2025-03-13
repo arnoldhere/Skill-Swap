@@ -12,6 +12,7 @@ code/server/uploads
 code/server/.vscode/*
 code/server/.env
 
+*.env
 
 # Miscellaneous
 code/client/.angular/cache
