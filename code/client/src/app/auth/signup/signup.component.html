@@ -1,0 +1,128 @@
+<div class="container">
+  <div class="left-panel">
+    <div class="logo">SkillSwap</div>
+    <div class="illustration">
+      <div class="circle circle-1"></div>
+      <div class="circle circle-2"></div>
+      <div class="circle circle-3"></div>
+      <div class="illustration-text">
+        <h2>Join Our Community</h2>
+        <p>Connect, learn, and share skills with peers around the world</p>
+      </div>
+    </div>
+  </div>
+  <div class="right-panel">
+    <div class="signup-container">
+      <!-- <h1>Create Account</h1>
+            <p class="subtitle">Fill in your details to get started</p> --><br /><br /><br />
+
+      <form class="signup-form" #signupform="ngForm" (ngSubmit)="onSubmit(signupform)">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstname">First Name</label>
+            <input type="text" name="firstname" #firstname="ngModel" [(ngModel)]="user.firstname" id="firstname"
+              placeholder="Enter your first name" required />
+            @if(firstname.invalid && firstname.touched){
+            <div class="error">First name is required</div>
+            }
+          </div>
+          <div class="form-group">
+            <label for="lastname">Last Name</label>
+            <input type="text" name="lastname" #lastname="ngModel" [(ngModel)]="user.lastname" id="lastname"
+              placeholder="Enter your last name" required />
+            @if(lastname.invalid && lastname.touched){
+            <div class="error">Last name is required</div>
+            }
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" name="email" #email="ngModel" [(ngModel)]="user.email" id="email"
+            placeholder="Enter your email" required />
+          @if(email.invalid && email.touched){
+          <div class="error">Valid email is required</div>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" name="password" #password="ngModel" [(ngModel)]="user.password" id="password"
+            placeholder="Create a strong password" required />
+          @if(password.invalid && password.touched){
+          <div class="error">Password is required</div>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="confirmpassword">confirm Password</label>
+          <input type="password" name="confirmpassword" #confirmpassword="ngModel" [(ngModel)]="user.confirmpassword"
+            id="confirmpassword" placeholder="Create a same password" required />
+          @if(confirmpassword.invalid && confirmpassword.touched){
+          <div class="error">Confirm password is required</div>
+          } @else if (user.password !== user.confirmpassword &&
+          confirmpassword.touched) {
+          <div class="error">Passwords do not match</div>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" name="phone" #phone="ngModel" [(ngModel)]="user.phone" id="phone"
+            placeholder="Enter your phone number" required />
+          @if(phone.invalid && phone.touched){
+          <div class="error">Phone number is required</div>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="profile-photo">Profile Photo</label>
+          <div class="file-input-wrapper">
+            <input type="file" name="profilephoto" #profilephoto="ngModel" [multiple]="false"
+              (change)="onFileSelect($event)" [(ngModel)]="user.profilephoto" id="profilephoto" accept="image/*"
+              required size="5"/>
+            <div class="file-input-placeholder">
+              <span>Choose file</span>
+              <span class="file-name">No file chosen</span>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="signup-button">Create Account</button>
+      </form>
+
+      @if(showErrorPopup) {
+      <div class="error-popup-overlay">
+        <div class="error-popup">
+          <div class="error-popup-header">
+            <h3>Error</h3>
+            <button type="button" class="close-button" (click)="closeErrorPopup()">
+              ×
+            </button>
+          </div>
+          <div class="error-popup-body">
+            <p>{{ errorMessage }}</p>
+          </div>
+          <div class="error-popup-footer">
+            <button type="button" class="btn-primary" (click)="closeErrorPopup()">
+              OK
+            </button>
+          </div>
+        </div>
+      </div>
+      } @if(registrationSuccess) {
+      <div class="success-message">
+        Account created successfully! Redirecting to login page...
+      </div>
+      }
+
+      <div class="divider">
+        <span>or</span>
+      </div>
+
+      <p class="login-link">
+        Already have an account? <a routerLink="/auth/login">Log in</a>
+      </p>
+    </div>
+  </div>
+</div>

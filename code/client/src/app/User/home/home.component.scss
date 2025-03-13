@@ -1,0 +1,216 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f4f4f4;
+}
+
+/* Main content */
+main {
+    padding-top: 80px;
+}
+
+section {
+    padding: 4rem 5%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h1, h2 {
+    margin-bottom: 1rem;
+}
+
+/* Hero section */
+.hero {
+    background: linear-gradient(135deg, #3498db, #8e44ad);
+    color: #ffffff;
+    text-align: center;
+    padding: 6rem 5%;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    animation: fadeInUp 1s ease-out;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    animation: fadeInUp 1s ease-out 0.5s;
+    opacity: 0;
+    animation-fill-mode: forwards;
+}
+
+.cta-button {
+    display: inline-block;
+    background-color: #ffffff;
+    color: #3498db;
+    padding: 0.8rem 2rem;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeInUp 1s ease-out 1s;
+    opacity: 0;
+    animation-fill-mode: forwards;
+}
+
+.cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* About section */
+.about {
+    background-color: #ffffff;
+}
+
+.steps {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+
+.step {
+    flex-basis: 30%;
+    text-align: center;
+    padding: 2rem;
+    background-color: #f8f8f8;
+    border-radius: 10px;
+    transition: transform 0.3s ease;
+}
+
+.step:hover {
+    transform: translateY(-10px);
+}
+
+.step-icon {
+    width: 60px;
+    height: 60px;
+    background-color: #3498db;
+    color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0 auto 1rem;
+}
+
+/* Skills section */
+.skills {
+    background-color: #f4f4f4;
+}
+
+.skill-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.skill-item {
+    background-color: #ffffff;
+    padding: 1rem;
+    border-radius: 5px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.skill-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Contact section */
+.contact {
+    background-color: #3498db;
+    color: #ffffff;
+    text-align: center;
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+input[type="email"] {
+    padding: 0.8rem;
+    width: 300px;
+    border: none;
+    border-radius: 30px 0 0 30px;
+}
+
+button[type="submit"] {
+    padding: 0.8rem 2rem;
+    background-color: #2980b9;
+    color: #ffffff;
+    border: none;
+    border-radius: 0 30px 30px 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #2c3e50;
+}
+
+
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+    }
+
+    nav ul {
+        margin-top: 1rem;
+    }
+
+    nav ul li {
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+
+    .steps {
+        flex-direction: column;
+    }
+
+    .step {
+        margin-bottom: 2rem;
+    }
+
+    form {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    input[type="email"], button[type="submit"] {
+        width: 100%;
+        max-width: 300px;
+        border-radius: 30px;
+        margin-bottom: 1rem;
+    }
+}

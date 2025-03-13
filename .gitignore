@@ -1,0 +1,23 @@
+code/client/node_modules
+code/client/.angular/
+code/client/dist
+code/client/tmp
+code/client/out-tsc
+code/client/bazel-out
+code/client/.vscode/*
+
+
+code/server/node_modules
+code/server/node_modules
+code/server/uploads
+code/server/.vscode/*
+
+
+# Miscellaneous
+code/client/.angular/cache
+code/client/.sass-cache/
+code/client/connect.lock
+code/client/coverage
+code/client/libpeerconnection.log
+code/client/testem.log
+code/client/typings

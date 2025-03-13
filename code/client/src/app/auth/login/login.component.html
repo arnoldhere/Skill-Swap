@@ -1,0 +1,86 @@
+<div class="container">
+  <!-- Left Panel - Branding & Illustration -->
+  <div class="left-panel">
+    <div class="logo">SkillSwap</div>
+    <div class="illustration">
+      <div class="circle-container">
+        <div class="circle circle-1"></div>
+        <div class="circle circle-2"></div>
+        <div class="circle circle-3"></div>
+      </div>
+      <div class="illustration-text">
+        <h2>Welcome Back!</h2>
+        <p>Connect with peers and continue your learning journey</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Panel - Login Form -->
+  <div class="right-panel">
+    <div class="login-container">
+      <header class="form-header">
+        <h1>Login</h1>
+        <p class="subtitle">Enter your credentials to access your account</p>
+      </header>
+
+      <!-- Error Message Display -->
+      @if (showErrorPopup) {
+      <div class="error-message">
+        {{ errorMessage }}
+      </div>
+      }
+
+      <form class="login-form" #loginform="ngForm" (ngSubmit)="onSubmit(loginform)">
+        <!-- Email Field -->
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" name="email" #email="ngModel" [(ngModel)]="auth.email" id="email"
+            placeholder="Enter your email" required>
+          @if (email.invalid && email.touched) {
+          <div class="error">Email is required</div>
+          }
+        </div>
+
+        <!-- Password Field -->
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" name="password" #password="ngModel" [(ngModel)]="auth.password" id="password"
+            placeholder="Enter your password" required>
+          @if (password.invalid && password.touched) {
+          <div class="error">Password is required</div>
+          }
+        </div>
+
+        <!-- Additional Options -->
+        <div class="form-options">
+          <div class="remember-me">
+            <input type="checkbox" id="remember">
+            <label for="remember">Remember me</label>
+          </div>
+          <a routerLink="/auth/Forgotpsw" class="forgot-password">Forgot password?</a>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="login-button" [disabled]="loginform.invalid">Continue</button>
+      </form>
+
+      <!-- Alternative Login Options -->
+      <div class="alternative-login">
+        <div class="divider">
+          <span>or</span>
+        </div>
+        <div class="social-login">
+          <button type="button" class="social-btn google" (click)="loginWithGoogle()">
+            <i class="fa-brands fa-google " style="color: #ee9696;margin: 0 5px;"></i>
+            <span>Continue with Google</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Sign Up Link -->
+      <p class="signup-link">
+        Don't have an account? <a routerLink="/auth/signup">Sign up</a>
+      </p>
+    </div>
+  </div>
+</div>
