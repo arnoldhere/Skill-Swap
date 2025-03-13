@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ToastService } from 'angular-toastify';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,5 +8,10 @@ import { Component } from '@angular/core';
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent {
+
+  constructor(
+    private toast: ToastService
+  ) { }
+
 
 }

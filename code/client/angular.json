@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "skilllearn2": {
+    "skillswap": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/skilllearn2",
+            "outputPath": "dist/skillswap",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -65,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "skilllearn2:build:production"
+              "buildTarget": "skillswap:build:production"
             },
             "development": {
-              "buildTarget": "skilllearn2:build:development"
+              "buildTarget": "skillswap:build:development"
             }
           },
           "defaultConfiguration": "development"

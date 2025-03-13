@@ -1,5 +1,5 @@
 import { Router, RouterLink } from '@angular/router';
-import { Component, signal } from '@angular/core';
+import { Component, HostListener, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -23,11 +23,18 @@ import { CustomToastService } from '../../../services/toast.service';
 })
 export class NavbarComponent {
 
+  isScrolled = false;
+
   constructor(
     private userService: UserService,
     private router: Router,
     private toast: CustomToastService
   ) { }
+
+  @HostListener('window:scroll', [])
+  onWindowScroll(): void {
+    this.isScrolled = window.scrollY > 80; // Detect scroll position
+  }
 
   isLoggedIn(): boolean {
     return this.userService.isLoggedIn();
@@ -39,13 +46,10 @@ export class NavbarComponent {
 
   logout(): void {
     this.userService.logout();
-    // Optionally clear other items
-    localStorage.removeItem('firstname');
-    localStorage.removeItem('lastname');
     // Redirect to home or login page
     setTimeout(() => {
       this.router.navigate(['/auth/login']);
       this.toast.success("Logout successfuly....")
-    }, 3000);
+    }, 1900);
   }
 }

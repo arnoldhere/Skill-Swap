@@ -45,13 +45,14 @@ export class UserService {
   }
   // Additional methods for authentication state
   isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');
+    const token = localStorage.getItem('token');
+    return !!token; // Ensures token exists
   }
 
   logout(): void {
-    localStorage.removeItem('token');
+    localStorage.clear();
+    window.location.reload(); // Reload to enforce logout state
   }
-
   getRole(): string | null {
     return localStorage.getItem('role');
   }

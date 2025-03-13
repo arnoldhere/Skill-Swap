@@ -32,7 +32,6 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./components/auth/google-auth-callback/google-auth-callback.component').then(c => c.GoogleAuthCallbackComponent),
       },
-
       {
         path: 'Forgotpsw',
         loadComponent: () =>
@@ -72,8 +71,4 @@ export const routes: Routes = [
       }
     ]
   },
-
-
-
-
 ];

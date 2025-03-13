@@ -14,22 +14,15 @@ export class AppComponent implements OnInit {
   constructor(private router: Router, private toast: ToastService, private userService: UserService) { }
 
   ngOnInit() {
-    // if (this.userService.isLoggedIn()) {
-    //   if (localStorage.getItem("userRole") === "user") {
-    //     this.router.navigate(["/Home"]);
-    //   } else if (localStorage.getItem("userRole") === "admin") {
-    //     this.router.navigate(["/admin/dashboard"]);
-    //   }
-    // }
-    if (localStorage.getItem("role") === "user") {
-      this.toast.warn("You can not access this page.");
-      this.router.navigate(["/Home"]);
+  //   if (localStorage.getItem("role") === "user") {
+  //     this.toast.warn("You can not access this page.");
+  //     this.router.navigate(["/Home"]);
 
-    } else if (localStorage.getItem("role") === "admin") {
-      this.toast.warn("You can not access this page.");
-      this.router.navigate(["/admin/dashboard"]);
+  //   } else if (localStorage.getItem("role") === "admin") {
+  //     this.toast.warn("You can not access this page.");
+  //     this.router.navigate(["/admin/dashboard"]);
 
     }
 
-  }
+  // }
 }

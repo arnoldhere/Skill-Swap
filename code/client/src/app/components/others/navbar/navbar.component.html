@@ -1,24 +1,23 @@
-<header>
-  <nav>
-    <div class="logo">SkillSwap</div>
-    <ul>
-      <li><a routerLink="/Home">Home</a></li>
-      <li><a routerLink="/About">About</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#contact">Contact</a></li>
-      @if(isLoggedIn()){
-      <li><a class="btn btn-md btn-success" style="cursor: pointer" routerLink="/user/profile">Welcome, {{
-          getFirstName() }}</a></li>
-      <li><a (click)="logout()" style="cursor: pointer">Logout</a></li>
-      }
-      @else{
-      <li>
-        <a routerLink="/auth/login">Login</a>
-      </li>
-      <li>
-        <a routerLink="/auth/signup">Signup</a>
-      </li>
-      }
-    </ul>
-  </nav>
-</header>
+<mat-toolbar color="primary" class="navbar" [ngClass]="{ 'scrolled': isScrolled }">
+  <mat-toolbar-row>
+    <span class="logo">SkillSwap</span>
+    <span class="spacer"></span>
+
+    <a mat-button routerLink="/Home">Home</a>
+    <a mat-button routerLink="/about">About</a>
+    <a mat-button routerLink="/skills">Skills</a>
+    <a mat-button routerLink="/contact">Contact</a>
+
+    <span class="auth-buttons">
+      <ng-container *ngIf="isLoggedIn(); else loggedOut">
+        <button mat-raised-button color="accent">Welcome, {{ getFirstName() }}</button>
+        <button mat-raised-button color="warn" (click)="logout()">Logout</button>
+      </ng-container>
+
+      <ng-template #loggedOut>
+        <a mat-button routerLink="/auth/login">Login</a>
+        <a mat-button routerLink="/auth/signup">Signup</a>
+      </ng-template>
+    </span>
+  </mat-toolbar-row>
+</mat-toolbar>
