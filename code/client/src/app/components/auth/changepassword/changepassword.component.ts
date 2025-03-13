@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from '../../services/user.service';
+import { UserService } from '../../../services/user.service';
+import { CustomToastService } from '../../../services/toast.service';
 import { FormsModule, NgForm } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
-import { CustomToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-changepassword',

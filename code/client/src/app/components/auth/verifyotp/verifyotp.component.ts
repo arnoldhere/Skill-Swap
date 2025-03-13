@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
-import { UserService } from '../../services/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { CustomToastService } from '../../services/toast.service';
+import { UserService } from '../../../services/user.service';
+import { CustomToastService } from '../../../services/toast.service';
 
 @Component({
   selector: 'app-verifyotp',
@@ -54,6 +54,7 @@ export class VerifyotpComponent {
   resendOtp() {
     this.userService.forgetPassword(this.email).subscribe({
       next: (response) => {
+        console.log(response.message)
         this.message = 'A new OTP has been sent to your email.';
         this.isSuccess = true;
       },

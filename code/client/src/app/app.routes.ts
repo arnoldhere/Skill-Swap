@@ -8,14 +8,14 @@ export const routes: Routes = [
   {
     path: 'Home',
     loadComponent: () =>
-      import('./User/home/home.component').then(c => c.HomeComponent),
+      import('./components/User/home/home.component').then(c => c.HomeComponent),
   },
   {
     path: "user",
     children: [
       {
         path: "profile",
-        loadComponent: () => import("./User/profile/profile.component").then(c => c.ProfileComponent),
+        loadComponent: () => import("./components/User/profile/profile.component").then(c => c.ProfileComponent),
       }
     ]
   },
@@ -24,32 +24,32 @@ export const routes: Routes = [
     children: [
       {
         path: "login",
-        loadComponent: () => import("./auth/login/login.component").then(c => c.LoginComponent),
+        loadComponent: () => import("./components/auth/login/login.component").then(c => c.LoginComponent),
       },
       {
         path: "signup",
-        loadComponent: () => import("./auth/signup/signup.component").then(c => c.SignupComponent),
+        loadComponent: () => import("./components/auth/signup/signup.component").then(c => c.SignupComponent),
       },
       {
         path: 'Auth/Google/Success',
         loadComponent: () =>
-          import('./auth/google-auth-callback/google-auth-callback.component').then(c => c.GoogleAuthCallbackComponent),
+          import('./components/auth/google-auth-callback/google-auth-callback.component').then(c => c.GoogleAuthCallbackComponent),
       },
 
       {
         path: 'Forgotpsw',
         loadComponent: () =>
-          import('./auth/forgotpsw/forgotpsw.component').then(c => c.ForgotpswComponent),
+          import('./components/auth/forgotpsw/forgotpsw.component').then(c => c.ForgotpswComponent),
       },
       {
         path: 'verifyotp',
         loadComponent: () =>
-          import('./auth/verifyotp/verifyotp.component').then(c => c.VerifyotpComponent),
+          import('./components/auth/verifyotp/verifyotp.component').then(c => c.VerifyotpComponent),
       },
       {
         path: 'changepassword',
         loadComponent: () =>
-          import('./auth/changepassword/changepassword.component').then(c => c.ChangepasswordComponent),
+          import('./components/auth/changepassword/changepassword.component').then(c => c.ChangepasswordComponent),
       }
     ]
   },

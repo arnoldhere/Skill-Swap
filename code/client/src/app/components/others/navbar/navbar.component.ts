@@ -1,4 +1,3 @@
-import { UserService } from '../../services/user.service';
 import { Router, RouterLink } from '@angular/router';
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -7,7 +6,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
-import { CustomToastService } from '../../services/toast.service';
+import { UserService } from '../../../services/user.service';
+import { CustomToastService } from '../../../services/toast.service';
 
 @Component({
   selector: 'app-navbar',

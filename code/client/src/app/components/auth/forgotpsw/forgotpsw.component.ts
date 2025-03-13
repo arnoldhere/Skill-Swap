@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
-import { UserService } from '../../services/user.service';
 import { FormsModule, NgForm } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
-import { CustomToastService } from '../../services/toast.service';
+import { UserService } from '../../../services/user.service';
+import { ToastService } from 'angular-toastify';
+// import { CustomToastService } from '../../../services/toast.service';;
+
 
 @Component({
   selector: 'app-forgotpsw',
@@ -23,7 +25,7 @@ export class ForgotpswComponent {
   constructor(
     private userService: UserService,
     private router: Router,
-    private toast: CustomToastService
+    private toast: ToastService
   ) { }
 
   onSubmit(form: NgForm) {
@@ -35,7 +37,7 @@ export class ForgotpswComponent {
     this.isLoading = true;
     this.message = '';
     this.showMessage = false;
-    this.toast.warning("Please wait...")
+    this.toast.warn("Please wait...")
 
     this.userService.forgetPassword(this.email).subscribe({
       next: (response) => {
