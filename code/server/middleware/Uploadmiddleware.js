@@ -3,7 +3,7 @@ const path = require("path");
 
 // Set storage for profile photos
 const storage = multer.diskStorage({
-	destination: (req, file, cb) => cb(null, "uploads/"), // Save in 'uploads/' directory
+	destination: (req, file, cb) => cb(null, "uploads/Profiles"), // Save in 'uploads/' directory
 	filename: (req, file, cb) =>
 		cb(null, Date.now() + path.extname(file.originalname)), // Unique filename
 });

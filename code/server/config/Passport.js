@@ -29,7 +29,6 @@ passport.use(
 					console.log("saved");
 					await user.save();
 				}
-
 				done(null, user);
 			} catch (error) {
 				console.error("Google Auth Error: ", error);

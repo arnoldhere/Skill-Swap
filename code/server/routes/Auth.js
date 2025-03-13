@@ -81,6 +81,7 @@ router.post("/Login", async (req, res) => {
 				message: "Login successful",
 				role: user.role,
 				token: token,
+				id: user._id,
 				firstname: user.firstname,
 				lastname: user.lastname,
 			});
@@ -128,9 +129,11 @@ router.get("/Google/Success", (req, res) => {
 	);
 	const firstname = req.user.firstname;
 	const lastname = req.user.lastname;
+	const id = req.user._id;
+	const role = req.user.role;
 
 	res.redirect(
-		`http://localhost:4200/auth/Auth/Google/Success?token=${token}&firstname=${firstname}&lastname=${lastname}`
+		`http://localhost:4200/auth/Auth/Google/Success?token=${token}&firstname=${firstname}&lastname=${lastname}&role=${role}&id=${id}`
 	);
 });
 

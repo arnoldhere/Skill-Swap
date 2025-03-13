@@ -46,13 +46,13 @@ export class LoginComponent implements OnInit {
 
     this.userService.login(this.auth).subscribe({
       next: (response: any) => {
-        // if (response.status === 200) {
         this.isLoading = false;
         localStorage.setItem('token', response.token);
         localStorage.setItem('firstname', response.firstname);
         localStorage.setItem('lastname', response.lastname);
         localStorage.setItem("role", response.role)
-        console.log(response.role);
+        localStorage.setItem("id", response.id)
+        // console.log(response.role);
         this.toast.success(response.message);
         setTimeout(() => {
 
@@ -64,12 +64,8 @@ export class LoginComponent implements OnInit {
             this.toast.error("Invalid role....")
             // return;
           }
-
         }, 2500);
-        // } else {
-        // this.isLoading = false;
-        // this.toast.error(response.message);
-        // }
+
       },
       error: (err: HttpErrorResponse) => {
         this.isLoading = false;

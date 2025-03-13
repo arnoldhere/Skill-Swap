@@ -50,6 +50,8 @@ export class NavbarComponent {
     setTimeout(() => {
       this.router.navigate(['/auth/login']);
       this.toast.success("Logout successfuly....")
+      window.location.reload(); // Reload to enforce logout state
     }, 1900);
+
   }
 }

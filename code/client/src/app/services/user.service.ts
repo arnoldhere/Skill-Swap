@@ -38,10 +38,12 @@ export class UserService {
     return this.http.post(`${this.apiUrl}/Change-password`, { email, newPassword });
   }
 
-  storeUserData(token: string, firstname: string, lastname: string) {
+  storeUserData(token: string, firstname: string, lastname: string, role: string, id: string) {
     localStorage.setItem('token', token);
     localStorage.setItem('firstname', firstname);
     localStorage.setItem('lastname', lastname);
+    localStorage.setItem('id', id);
+    localStorage.setItem('role', role);
   }
   // Additional methods for authentication state
   isLoggedIn(): boolean {
@@ -51,7 +53,6 @@ export class UserService {
 
   logout(): void {
     localStorage.clear();
-    window.location.reload(); // Reload to enforce logout state
   }
   getRole(): string | null {
     return localStorage.getItem('role');
