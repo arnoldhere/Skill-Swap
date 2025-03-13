@@ -24,7 +24,7 @@ router.post("/Signup", upload, async (req, res) => {
 		const hashedPassword = await bcrypt.hash(password, salt);
 
 		// Determine profile photo URL
-		const profilephoto = req.file ? `/uploads/${req.file.filename}` : ""; // Store file path or empty string
+		const profilephoto = req.file ? `/uploads/Profiles/${req.file.filename}` : ""; // Store file path or empty string
 
 		// Create a new user
 		const newUser = new User({
