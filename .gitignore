@@ -8,9 +8,9 @@ code/client/.vscode/*
 
 
 code/server/node_modules
-code/server/node_modules
 code/server/uploads
 code/server/.vscode/*
+code/server/.env
 
 
 # Miscellaneous
@@ -21,4 +21,3 @@ code/client/coverage
 code/client/libpeerconnection.log
 code/client/testem.log
 code/client/typings
-code/server/.env
