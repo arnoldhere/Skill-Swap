@@ -48,13 +48,23 @@ export class LoginComponent implements OnInit {
       next: (response: any) => {
         // if (response.status === 200) {
         this.isLoading = false;
-        this.toast.success(response.message);
         localStorage.setItem('token', response.token);
         localStorage.setItem('firstname', response.firstname);
         localStorage.setItem('lastname', response.lastname);
-
+        localStorage.setItem("role", response.role)
+        console.log(response.role);
+        this.toast.success(response.message);
         setTimeout(() => {
-          this.router.navigate(['/Home']);
+
+          if (response.role === "admin") {
+            this.router.navigate(['/admin/dashboard']);
+          } else if (response.role === "user") {
+            this.router.navigate(['/Home']);
+          } else {
+            this.toast.error("Invalid role....")
+            // return;
+          }
+
         }, 2500);
         // } else {
         // this.isLoading = false;

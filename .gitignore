@@ -21,3 +21,4 @@ code/client/coverage
 code/client/libpeerconnection.log
 code/client/testem.log
 code/client/typings
+code/server/.env

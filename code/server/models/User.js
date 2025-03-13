@@ -45,7 +45,7 @@ const userSchema = new mongoose.Schema(
 		otpExpiresAt: {
 			type: Date,
 		}, // OTP expiry time
-		role: { type: String, enum: ["user", "admin"], default: "user" },
+		role: { type: String, default: "user" },
 	},
 	{ timestamps: true }
 );

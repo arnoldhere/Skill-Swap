@@ -75,8 +75,11 @@ router.post("/Login", async (req, res) => {
 				{ expiresIn: "1h" } // Token expires in 1 hour
 			);
 
+			console.log("ROLE = " + user.role);
+
 			res.status(201).json({
 				message: "Login successful",
+				role: user.role,
 				token: token,
 				firstname: user.firstname,
 				lastname: user.lastname,
