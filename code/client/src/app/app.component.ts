@@ -1,8 +1,7 @@
-import { ɵBrowserAnimationBuilder } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { Router, RouterOutlet } from '@angular/router';
-import { AngularToastifyModule } from 'angular-toastify';
+import { AngularToastifyModule, ToastService } from 'angular-toastify';
+import { UserService } from './services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -12,8 +11,25 @@ import { AngularToastifyModule } from 'angular-toastify';
 })
 export class AppComponent implements OnInit {
   title = 'SkillSwap';
-  constructor(private router: Router) { }
+  constructor(private router: Router, private toast: ToastService, private userService: UserService) { }
 
   ngOnInit() {
+    // if (this.userService.isLoggedIn()) {
+    //   if (localStorage.getItem("userRole") === "user") {
+    //     this.router.navigate(["/Home"]);
+    //   } else if (localStorage.getItem("userRole") === "admin") {
+    //     this.router.navigate(["/admin/dashboard"]);
+    //   }
+    // }
+    if (localStorage.getItem("role") === "user") {
+      this.toast.warn("You can not access this page.");
+      this.router.navigate(["/Home"]);
+
+    } else if (localStorage.getItem("role") === "admin") {
+      this.toast.warn("You can not access this page.");
+      this.router.navigate(["/admin/dashboard"]);
+
+    }
+
   }
 }
