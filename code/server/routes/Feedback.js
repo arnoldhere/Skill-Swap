@@ -1,7 +1,7 @@
 const express = require('express');
 const Feedback = require('../models/Feedback'); // Import Feedback model
 const router = express.Router();
-const verifytoken = require('../middleware/Authmiddleware')
+const verifytoken = require('../middleware/VerifyToken')
 
 router.post('/Add',verifytoken ,async (req, res) => {
     try {

@@ -1,8 +1,12 @@
 import { Routes } from '@angular/router';
+import { PagenotfoundComponent } from './components/pagenotfound/pagenotfound.component';
+import { AuthGuard } from './Guards/auth.guard';
 
 
 
 export const routes: Routes = [
+  // Wildcard route for 404 Page Not Found
+  // { path: '**', component: PagenotfoundComponent },
   /***** Common routes *****/
   { path: "", redirectTo: "/Home", pathMatch: 'full' },
   {
@@ -53,6 +57,7 @@ export const routes: Routes = [
       {
         path: "profile",
         loadComponent: () => import("./components/User/profile/profile.component").then(c => c.ProfileComponent),
+        canActivate: [AuthGuard]
       }
     ]
   },
@@ -63,6 +68,7 @@ export const routes: Routes = [
       {
         path: "dashboard",
         loadComponent: () => import("./components/admin/dashboard/dashboard.component").then(c => c.DashboardComponent),
+        canActivate: [AuthGuard]
       }
     ]
   },

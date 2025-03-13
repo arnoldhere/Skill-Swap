@@ -7,7 +7,7 @@ import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink, NavbarComponent, FooterComponent],
+  imports: [ NavbarComponent, FooterComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

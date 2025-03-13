@@ -1,7 +1,7 @@
 import { ɵBrowserAnimationBuilder } from '@angular/animations';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { AngularToastifyModule } from 'angular-toastify';
 
 @Component({
@@ -10,6 +10,10 @@ import { AngularToastifyModule } from 'angular-toastify';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'SkillSwap';
+  constructor(private router: Router) { }
+
+  ngOnInit() {
+  }
 }

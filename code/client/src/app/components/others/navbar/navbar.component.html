@@ -2,12 +2,13 @@
   <nav>
     <div class="logo">SkillSwap</div>
     <ul>
-      <li><a href="#home">Home</a></li>
+      <li><a routerLink="/Home">Home</a></li>
       <li><a routerLink="/About">About</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#contact">Contact</a></li>
       @if(isLoggedIn()){
-      <li><a class="btn btn-md btn-success">Welcome, {{ getFirstName() }}</a></li>
+      <li><a class="btn btn-md btn-success" style="cursor: pointer" routerLink="/user/profile">Welcome, {{
+          getFirstName() }}</a></li>
       <li><a (click)="logout()" style="cursor: pointer">Logout</a></li>
       }
       @else{

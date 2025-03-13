@@ -52,6 +52,10 @@ export class UserService {
     localStorage.removeItem('token');
   }
 
+  getRole(): string | null {
+    return localStorage.getItem('role');
+  }
+
   getToken(): string | null {
     return localStorage.getItem('token');
   }
