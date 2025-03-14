@@ -49,25 +49,28 @@ export const routes: Routes = [
       }
     ]
   },
-  /***** User routes *****/
+  /***** User routes (Restricted to 'user' role) *****/
   {
     path: "user",
     children: [
       {
         path: "profile",
         loadComponent: () => import("./components/User/profile/profile.component").then(c => c.ProfileComponent),
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        data: { roles: ['user'] } // Only users can access
       }
     ]
   },
-  /***** Admin routes *****/
+
+  /***** Admin routes (Restricted to 'admin' role) *****/
   {
     path: "admin",
     children: [
       {
         path: "dashboard",
         loadComponent: () => import("./components/admin/dashboard/dashboard.component").then(c => c.DashboardComponent),
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard],
+        data: { roles: ['admin'] } // Only admins can access
       }
     ]
   },

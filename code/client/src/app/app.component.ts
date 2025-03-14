@@ -14,15 +14,5 @@ export class AppComponent implements OnInit {
   constructor(private router: Router, private toast: ToastService, private userService: UserService) { }
 
   ngOnInit() {
-  //   if (localStorage.getItem("role") === "user") {
-  //     this.toast.warn("You can not access this page.");
-  //     this.router.navigate(["/Home"]);
-
-  //   } else if (localStorage.getItem("role") === "admin") {
-  //     this.toast.warn("You can not access this page.");
-  //     this.router.navigate(["/admin/dashboard"]);
-
-    }
-
-  // }
+  }
 }
