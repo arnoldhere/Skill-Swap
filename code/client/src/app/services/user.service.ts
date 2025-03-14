@@ -8,35 +8,49 @@ import { Observable } from 'rxjs';
 })
 export class UserService {
 
-  private apiUrl = 'http://localhost:5000/Auth';
+  private apiUrl = 'http://localhost:5000';
 
   constructor(private http: HttpClient) { }
 
   register(userData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/Signup`, userData);
+    return this.http.post(`${this.apiUrl}/Auth/Signup`, userData);
   }
 
   login(credentials: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/Login`, credentials);
+    return this.http.post(`${this.apiUrl}/Auth/Login`, credentials);
   }
 
   // Method to initiate Google login
   loginWithGoogle(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/Google/Success`);
+    return this.http.get(`${this.apiUrl}/Auth/Google/Success`);
   }
 
   forgetPassword(email: string): Observable<any> {
-    console.log(`${this.apiUrl}/Forget-password`)
-    return this.http.post(`${this.apiUrl}/Forget-password`, { email });
+    // console.log(`${this.apiUrl}/Forget-password`)
+    return this.http.post(`${this.apiUrl}/Auth/Forget-password`, { email });
   }
 
   verifyOtp(email: string, otp: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/Verify-otp`, { email, otp });
+    return this.http.post(`${this.apiUrl}/Auth/Verify-otp`, { email, otp });
   }
 
   changePassword(email: string, newPassword: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/Change-password`, { email, newPassword });
+    return this.http.post(`${this.apiUrl}/Auth/Change-password`, { email, newPassword });
   }
+/*******************   USER ROUTES   ****************************/
+  getCurrentUser(id: string): Observable<any> {
+    console.log(id)
+    return this.http.get(`${this.apiUrl}/user/get-current-user/${id}`);
+  }
+
+  updateUser(id: string, email: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/user/update-current-user/${id}`, { email });
+  }
+
+  updateAvailabilityStatus(id: string, email: string, status: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/user/update-user-avail-status/${id}`, { email });
+  }
+
 
   storeUserData(token: string, firstname: string, lastname: string, role: string, id: string) {
     localStorage.setItem('token', token);

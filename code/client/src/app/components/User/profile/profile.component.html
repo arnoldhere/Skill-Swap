@@ -1,1 +1,19 @@
-<p>profile page works</p>
+<app-navbar></app-navbar>
+<div class="profile-container">
+  <div class="banner-image"></div>
+
+  <div class="profile-content">
+    <div class="profile-header">
+      <div class="profile-info">
+        <div class="profile-image">
+          <img [src]="" />
+        </div>
+        <div class="profile-details">
+          <h2>{{user.firstname}} {{user.lastname}}</h2>
+          <p>{{user.email}}</p>
+        </div>
+      </div>
+      <button mat-flat-button class="edit-button">Edit</button>
+    </div>
+  </div>
+</div>

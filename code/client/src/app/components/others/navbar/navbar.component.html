@@ -10,7 +10,7 @@
 
     <span class="auth-buttons">
       <ng-container *ngIf="isLoggedIn(); else loggedOut">
-        <button mat-raised-button color="accent">Welcome, {{ getFirstName() }}</button>
+        <a mat-raised-button color="accent" routerLink="/user/profile">Welcome, {{ getFirstName() }}</a>
         <button mat-raised-button color="warn" (click)="logout()">Logout</button>
       </ng-container>
 
