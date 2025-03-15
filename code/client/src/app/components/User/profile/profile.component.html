@@ -1,19 +1,103 @@
 <app-navbar></app-navbar>
-<div class="profile-container">
-  <div class="banner-image"></div>
-
-  <div class="profile-content">
-    <div class="profile-header">
-      <div class="profile-info">
-        <div class="profile-image">
-          <img [src]="" />
-        </div>
-        <div class="profile-details">
-          <h2>{{user.firstname}} {{user.lastname}}</h2>
-          <p>{{user.email}}</p>
-        </div>
+<div class="profile-container" *ngIf="!loading; else loadingTemplate">
+  <div class="profile-header mat-elevation-z2">
+    <div class="profile-cover"></div>
+    <div class="profile-avatar-container">
+      <div class="profile-avatar mat-elevation-z4">
+        <img [src]="user?.profilephoto || 'assets/images/default-avatar.png'" alt="Profile Photo">
       </div>
-      <button mat-flat-button class="edit-button">Edit</button>
+    </div>
+    <div class="profile-title-section">
+      <h1 class="profile-name">{{user?.firstname || 'John'}} {{user?.lastname || 'Doe'}}</h1>
+      <p class="profile-role" style="text-transform: capitalize;">{{user?.role || 'Professional'}}</p>
+      <div class="availability-badge" [ngClass]="{'online': user?.availabilityStatus === 'online'}">
+        {{user?.availabilityStatus === 'online' ? 'Available' : 'Unavailable'}}
+      </div>
     </div>
   </div>
+
+  <div class="profile-content-wrapper">
+    <mat-card class="profile-card bio-card">
+      <mat-card-header>
+        <mat-card-title>About Me</mat-card-title>
+        <button mat-icon-button color="primary" class="card-action-btn">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </mat-card-header>
+      <mat-card-content>
+        <p [class.truncated]="!isBioExpanded">{{user?.bio || 'No bio information available.'}}</p>
+        <button *ngIf="user?.bio && user.bio.length > 150" mat-button color="primary"
+          (click)="isBioExpanded = !isBioExpanded">
+          {{isBioExpanded ? 'Show Less' : 'Show More'}}
+        </button>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="profile-card contact-card">
+      <mat-card-header>
+        <mat-card-title>Contact Information</mat-card-title>
+        <button mat-icon-button color="primary" class="card-action-btn">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="contact-item">
+          <mat-icon color="primary">email</mat-icon>
+          <span>{{user?.email || 'Email not available'}}</span>
+        </div>
+        <div class="contact-item">
+          <mat-icon color="primary">phone</mat-icon>
+          <span>{{user?.phone || 'Phone not available'}}</span>
+        </div>
+        <div class="social-links">
+          <a mat-icon-button color="primary" [href]="user?.socialMedia?.linkedin" target="_blank"
+            *ngIf="user?.socialMedia?.linkedin">
+            <mat-icon svgIcon="linkedin"></mat-icon>
+          </a>
+          <a mat-icon-button color="primary" [href]="user?.socialMedia?.github" target="_blank"
+            *ngIf="user?.socialMedia?.github">
+            <mat-icon svgIcon="github"></mat-icon>
+          </a>
+          <a mat-icon-button color="primary" [href]="user?.socialMedia?.twitter" target="_blank"
+            *ngIf="user?.socialMedia?.twitter">
+            <mat-icon svgIcon="twitter"></mat-icon>
+          </a>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="profile-card skills-card">
+      <mat-card-header>
+        <mat-card-title>Skills</mat-card-title>
+        <button mat-icon-button color="primary" class="card-action-btn">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="skills-section">
+          <h3>Skills I Can Offer</h3>
+          <mat-chip-listbox aria-label="Skills offered">
+            <mat-chip *ngFor="let skill of user?.skillsOffered" color="primary" selected>{{skill}}</mat-chip>
+            <mat-chip *ngIf="!user?.skillsOffered?.length" disabled>No skills added</mat-chip>
+          </mat-chip-listbox>
+        </div>
+        <div class="skills-section">
+          <h3>Skills I'm Learning</h3>
+          <mat-chip-listbox aria-label="Skills seeking">
+            <mat-chip *ngFor="let skill of user?.skillsSeeking" color="accent">{{skill}}</mat-chip>
+            <mat-chip *ngIf="!user?.skillsSeeking?.length" disabled>No skills added</mat-chip>
+          </mat-chip-listbox>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+
+  </div>
 </div>
+
+<ng-template #loadingTemplate>
+  <div class="loading-container">
+    <mat-progress-bar mode="indeterminate" color="primary"></mat-progress-bar>
+    <p class="loading-text">Loading profile...</p>
+  </div>
+</ng-template>

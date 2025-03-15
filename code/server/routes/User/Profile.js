@@ -9,6 +9,12 @@ router.get("/get-current-user/:id", async (req, res) => {
 		if (!userData) {
 			res.status(404).json({ message: "User not found" });
 		}
+		// Send full image URL
+		const baseUrl = `${req.protocol}://${req.get("host")}`;
+		userData.profilephoto = userData.profilephoto
+			? `${baseUrl}${userData.profilephoto}`
+			: null;
+
 		res.status(201).json(userData);
 	} catch (error) {
 		res.status(500).json({ error: "User not found" });

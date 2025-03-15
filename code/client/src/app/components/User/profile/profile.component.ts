@@ -2,16 +2,25 @@ import { Component, OnInit } from "@angular/core";
 import { ToastService } from "angular-toastify";
 import { UserService } from "../../../services/user.service";
 import { Router, RouterModule } from "@angular/router";
-import { trigger, state, style, animate, transition } from "@angular/animations";
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+  query,
+  stagger
+} from "@angular/animations";
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { MatChipsModule, MatChipListbox } from "@angular/material/chips";
 import { MatCardModule } from "@angular/material/card";
-import { MatIconModule } from "@angular/material/icon";
+import { MatIconModule, MatIconRegistry } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
 import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NavbarComponent } from "../../others/navbar/navbar.component";
+import { DomSanitizer } from "@angular/platform-browser";
 
 
 @Component({
@@ -24,70 +33,54 @@ import { NavbarComponent } from "../../others/navbar/navbar.component";
     MatCardModule,
     MatIconModule,
     MatButtonModule,
+    NavbarComponent,
     CommonModule,
     FormsModule,
     MatChipsModule,
     ReactiveFormsModule,
-    NavbarComponent
-],
+  ],
   templateUrl: "./profile.component.html",
   styleUrls: ["./profile.component.scss"],
-  animations: [
-    trigger('expandCollapse', [
-      state('collapsed', style({ height: '0', opacity: 0 })),
-      state('expanded', style({ height: '*', opacity: 1 })),
-      transition('collapsed <=> expanded', animate('300ms ease-in-out'))
-    ]),
-    trigger('fadeIn', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate('300ms', style({ opacity: 1 }))
-      ])
-    ])
-  ]
 })
 export class ProfileComponent implements OnInit {
   user: any = null;
   loading: boolean = true;
   private id = localStorage.getItem("id") || "";
 
-  // profile: any = {
-  //   id: '1',
-  //   firstName: 'John',
-  //   lastName: 'Doe',
-  //   profilePhoto: 'https://i.pravatar.cc/300',
-  //   professionalRole: 'Full Stack Developer',
-  //   bio: 'Passionate developer with 5+ years of experience in web technologies. Always eager to learn and share knowledge with others.',
-  //   contact: {
-  //     email: 'john.doe@example.com',
-  //     phone: '+1 234 567 8900'
-  //   },
-  //   skillsOffered: ['JavaScript', 'Angular', 'Node.js', 'TypeScript', 'React'],
-  //   skillsSeeking: ['Python', 'Data Science', 'Machine Learning'],
-  //   socialMedia: {
-  //     linkedin: 'https://linkedin.com/in/johndoe',
-  //     twitter: 'https://twitter.com/johndoe',
-  //     github: 'https://github.com/johndoe'
-  //   },
-  //   availabilityStatus: 'online',
-  //   availableTimeSlots: [
-  //     { day: 'Monday', slots: ['9:00 AM - 12:00 PM', '2:00 PM - 5:00 PM'] },
-  //     { day: 'Wednesday', slots: ['10:00 AM - 3:00 PM'] },
-  //     { day: 'Friday', slots: ['1:00 PM - 6:00 PM'] }
-  //   ]
-  // };
-
-
-
   isLoading = true;
   isBioExpanded = false;
   error: string | null = null;
+  profileCompletion: number = 0;
+  activeSection: string = 'overview';
+
+  // Default placeholder data
+  placeholderUser = {
+    firstName: 'John',
+    lastName: 'Doe',
+    profilePhoto: 'assets/images/default-avatar.png',
+    professionalRole: 'Web Developer',
+    bio: 'Passionate developer with expertise in web technologies. Always eager to learn and collaborate with others.',
+    contact: {
+      email: 'user@example.com',
+      phone: '+1 123 456 7890'
+    },
+    skillsOffered: ['HTML', 'CSS', 'JavaScript'],
+    skillsSeeking: ['Python', 'React Native'],
+    availabilityStatus: 'offline',
+    availableTimeSlots: []
+  };
+
 
   constructor(
     private toast: ToastService,
     private userService: UserService,
     private router: Router,
-  ) { }
+    private iconRegistry: MatIconRegistry,
+    private sanitizer: DomSanitizer
+  ) {
+    // Register custom SVG icons
+    this.registerSocialIcons();
+  }
 
 
   ngOnInit(): void {
@@ -99,17 +92,76 @@ export class ProfileComponent implements OnInit {
       next: (userData: any) => {
         this.user = userData;
         // console.log(this.user);
+        this.calculateProfileCompletion();
         this.loading = false; // Stop loading when data is fetched
+        // Calculate profile completion percentage
+
       },
       error: (err) => {
         console.error("Error fetching user:", err);
-        this.toast.error("Failed to load profile data..try again later");
+        this.toast.error("Failed to load profile data... try again later");
+        this.error = "Failed to load profile data";
         this.loading = false;
+        this.isLoading = false;
 
+        // Redirect after delay
         setTimeout(() => {
           this.router.navigate(["/Home"]);
         }, 2000);
       }
     });
+  }
+  // Register social media SVG icons
+  private registerSocialIcons(): void {
+    // LinkedIn icon
+    this.iconRegistry.addSvgIcon(
+      'linkedin',
+      this.sanitizer.bypassSecurityTrustResourceUrl('assets/icons/linkedin.svg')
+    );
+
+    // GitHub icon
+    this.iconRegistry.addSvgIcon(
+      'github',
+      this.sanitizer.bypassSecurityTrustResourceUrl('assets/icons/github.svg')
+    );
+
+    // Twitter icon
+    this.iconRegistry.addSvgIcon(
+      'twitter',
+      this.sanitizer.bypassSecurityTrustResourceUrl('assets/icons/twitter.svg')
+    );
+  }
+  // Calculate profile completion percentage
+  private calculateProfileCompletion(): void {
+    if (!this.user) return;
+
+    const fields = [
+      !!this.user.firstName,
+      !!this.user.lastName,
+      !!this.user.bio,
+      !!(this.user.contact && this.user.contact.email),
+      !!(this.user.contact && this.user.contact.phone),
+      !!(this.user.skillsOffered && this.user.skillsOffered.length > 0),
+      !!(this.user.availableTimeSlots && this.user.availableTimeSlots.length > 0),
+      !!this.user.profilePhoto
+    ];
+
+    const completedFields = fields.filter(field => field).length;
+    this.profileCompletion = Math.round((completedFields / fields.length) * 100);
+  }
+  // Set active section
+  setActiveSection(section: string): void {
+    this.activeSection = section;
+  }
+
+  // Get file extension from URL
+  getFileExtension(url: string): string {
+    if (!url) return '';
+    return url.split('.').pop()?.toLowerCase() || '';
+  }
+
+  // Handle image error
+  handleImageError(event: any): void {
+    event.target.src = 'assets/images/default-avatar.png';
   }
 }
