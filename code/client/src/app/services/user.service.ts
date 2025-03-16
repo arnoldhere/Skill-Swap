@@ -52,8 +52,15 @@ export class UserService {
   uploadProfilePhoto(file: File, id: string): Observable<any> {
     const formData = new FormData();
     formData.append('profilephoto', file);
-    return this.http.post<any>(`${this.apiUrl}/user/user-profile-image/${id}`, formData );
+    return this.http.post<any>(`${this.apiUrl}/user/user-profile-image/${id}`, formData);
   }
+
+  updateUserBio(id: string, bio: string): Observable<any> {
+    // const formData = new FormData();
+    // formData.append("bio", bio);
+    console.log(bio)
+    return this.http.post<any>(`${this.apiUrl}/user/update-bio/${id}`, bio);
+  };
 
   /********  Other Services  ********/
 

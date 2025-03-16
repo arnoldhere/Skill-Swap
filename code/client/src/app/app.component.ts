@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { AngularToastifyModule, ToastService } from 'angular-toastify';
 import { UserService } from './services/user.service';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, AngularToastifyModule],
+  imports: [RouterOutlet, AngularToastifyModule , MatDialogModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

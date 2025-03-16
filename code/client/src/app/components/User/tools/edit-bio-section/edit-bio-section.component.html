@@ -1,0 +1,23 @@
+<div class="container">
+  <h2 mat-dialog-title class="text-center my-2">Edit Bio</h2>
+  <div class="main-container container-fluid">
+
+    <form [formGroup]="bioForm" (ngSubmit)="saveBio()">
+
+      <!-- Bio Input Field -->
+      <mat-form-field appearance="outline" class="bio-input">
+        <textarea matInput formControlName="bio" placeholder="Write something about yourself..." rows="5"></textarea>
+      </mat-form-field>
+
+      <div class="action-buttons">
+        <button mat-button color="warn" (click)="closeDialog()">Cancel</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="isLoading || bioForm.invalid">
+          Save
+        </button>
+      </div>
+
+      <mat-progress-spinner *ngIf="isLoading" mode="determinate"
+        style="width: 5px; height: 5pxD;"></mat-progress-spinner>
+    </form>
+  </div>
+</div>

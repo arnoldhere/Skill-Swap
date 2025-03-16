@@ -1,17 +1,7 @@
-import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { Component, ElementRef, inject, OnInit, ViewChild } from "@angular/core";
 import { ToastService } from "angular-toastify";
 import { UserService } from "../../../services/user.service";
 import { Router, RouterModule } from "@angular/router";
-import { MatSnackBar } from '@angular/material/snack-bar';
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition,
-  query,
-  stagger
-} from "@angular/animations";
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { MatChipsModule, MatChipListbox } from "@angular/material/chips";
@@ -24,6 +14,7 @@ import { NavbarComponent } from "../../others/navbar/navbar.component";
 import { DomSanitizer } from "@angular/platform-browser";
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ImageUploadDialogComponent } from "./tools/image-upload-dialog/image-upload-dialog.component";
+import { EditBioSectionComponent } from "../tools/edit-bio-section/edit-bio-section.component";
 
 @Component({
   selector: "app-profile",
@@ -49,7 +40,7 @@ export class ProfileComponent implements OnInit {
   user: any = null;
   loading: boolean = true;
   private id = localStorage.getItem("id") || "";
-
+  private dialog = inject(MatDialog);
   isLoading = true;
   isBioExpanded = false;
   error: string | null = null;
@@ -62,7 +53,6 @@ export class ProfileComponent implements OnInit {
     private router: Router,
     private iconRegistry: MatIconRegistry,
     private sanitizer: DomSanitizer,
-    private dialog : MatDialog
   ) {
     // Register custom SVG icons
     this.registerSocialIcons();
@@ -146,6 +136,17 @@ export class ProfileComponent implements OnInit {
         this.user.profilephoto = result; // Update profile photo
       }
     });
+  }
+
+  openBioCard(): void {
+    const dialogRef = this.dialog.open(EditBioSectionComponent, { width: '35rem', height: '20rem', data: { bio: this.user?.bio || '' } });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.user.bio = result; // Update profile photo
+      }
+    });
+
   }
 
 }
