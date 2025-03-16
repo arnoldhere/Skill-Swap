@@ -1,7 +1,8 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { ToastService } from "angular-toastify";
 import { UserService } from "../../../services/user.service";
 import { Router, RouterModule } from "@angular/router";
+import { MatSnackBar } from '@angular/material/snack-bar';
 import {
   trigger,
   state,
@@ -21,7 +22,8 @@ import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NavbarComponent } from "../../others/navbar/navbar.component";
 import { DomSanitizer } from "@angular/platform-browser";
-
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { ImageUploadDialogComponent } from "./tools/image-upload-dialog/image-upload-dialog.component";
 
 @Component({
   selector: "app-profile",
@@ -35,6 +37,7 @@ import { DomSanitizer } from "@angular/platform-browser";
     MatButtonModule,
     NavbarComponent,
     CommonModule,
+    MatDialogModule,
     FormsModule,
     MatChipsModule,
     ReactiveFormsModule,
@@ -53,41 +56,24 @@ export class ProfileComponent implements OnInit {
   profileCompletion: number = 0;
   activeSection: string = 'overview';
 
-  // Default placeholder data
-  placeholderUser = {
-    firstName: 'John',
-    lastName: 'Doe',
-    profilePhoto: 'assets/images/default-avatar.png',
-    professionalRole: 'Web Developer',
-    bio: 'Passionate developer with expertise in web technologies. Always eager to learn and collaborate with others.',
-    contact: {
-      email: 'user@example.com',
-      phone: '+1 123 456 7890'
-    },
-    skillsOffered: ['HTML', 'CSS', 'JavaScript'],
-    skillsSeeking: ['Python', 'React Native'],
-    availabilityStatus: 'offline',
-    availableTimeSlots: []
-  };
-
-
   constructor(
     private toast: ToastService,
     private userService: UserService,
     private router: Router,
     private iconRegistry: MatIconRegistry,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private dialog : MatDialog
   ) {
     // Register custom SVG icons
     this.registerSocialIcons();
   }
-
 
   ngOnInit(): void {
     // Simulate loading
     setTimeout(() => {
       this.isLoading = false;
     }, 1000);
+
     this.userService.getCurrentUser(this.id).subscribe({
       next: (userData: any) => {
         this.user = userData;
@@ -149,19 +135,17 @@ export class ProfileComponent implements OnInit {
     const completedFields = fields.filter(field => field).length;
     this.profileCompletion = Math.round((completedFields / fields.length) * 100);
   }
-  // Set active section
-  setActiveSection(section: string): void {
-    this.activeSection = section;
+
+  openImageUploadDialog(): void {
+    const dialogRef = this.dialog.open(ImageUploadDialogComponent, {
+      width: '400px',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.user.profilephoto = result; // Update profile photo
+      }
+    });
   }
 
-  // Get file extension from URL
-  getFileExtension(url: string): string {
-    if (!url) return '';
-    return url.split('.').pop()?.toLowerCase() || '';
-  }
-
-  // Handle image error
-  handleImageError(event: any): void {
-    event.target.src = 'assets/images/default-avatar.png';
-  }
 }

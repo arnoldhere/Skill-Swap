@@ -1,20 +1,25 @@
 <app-navbar></app-navbar>
 <div class="profile-container" *ngIf="!loading; else loadingTemplate">
-  <div class="profile-header mat-elevation-z2">
-    <div class="profile-cover"></div>
-    <div class="profile-avatar-container">
-      <div class="profile-avatar mat-elevation-z4">
-        <img [src]="user?.profilephoto || 'assets/images/default-avatar.png'" alt="Profile Photo">
+    <div class="profile-header mat-elevation-z2">
+      <div class="profile-cover"></div>
+      <div class="profile-avatar-container">
+        <div class="profile-avatar mat-elevation-z4">
+          <img [src]="user?.profilephoto || 'assets/images/default-avatar.png'" alt="Profile Photo">
+          <!-- Edit icon below and slightly overlapping the profile picture -->
+          <button mat-icon-button class="edit-avatar-btn" (click)="openImageUploadDialog()">
+            <mat-icon color="primary">edit</mat-icon>
+          </button>
+        </div>
+      </div>
+      <div class="profile-title-section">
+        <h1 class="profile-name">{{user?.firstname || 'John'}} {{user?.lastname || 'Doe'}}</h1>
+        <p class="profile-role" style="text-transform: capitalize;">{{user?.role || 'Professional'}}</p>
+        <div class="availability-badge" [ngClass]="{'online': user?.availabilityStatus === 'online'}">
+          {{user?.availabilityStatus === 'online' ? 'Available' : 'Unavailable'}}
+        </div>
       </div>
     </div>
-    <div class="profile-title-section">
-      <h1 class="profile-name">{{user?.firstname || 'John'}} {{user?.lastname || 'Doe'}}</h1>
-      <p class="profile-role" style="text-transform: capitalize;">{{user?.role || 'Professional'}}</p>
-      <div class="availability-badge" [ngClass]="{'online': user?.availabilityStatus === 'online'}">
-        {{user?.availabilityStatus === 'online' ? 'Available' : 'Unavailable'}}
-      </div>
-    </div>
-  </div>
+
 
   <div class="profile-content-wrapper">
     <mat-card class="profile-card bio-card">

@@ -2,16 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
   private apiUrl = 'http://localhost:5000';
-
   constructor(private http: HttpClient) { }
-
+  /********  Auth Service ********/
   register(userData: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/Auth/Signup`, userData);
   }
@@ -37,7 +35,7 @@ export class UserService {
   changePassword(email: string, newPassword: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/Auth/Change-password`, { email, newPassword });
   }
-/*******************   USER ROUTES   ****************************/
+  /*******************   USER Services & routes   ****************************/
   getCurrentUser(id: string): Observable<any> {
     console.log(id)
     return this.http.get(`${this.apiUrl}/user/get-current-user/${id}`);
@@ -51,6 +49,13 @@ export class UserService {
     return this.http.post(`${this.apiUrl}/user/update-user-avail-status/${id}`, { email });
   }
 
+  uploadProfilePhoto(file: File, id: string): Observable<any> {
+    const formData = new FormData();
+    formData.append('profilephoto', file);
+    return this.http.post<any>(`${this.apiUrl}/user/user-profile-image/${id}`, formData );
+  }
+
+  /********  Other Services  ********/
 
   storeUserData(token: string, firstname: string, lastname: string, role: string, id: string) {
     localStorage.setItem('token', token);

@@ -38,4 +38,16 @@ app.use((req, res) => {
 	res.status(404).json({ error: "Router not found" });
 });
 
+const mongoose = require("mongoose");
+const Grid = require("gridfs-stream");
+
+const conn = mongoose.createConnection(process.env.MONGO_URI);
+
+let gfs;
+
+conn.once("open", () => {
+	gfs = Grid(conn.db, mongoose.mongo);
+	gfs.collection("uploads"); // Ensure files are stored in "uploads" collection
+});
+
 module.exports = app;

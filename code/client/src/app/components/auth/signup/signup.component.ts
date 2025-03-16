@@ -58,13 +58,12 @@ export class SignupComponent {
       return;
     }
 
-    // Validate file type (ensure it's an image)
-    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
-    if (!allowedTypes.includes(this.selectedFile.type)) {
-      this.toaster.error("Only JPEG, JPG, and PNG images are allowed.");
-      return;
-    }
-
+  // Validate file type (ensure it's an image)
+  const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+  if (!allowedTypes.includes(this.selectedFile.type)) {
+    this.toaster.error("Only JPEG, JPG, and PNG images are allowed.");
+    return;
+  }
     this.isLoading = true;
     this.errorMessage = '';
 

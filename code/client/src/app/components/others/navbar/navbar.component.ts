@@ -33,7 +33,7 @@ export class NavbarComponent {
 
   @HostListener('window:scroll', [])
   onWindowScroll(): void {
-    this.isScrolled = window.scrollY > 80; // Detect scroll position
+    this.isScrolled = window.scrollY > 50; // Detect scroll position
   }
 
   isLoggedIn(): boolean {

@@ -1,0 +1,18 @@
+<div class="dialog-container">
+  <h2 mat-dialog-title>Upload Profile Picture</h2>
+  <form (submit)="uploadImage()">
+    <div mat-dialog-content class="dialog-content">
+      <input type="file" (change)="onFileSelected($event)" accept="image/*">
+      <div class="image-preview" *ngIf="previewUrl">
+        <img [src]="previewUrl" alt="Preview">
+      </div>
+    </div>
+    <div mat-dialog-actions class="dialog-actions">
+      <button mat-button (click)="closeDialog()">Cancel</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!selectedFile || isUploading">
+        <mat-progress-spinner *ngIf="isUploading" diameter="20" mode="indeterminate"></mat-progress-spinner>
+        <span *ngIf="!isUploading">Upload</span>
+      </button>
+    </div>
+  </form>
+</div>

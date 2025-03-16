@@ -37,7 +37,7 @@ const userSchema = new mongoose.Schema(
 			default: "manual",
 		},
 		profilephoto: {
-			type: String, // URL of the uploaded profile picture
+			type: String, // Stores GridFS filename
 		},
 		otp: {
 			type: String,

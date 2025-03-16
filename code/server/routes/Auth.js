@@ -4,12 +4,12 @@ const User = require("../models/User"); // Import User model
 const bcrypt = require("bcryptjs"); // For password hashing
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
-const upload = require("../middleware/Uploadmiddleware");
+const { upload } = require("../middleware/UploadMiddleware");
 require("dotenv").config();
 const sendEmail = require("../utils/Sendemail");
 const crypto = require("crypto");
 
-router.post("/Signup", upload, async (req, res) => {
+router.post("/Signup", upload.single("profilephoto"), async (req, res) => {
 	const { firstname, lastname, email, password, phone } = req.body;
 
 	try {
@@ -23,9 +23,8 @@ router.post("/Signup", upload, async (req, res) => {
 		const salt = await bcrypt.genSalt(10); //gensalt() is a function in the bcrypt library that generates a salt for password hashing.  A salt is a random string added to a password before hashing to make it more secure. It prevents attackers from using precomputed hash attacks (rainbow tables) to crack passwords.
 		const hashedPassword = await bcrypt.hash(password, salt);
 
-		// Determine profile photo URL
-		const profilephoto = req.file ? `/uploads/Profiles/${req.file.filename}` : ""; // Store file path or empty string
-
+		// Get file ID from GridFS
+		const profilephoto = req.file ? req.file.filename : null;
 		// Create a new user
 		const newUser = new User({
 			firstname,
