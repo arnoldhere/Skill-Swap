@@ -47,16 +47,18 @@ export class ImageUploadDialogComponent {
 
     this.userService.uploadProfilePhoto(this.selectedFile, id).subscribe({
       next: (response) => {
-        this.toast.success("Profile picture updated!");
-        this.dialogRef.close(response.filePath);
-        this.dialogRef.close(this.previewUrl);
+        setTimeout(() => {
+          this.toast.success("Profile picture updated!");
+          this.dialogRef.close(response.filePath);
+          this.dialogRef.close(this.previewUrl);
+        }, 2500);
       },
       error: (error) => {
         this.toast.error("Failed to upload image.");
         console.error("Upload error:", error);
       },
       complete: () => {
-        this.isUploading = false; // ✅ Reset after upload
+        this.isUploading = false;
       }
     });
   }
