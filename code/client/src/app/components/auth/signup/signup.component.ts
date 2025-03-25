@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RouterLink } from '@angular/router';
@@ -14,7 +14,7 @@ import { ToastService } from 'angular-toastify';
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss'
 })
-export class SignupComponent {
+export class SignupComponent implements OnInit {
   user: any = {};
   selectedFile: File | null = null;
   errorMessage: string = '';
@@ -27,6 +27,12 @@ export class SignupComponent {
     private router: Router,
     private toaster: ToastService,
   ) { }
+
+  ngOnInit(): void {
+    if (this.userService.isLoggedIn()) {
+      this.router.navigate(['/Home']);
+    }
+  }
 
   onFileSelect(event: any) {
     this.selectedFile = event.target.files[0];
@@ -58,12 +64,12 @@ export class SignupComponent {
       return;
     }
 
-  // Validate file type (ensure it's an image)
-  const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
-  if (!allowedTypes.includes(this.selectedFile.type)) {
-    this.toaster.error("Only JPEG, JPG, and PNG images are allowed.");
-    return;
-  }
+    // Validate file type (ensure it's an image)
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+    if (!allowedTypes.includes(this.selectedFile.type)) {
+      this.toaster.error("Only JPEG, JPG, and PNG images are allowed.");
+      return;
+    }
     this.isLoading = true;
     this.errorMessage = '';
 
@@ -107,7 +113,7 @@ export class SignupComponent {
             console.log(error);
             break;
           default:
-            this.toaster.error(error.message ||  "Something went wrong. Please try again.");
+            this.toaster.error(error.message || "Something went wrong. Please try again.");
             console.log(error);
         }
 

@@ -44,7 +44,7 @@ router.post("/update-user-avail-status/:id", async (req, res) => {
 	}
 });
 
-// Upload and save profile image in GridFS
+// Upload and save profile image 
 router.post(
 	"/user-profile-image/:id",
 	upload.single("profilephoto"),

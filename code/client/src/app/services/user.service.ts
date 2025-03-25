@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -61,6 +62,15 @@ export class UserService {
     console.log(bio)
     return this.http.post<any>(`${this.apiUrl}/user/update-bio/${id}`, bio);
   };
+  updateContactData(id: string, contactForm: any): Observable<any> {
+
+    const formData = new FormData();
+    formData.append("email", contactForm.email)
+    formData.append("phone", contactForm.phone)
+    console.log(contactForm)
+
+    return this.http.post<any>(`${this.apiUrl}/user/update-contact-data/${id}`, formData);
+  }
 
   /********  Other Services  ********/
 

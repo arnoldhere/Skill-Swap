@@ -60,6 +60,7 @@ const upload = multer({
 });
 
 // Function to delete the old profile photo
+
 const deleteOldProfilePhoto = async (userId) => {
 	try {
 		const user = await User.findById(userId);
@@ -69,13 +70,18 @@ const deleteOldProfilePhoto = async (userId) => {
 				"../uploads/profilephotos",
 				user.profilephoto
 			);
+
+			// Check if file exists
 			if (fs.existsSync(oldFilePath)) {
-				fs.unlinkSync(oldFilePath);
+				// Asynchronously delete the file
+				await fs.promises.unlink(oldFilePath);
+				console.log("Old profile photo deleted successfully.");
+			} else {
+				console.log("No old profile photo found.");
 			}
 		}
 	} catch (error) {
 		console.error("Error deleting old profile photo:", error);
 	}
 };
-
 module.exports = { upload, deleteOldProfilePhoto };

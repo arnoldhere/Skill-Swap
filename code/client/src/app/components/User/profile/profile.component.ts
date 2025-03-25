@@ -1,7 +1,7 @@
 import { Component, ElementRef, inject, OnInit, ViewChild } from "@angular/core";
 import { ToastService } from "angular-toastify";
 import { UserService } from "../../../services/user.service";
-import { Router, RouterModule } from "@angular/router";
+import { Router, RouterLink, RouterModule } from "@angular/router";
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { MatChipsModule, MatChipListbox } from "@angular/material/chips";
@@ -14,7 +14,7 @@ import { NavbarComponent } from "../../others/navbar/navbar.component";
 import { DomSanitizer } from "@angular/platform-browser";
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ImageUploadDialogComponent } from "./tools/image-upload-dialog/image-upload-dialog.component";
-import { EditBioSectionComponent } from "../tools/edit-bio-section/edit-bio-section.component";
+import { EditBioSectionComponent } from "./tools/edit-bio-section/edit-bio-section.component";
 
 @Component({
   selector: "app-profile",
@@ -32,6 +32,7 @@ import { EditBioSectionComponent } from "../tools/edit-bio-section/edit-bio-sect
     FormsModule,
     MatChipsModule,
     ReactiveFormsModule,
+    RouterLink
   ],
   templateUrl: "./profile.component.html",
   styleUrls: ["./profile.component.scss"],
@@ -148,5 +149,6 @@ export class ProfileComponent implements OnInit {
     });
 
   }
+
 
 }

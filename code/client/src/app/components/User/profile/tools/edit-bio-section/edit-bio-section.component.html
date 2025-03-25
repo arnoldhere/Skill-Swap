@@ -1,0 +1,31 @@
+<div class="bio-card mat-elevation-z8">
+  <h2 mat-dialog-title class="bio-title">✏️ Edit Your Bio</h2>
+  <div class="bio-container container-fluid">
+    <form [formGroup]="bioForm" (ngSubmit)="saveBio()">
+      <!-- Bio Input Field with Border and Animation -->
+      <mat-form-field appearance="outline" class="bio-input">
+        <textarea
+          matInput
+          formControlName="bio"
+          placeholder="Write something about yourself..."
+          rows="4"
+          maxlength="{{ maxBioLength }}"
+        ></textarea>
+        <mat-hint align="end">{{ bioLength }} / {{ maxBioLength }} characters</mat-hint>
+      </mat-form-field>
+
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        <button mat-stroked-button color="warn" (click)="closeDialog()">Cancel</button>
+        <button mat-flat-button color="primary" type="submit" [disabled]="isLoading || bioForm.invalid">
+          Save
+        </button>
+      </div>
+
+      <!-- Spinner While Loading -->
+      <div class="spinner-container" *ngIf="isLoading">
+        <mat-progress-spinner mode="indeterminate" diameter="40" color="accent"></mat-progress-spinner>
+      </div>
+    </form>
+  </div>
+</div>

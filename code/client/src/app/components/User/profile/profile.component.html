@@ -40,10 +40,10 @@
 
     <mat-card class="profile-card contact-card">
       <mat-card-header>
-        <mat-card-title>Contact Information</mat-card-title>
-        <button mat-icon-button color="primary" class="card-action-btn">
+        <mat-card-title>Personal Information</mat-card-title>
+        <a mat-icon-button color="primary" class="card-action-btn" [routerLink]="['/user/edit-personal-details']">
           <mat-icon>edit</mat-icon>
-        </button>
+        </a>
       </mat-card-header>
       <mat-card-content>
         <div class="contact-item">
