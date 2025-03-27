@@ -61,6 +61,12 @@ export const routes: Routes = [
         data: { roles: ['user'] },// Only users can access
       },
       {
+        path: "contact",
+        loadComponent: () => import("./components/User/contactus/contactus.component").then(c => c.ContactUsComponent),
+        canActivate: [AuthGuard],
+        data: { roles: ['user'] }, // Only users can access
+      },
+      {
         path: "edit-personal-details",
         loadComponent: () => import("./components/User/profile/personal-info/personal-info.component").then(c => c.PersonalInfoComponent),
         canActivate: [AuthGuard],

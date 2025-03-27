@@ -1,0 +1,137 @@
+/* 🌟 Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.contact-us {
+  background: linear-gradient(to right, #1f2937, #4b5563);
+  color: #f9fafb;
+  padding: 80px 20px;
+  text-align: center;
+  transition: background 0.5s ease-in-out;
+}
+
+/* 🧰 Container Styles */
+.container {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #f9fafb;
+}
+
+h2 span {
+  color: #facc15;
+}
+
+p {
+  font-size: 1.2rem;
+  margin-bottom: 40px;
+  line-height: 1.8;
+}
+
+/* 📝 Form Styles */
+.contact-form {
+  background-color: #f9fafb;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+  text-align: left;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 8px;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.3s ease-in-out;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #facc15;
+}
+
+.invalid {
+  border-color: #ef4444;
+}
+
+/* 🔥 Button Style */
+button {
+  width: 100%;
+  padding: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+  background-color: #4b5563;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+button:hover {
+  background-color: #facc15;
+  color: #1f2937;
+}
+
+button:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* ❗️ Error Messages */
+.error {
+  color: #ef4444;
+  font-size: 0.9rem;
+  margin-top: 5px;
+}
+
+/* ✅ Toast Styles */
+.toast-success {
+  background-color: #22c55e;
+  color: #fff;
+}
+
+.toast-error {
+  background-color: #ef4444;
+  color: #fff;
+}
+
+/* 📱 Responsive Design */
+@media (max-width: 768px) {
+  h2 {
+    font-size: 2rem;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+
+  .contact-form {
+    padding: 20px;
+  }
+
+  button {
+    font-size: 1rem;
+  }
+}

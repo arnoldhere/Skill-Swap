@@ -1,11 +1,60 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { trigger, state, style, transition, animate } from '@angular/animations';
+import { NavbarComponent } from "../../others/navbar/navbar.component";
+import { FooterComponent } from "../../others/footer/footer.component";
 
 @Component({
-  selector: 'app-contactus',
-  imports: [],
+  selector: 'app-contact-us',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, MatSnackBarModule, NavbarComponent, FooterComponent],
   templateUrl: './contactus.component.html',
-  styleUrl: './contactus.component.scss'
+  styleUrl: './contactus.component.scss',
+  animations: [
+    trigger('fadeIn', [
+      state('void', style({ opacity: 0, transform: 'translateY(30px)' })),
+      transition(':enter', [animate('500ms ease-in-out', style({ opacity: 1, transform: 'translateY(0)' }))]),
+    ]),
+  ],
 })
-export class ContactusComponent {
+export class ContactUsComponent {
+  contactForm!: FormGroup;
+  isSubmitting: boolean = false;
 
+  constructor(private fb: FormBuilder, private snackBar: MatSnackBar) {
+    this.initializeForm();
+  }
+
+  // ✅ Initialize Form
+  initializeForm() {
+    this.contactForm = this.fb.group({
+      subject: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
+      message: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(500)]],
+    });
+  }
+
+  // ✅ Form Submission Handler
+  onSubmit() {
+    if (this.contactForm.invalid) {
+      this.showToast('Please fill in all required fields correctly!', 'error');
+      return;
+    }
+
+    this.isSubmitting = true;
+    setTimeout(() => {
+      this.isSubmitting = false;
+      this.showToast('Your message has been sent successfully!', 'success');
+      this.contactForm.reset(); // Reset the form after submission
+    }, 1500);
+  }
+
+  // ✅ Show Toast Message
+  showToast(message: string, type: 'success' | 'error') {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
+      panelClass: type === 'success' ? 'toast-success' : 'toast-error',
+    });
+  }
 }
