@@ -1,23 +1,32 @@
 <mat-toolbar color="primary" class="navbar" [ngClass]="{ 'scrolled': isScrolled }">
   <mat-toolbar-row>
-    <span class="logo" class="text-center text-danger">SkillSwap</span>
-    <span class="spacer"></span>
+    <!-- Logo & Hamburger Icon -->
+    <div class="logo-container">
+      <span class="logo text-center text-danger">SkillSwap</span>
+      <button mat-icon-button class="menu-btn" (click)="toggleMenu()">
+        <mat-icon>{{ isMenuOpen ? 'close' : 'menu' }}</mat-icon>
+      </button>
+    </div>
 
-    <a mat-button routerLink="/Home">Home</a>
-    <a mat-button routerLink="/about">About</a>
-    <a mat-button routerLink="/skills">Skills</a>
-    <a mat-button routerLink="/contact">Contact</a>
+    <!-- Desktop Menu -->
+    <div class="nav-links" [ngClass]="{ 'hide': !isMenuOpen }">
+      <a mat-button routerLink="/Home" (click)="closeMenu()">Home</a>
+      <a mat-button routerLink="/about" (click)="closeMenu()">About</a>
+      <a mat-button routerLink="/skills" (click)="closeMenu()">Skills</a>
+      <a mat-button routerLink="/contact" (click)="closeMenu()">Contact</a>
 
-    <span class="auth-buttons">
+      <!-- Authenticated / Non-authenticated states -->
       <ng-container *ngIf="isLoggedIn(); else loggedOut">
-        <a mat-raised-button color="accent" routerLink="/user/profile">Welcome, {{ getFirstName() }}</a>
+        <a mat-raised-button color="accent" routerLink="/user/profile" (click)="closeMenu()">
+          Welcome, {{ getFirstName() }}
+        </a>
         <button mat-raised-button color="warn" (click)="logout()">Logout</button>
       </ng-container>
 
       <ng-template #loggedOut>
-        <a mat-button routerLink="/auth/login">Login</a>
-        <a mat-button routerLink="/auth/signup">Signup</a>
+        <a mat-button routerLink="/auth/login" (click)="closeMenu()">Login</a>
+        <a mat-button routerLink="/auth/signup" (click)="closeMenu()">Signup</a>
       </ng-template>
-    </span>
+    </div>
   </mat-toolbar-row>
 </mat-toolbar>

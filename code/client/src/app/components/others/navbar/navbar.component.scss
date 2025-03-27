@@ -1,7 +1,26 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
 .logo {
-  font-size: 1.5rem;
-  font-weight: 600;
-  // color: #3498db;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #ff4d4d; // Vibrant red for cool logo
+}
+
+.menu-btn {
+  display: none;
+  color: #fff;
 }
 
 .navbar {
@@ -9,9 +28,15 @@
   top: 0;
   z-index: 1000;
   width: 100%;
-  transition: all 0.7s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  background-color: #E5E7EB;
+  color: #fff;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  // animation: cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.nav-links {
+  display: flex;
+  gap: 15px;
 }
 
 .spacer {
@@ -25,7 +50,39 @@
 }
 
 .scrolled {
-  // background-color: rgba(248, 102, 102, 0.737);
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
   padding: 8px 0;
+  background-color: #F2EFE7;;
+}
+
+/* 🌟 Responsive Styles */
+@media (max-width: 768px) {
+  .menu-btn {
+    display: block;
+    margin-right: 5px;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    position: absolute;
+    top: 65px;
+    left: 0;
+    width: 100%;
+    background-color: #444;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    transition: max-height 0.5s ease-in-out;
+  }
+
+  .nav-links.hide {
+    max-height: 0;
+    overflow: hidden;
+  }
+
+  .nav-links a,
+  .nav-links button {
+    width: 100%;
+    text-align: center;
+    padding: 8px 0;
+  }
 }

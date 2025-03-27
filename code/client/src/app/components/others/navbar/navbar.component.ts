@@ -24,16 +24,27 @@ import { CustomToastService } from '../../../services/toast.service';
 export class NavbarComponent {
 
   isScrolled = false;
-
+  isMenuOpen = false;
   constructor(
     private userService: UserService,
     private router: Router,
     private toast: CustomToastService
   ) { }
 
-  @HostListener('window:scroll', [])
-  onWindowScroll(): void {
-    this.isScrolled = window.scrollY > 50; // Detect scroll position
+  // ✅ Scroll Listener
+  @HostListener("window:scroll", [])
+  onWindowScroll() {
+    this.isScrolled = window.scrollY > 50;
+  }
+
+  // ✅ Toggle Menu (Mobile)
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
+
+  // ✅ Close Menu after clicking a link
+  closeMenu() {
+    this.isMenuOpen = false;
   }
 
   isLoggedIn(): boolean {

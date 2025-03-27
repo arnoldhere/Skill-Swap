@@ -56,9 +56,18 @@ const userSchema = new mongoose.Schema(
 
 		phone: String,
 		bio: String,
-		skillsOffered: Array,
-		skillsSeeking: Array,
-		socialLinks: Array,
+		skills: {
+			title: String,
+			description: String,
+			category: String,
+			mode: { type: String, enum: ["offline", "online"] },
+			availability: Array,
+		},
+		socialLinks: {
+			instagram: String,
+			linkedin: String,
+			github: String,
+		},
 		availability: String,
 	},
 	{ timestamps: true }
