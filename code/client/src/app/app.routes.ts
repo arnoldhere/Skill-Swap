@@ -57,8 +57,14 @@ export const routes: Routes = [
         path: "profile",
         loadComponent: () => import("./components/User/profile/profile.component").then(c => c.ProfileComponent),
         canActivate: [AuthGuard],
+        data: { roles: ['user'] },// Only users can access
+      },
+      {
+        path: "edit-personal-details",
+        loadComponent: () => import("./components/User/profile/personal-info/personal-info.component").then(c => c.PersonalInfoComponent),
+        canActivate: [AuthGuard],
         data: { roles: ['user'] } // Only users can access
-      }
+      },
     ]
   },
 

@@ -8,6 +8,7 @@ const Authroutes = require("./routes/Auth");
 const Feedbackroutes = require("./routes/Feedback");
 const path = require("path");
 const userRoutes = require("./routes/User/Profile");
+const OtherRoutes = require("./routes/User/Others")
 
 // Middleware
 app.use(cors());
@@ -28,6 +29,7 @@ app.use(express.urlencoded({ extended: true })); // Handles form data
 app.use("/Auth", Authroutes);
 app.use("/Feedback", Feedbackroutes);
 app.use("/user", userRoutes);
+app.use("/others", OtherRoutes);
 
 // Define a basic route
 app.get("/", (req, res) => {

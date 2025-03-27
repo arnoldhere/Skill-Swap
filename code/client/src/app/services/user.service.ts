@@ -41,9 +41,16 @@ export class UserService {
     console.log(id)
     return this.http.get(`${this.apiUrl}/user/get-current-user/${id}`);
   }
+  updateUser(id: string, user: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/user/update-current-user/${id}`, { user });
+  }
 
-  updateUser(id: string, email: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/user/update-current-user/${id}`, { email });
+  getStates() {
+    return this.http.get(`${this.apiUrl}/others/states`);
+  }
+
+  getCitiesByState(stateName: string) {
+    return this.http.get(`${this.apiUrl}/others/cities/${stateName}`); // API to get cities of selected state
   }
 
   updateAvailabilityStatus(id: string, email: string, status: string): Observable<any> {
@@ -62,18 +69,8 @@ export class UserService {
     console.log(bio)
     return this.http.post<any>(`${this.apiUrl}/user/update-bio/${id}`, bio);
   };
-  updateContactData(id: string, contactForm: any): Observable<any> {
-
-    const formData = new FormData();
-    formData.append("email", contactForm.email)
-    formData.append("phone", contactForm.phone)
-    console.log(contactForm)
-
-    return this.http.post<any>(`${this.apiUrl}/user/update-contact-data/${id}`, formData);
-  }
 
   /********  Other Services  ********/
-
   storeUserData(token: string, firstname: string, lastname: string, role: string, id: string) {
     localStorage.setItem('token', token);
     localStorage.setItem('firstname', firstname);

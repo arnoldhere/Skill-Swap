@@ -44,7 +44,7 @@ router.post("/update-user-avail-status/:id", async (req, res) => {
 	}
 });
 
-// Upload and save profile image 
+// Upload and save profile image
 router.post(
 	"/user-profile-image/:id",
 	upload.single("profilephoto"),
@@ -89,6 +89,47 @@ router.post("/update-bio/:id", async (req, res) => {
 		res.status(201).json({ message: "Bio updated successfully", updatedUser });
 	} catch (error) {
 		res.status(500).json({ message: "Internal server error" });
+	}
+});
+
+router.post("/update-current-user/:id", async (req, res) => {
+	try {
+		const { house, area, state, city, pincode, ...otherFields } = req.body.user;
+		// console.log(house);
+		// Prepare updated data with nested location object
+		const updatedData = {
+			...otherFields,
+			location: {
+				house: house,
+				area: area,
+				state: state,
+				city: city,
+				pincode: pincode,
+			},
+		};
+
+		// Update the user with new data
+		const updatedUser = await User.findByIdAndUpdate(
+			req.params.id,
+			updatedData,
+			{ new: true, runValidators: true }
+		);
+
+		if (!updatedUser) {
+			return res.status(404).json({ error: "User not found" });
+		}
+
+		res.status(200).json({
+			success: true,
+			message: "User profile updated successfully",
+			data: updatedUser,
+		});
+	} catch (error) {
+		console.error("Error updating user:", error);
+		res.status(500).json({
+			success: false,
+			error: "Failed to update user. Please try again later.",
+		});
 	}
 });
 

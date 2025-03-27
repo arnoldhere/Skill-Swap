@@ -41,7 +41,7 @@
     <mat-card class="profile-card contact-card">
       <mat-card-header>
         <mat-card-title>Personal Information</mat-card-title>
-        <a mat-icon-button color="primary" class="card-action-btn" [routerLink]="['/user/edit-personal-details']">
+        <a mat-icon-button color="primary" class="card-action-btn" routerLink="/user/edit-personal-details">
           <mat-icon>edit</mat-icon>
         </a>
       </mat-card-header>
@@ -53,6 +53,10 @@
         <div class="contact-item">
           <mat-icon color="primary">phone</mat-icon>
           <span>{{user?.phone || 'Phone not available'}}</span>
+        </div>
+        <div class="contact-item">
+          <mat-icon color="primary">home</mat-icon>
+          <span>{{user?.address || 'Address not found'}}</span>
         </div>
         <div class="social-links">
           <a mat-icon-button color="primary" [href]="user?.socialMedia?.linkedin" target="_blank"

@@ -1,0 +1,88 @@
+<app-navbar></app-navbar>
+<div class="container px-1 py-5 mx-auto">
+  <div class="row d-flex justify-content-center">
+    <div class="col-xl-8 col-lg-9 col-md-10 col-12 text-center">
+      <h3 class="text-center text-primary mb-4">Your Personal Information</h3>
+      <div class="card shadow-lg p-4 rounded">
+        <form [formGroup]="personalInfoForm" (ngSubmit)="updatePersonalInfo()">
+          <!-- Name Fields -->
+          <div class="row justify-content-between text-left">
+            <div class="form-group col-sm-6">
+              <label>First name</label>
+              <input type="text" class="form-control" formControlName="firstname" placeholder="Enter your first name"
+                name="firstname" [value]="" />
+            </div>
+            <div class="form-group col-sm-6">
+              <label>Last name</label>
+              <input type="text" class="form-control" formControlName="lastname" placeholder="Enter your last name" />
+            </div>
+          </div>
+
+          <!-- Email and Phone Fields -->
+          <div class="row justify-content-between text-left">
+            <div class="form-group col-sm-6">
+              <label>Email <span class="text-muted">(Read-only)</span> </label>
+              <input type="email" class="form-control" formControlName="email" readonly />
+            </div>
+            <div class="form-group col-sm-6">
+              <label>Phone number</label>
+              <input type="text" class="form-control" formControlName="phone" placeholder="Enter your phone number" />
+            </div>
+          </div>
+
+          <!-- Address Fields -->
+          <div class="row justify-content-between text-left">
+            <div class="form-group col-sm-6">
+              <label>House/Building Name</label>
+              <input type="text" class="form-control" formControlName="house" name="house"/>
+            </div>
+            <div class="form-group col-sm-6">
+              <label>Area/Landmark</label>
+              <input type="text" class="form-control" formControlName="area" name="name"/>
+            </div>
+          </div>
+
+          <!-- State and City Dropdowns -->
+          <div class="row justify-content-between text-left">
+            <div class="form-group col-sm-6">
+              <label>State</label>
+              <select class="form-control" formControlName="state" (change)="fetchCities($any($event.target).value)">
+                <option *ngFor="let state of states" [value]="state">
+                  {{ state }}
+                </option>
+              </select>
+            </div>
+            <div class="form-group col-sm-6">
+              <label>City</label>
+              <select class="form-control" formControlName="city">
+                <option *ngFor="let city of cities" [value]="city">
+                  {{ city }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Pincode -->
+          <div class="row justify-content-between text-left">
+            <div class="form-group col-sm-12">
+              <label>Pincode</label>
+              <input type="text" class="form-control" formControlName="pincode" placeholder="Enter pincode" name="pincode" />
+            </div>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="row justify-content-end">
+            <div class="form-group col-md">
+              <button type="submit" class="btn btn-primary btn-block"
+                [disabled]="personalInfoForm.invalid || isLoading">
+                <span *ngIf="isLoading">Updating...</span>
+                <span *ngIf="!isLoading">Update</span>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

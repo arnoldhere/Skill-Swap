@@ -46,14 +46,20 @@ const userSchema = new mongoose.Schema(
 			type: Date,
 		}, // OTP expiry time
 		role: { type: String, default: "user" },
-		location: String,
+		location: {
+			house: { type: String, required: false },
+			area: { type: String, required: false },
+			state: { type: String, required: false },
+			city: { type: String, required: false },
+			pincode: { type: String, required: false },
+		},
+
 		phone: String,
 		bio: String,
-		skillsOffered: [String],
-		skillsSeeking: [String],
-		socialLinks: Object,
-		availability: [String],
-		availabilityStatus: String,
+		skillsOffered: Array,
+		skillsSeeking: Array,
+		socialLinks: Array,
+		availability: String,
 	},
 	{ timestamps: true }
 );
