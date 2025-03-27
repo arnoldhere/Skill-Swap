@@ -1,3 +1,4 @@
+
 <mat-toolbar color="primary" class="navbar" [ngClass]="{ 'scrolled': isScrolled }">
   <mat-toolbar-row>
     <!-- Logo & Hamburger Icon -->
@@ -11,7 +12,7 @@
     <!-- Desktop Menu -->
     <div class="nav-links" [ngClass]="{ 'hide': !isMenuOpen }">
       <a mat-button routerLink="/Home" (click)="closeMenu()">Home</a>
-      <a mat-button routerLink="/about" (click)="closeMenu()">About</a>
+      <a mat-button routerLink="/aboutus" (click)="closeMenu()">About</a>
       <a mat-button routerLink="/skills" (click)="closeMenu()">Skills</a>
       <a mat-button routerLink="/contact" (click)="closeMenu()">Contact</a>
 

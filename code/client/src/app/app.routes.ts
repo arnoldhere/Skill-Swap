@@ -9,6 +9,7 @@ export const routes: Routes = [
   // { path: '**', component: PagenotfoundComponent },
   /***** Common routes *****/
   { path: "", redirectTo: "/Home", pathMatch: 'full' },
+  { path: "aboutus", loadComponent: () => import("./components/User/aboutus/aboutus.component").then(c => c.AboutUsComponent) },
   {
     path: 'Home',
     loadComponent: () =>

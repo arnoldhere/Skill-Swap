@@ -60,7 +60,7 @@ const userSchema = new mongoose.Schema(
 			title: String,
 			description: String,
 			category: String,
-			mode: { type: String, enum: ["offline", "online"] },
+			mode: { type: String, enum: ["offline", "online"], default: "offline" },
 			availability: Array,
 		},
 		socialLinks: {
