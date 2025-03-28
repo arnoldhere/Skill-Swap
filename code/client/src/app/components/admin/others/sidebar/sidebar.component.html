@@ -1,0 +1,23 @@
+<aside class="sidebar" [ngClass]="{ 'collapsed': isCollapsed }">
+  <div class="sidebar-header">
+    <h3 *ngIf="!isCollapsed">SkillSwap</h3>
+    <button class="toggle-btn" (click)="toggleSidebar()">
+      <mat-icon>{{ isCollapsed ? 'menu' : 'close' }}</mat-icon>
+    </button>
+  </div>
+
+  <nav class="menu">
+    <a
+      *ngFor="let item of menuItems"
+      [routerLink]="item.link"
+      [ngClass]="{ 'active': item.active }"
+      (click)="selectMenu(item)"
+    >
+      <mat-icon>{{ item.icon }}</mat-icon>
+      <span *ngIf="!isCollapsed">{{ item.label }}</span>
+    </a>
+  </nav>
+</aside>
+
+<!-- Overlay for Mobile View -->
+<div *ngIf="isMobile && !isCollapsed" class="overlay" (click)="toggleSidebar()"></div>

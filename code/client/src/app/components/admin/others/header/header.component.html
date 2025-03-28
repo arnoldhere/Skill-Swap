@@ -1,0 +1,29 @@
+<header class="header">
+  <!-- Logo Section -->
+  <div class="logo">
+    <img src="assets/images/logo.png" alt="SkillSwap Logo" />
+    <span>SkillSwap Admin</span>
+  </div>
+
+  <!-- Notification and Profile Section -->
+  <div class="actions">
+    <!-- Notification Bell with Badge -->
+    <div class="notification" (click)="openNotifications()">
+      <mat-icon class="icon">notifications</mat-icon>
+      <span class="badge" *ngIf="notificationsCount > 0">{{ notificationsCount }}</span>
+    </div>
+
+    <!-- Profile Section -->
+    <div class="profile" (click)="toggleProfileMenu()">
+      <button class="profile-name"  mat-raised-button>{{user.firstname}}</button>
+    </div>
+
+    <!-- Profile Menu Dropdown -->
+    <div class="profile-menu" *ngIf="isProfileMenuOpen">
+      <ul>
+        <li >Profile</li>
+        <li (click)="logout()">Logout</li>
+      </ul>
+    </div>
+  </div>
+</header>
