@@ -1,0 +1,44 @@
+<app-header></app-header>
+<app-sidebar></app-sidebar>
+<div class="user-container">
+  <div class="header">
+    <h2>Manage Users 👥</h2>
+    <div class="actions">
+      <button (click)="downloadData()">📥 Download Data</button>
+      <button (click)="addAdmin()">➕ Add Admin</button>
+    </div>
+  </div>
+
+  <div class="user-list" *ngIf="users.length > 0; else noData">
+    <table class="user-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Created At</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ user.firstname }} {{ user.lastname }}</td>
+          <td>{{ user.email }}</td>
+          <td>
+            <span [ngClass]="user.role === 'admin' ? 'badge-admin' : 'badge-user'">
+              {{ user.role }}
+            </span>
+          </td>
+          <td>{{ formatDate(user.createdAt) }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #noData>
+    <div class="no-data">
+      <p>No users found! 😢</p>
+    </div>
+  </ng-template>
+</div>

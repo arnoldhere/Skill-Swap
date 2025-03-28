@@ -38,11 +38,15 @@ export class UserService {
   }
   /*******************   api Services & routes   ****************************/
 
+  getUsers(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/admin/get-users`);
+  }
+
   getFeedbackRating(): Observable<any> {
     return this.http.get(`${this.apiUrl}/others/get-feedbacks-rating`);
   }
 
-  saveFeedback(id:string , data : any): Observable<any> {
+  saveFeedback(id: string, data: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/others/save-feedback/${id}`, data);
   }
 

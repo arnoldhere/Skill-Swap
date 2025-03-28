@@ -14,7 +14,6 @@ export class SidebarComponent {
   isCollapsed = false;
   isMobile = false;
 
-  // ✅ Menu Items
   menuItems = [
     { label: 'Dashboard', icon: 'dashboard', link: '/admin/dashboard', active: true },
     { label: 'Users', icon: 'people', link: '/admin/users', active: false },

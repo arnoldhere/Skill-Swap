@@ -64,7 +64,12 @@ export class HeaderComponent implements OnInit {
 
   // ➡️ Logout Handler
   logout() {
-    alert('Logging out...');
-    // Add your logout logic here
+    this.userService.logout();
+    // Redirect to home or login page
+    setTimeout(() => {
+      this.router.navigate(['/auth/login']);
+      this.toast.success("Logout successfuly....")
+      window.location.reload(); // Reload to enforce logout state
+    }, 1900);
   }
 }
