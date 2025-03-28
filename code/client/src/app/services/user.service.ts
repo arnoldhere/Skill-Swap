@@ -38,6 +38,10 @@ export class UserService {
   }
   /*******************   api Services & routes   ****************************/
 
+  getFeedbackRating(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/others/get-feedbacks-rating`);
+  }
+
   saveFeedback(id:string , data : any): Observable<any> {
     return this.http.post(`${this.apiUrl}/others/save-feedback/${id}`, data);
   }

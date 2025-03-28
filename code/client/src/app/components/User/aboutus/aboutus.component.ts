@@ -1,7 +1,8 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from '../../others/navbar/navbar.component';
 import { FooterComponent } from '../../others/footer/footer.component';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-about-us',
@@ -10,55 +11,74 @@ import { FooterComponent } from '../../others/footer/footer.component';
   templateUrl: './aboutus.component.html',
   styleUrl: './aboutus.component.scss',
 })
-export class AboutUsComponent {
+export class AboutUsComponent implements OnInit, OnDestroy {
+  constructor(private userService: UserService) {}
+
   isScrolled = false;
   public communityPhoto: string = 'assets/images/about1.jpeg';
   public skillSwapPhoto: string = 'assets/images/about2.jpeg';
   public growPhoto: string = 'assets/images/about3.jpeg';
+  feedbacks: any[] = [];
+  activeIndex = 0;
+  autoSlideInterval: any;
 
-  // Features Data
-  public features = [
-    {
-      title: 'Community Driven',
-      description: 'Join a thriving community and exchange knowledge with like-minded individuals.',
-      photo: this.communityPhoto,
-    },
-    {
-      title: 'Skill Exchange',
-      description: 'Swap skills and learn new talents with ease and efficiency.',
-      photo: this.skillSwapPhoto,
-    },
-    {
-      title: 'Grow Together',
-      description: 'Enhance your skillset while contributing to the community’s growth.',
-      photo: this.growPhoto,
-    },
-  ];
+  ngOnInit(): void {
+    this.loadGoodFeedbacks();
+    this.startAutoSlide(); // 🔥 Start Auto-slide on component load
+  }
 
-  // Testimonials Data
-  public testimonials = [
-    {
-      name: 'John Doe',
-      feedback: 'SkillSwap helped me improve my web development skills in no time!',
-      role: 'Frontend Developer',
-      photo: 'assets/images/user1.jpg',
-    },
-    {
-      name: 'Sarah Lee',
-      feedback: 'An amazing platform to exchange skills and meet like-minded people.',
-      role: 'UI/UX Designer',
-      photo: 'assets/images/user2.jpg',
-    },
-    {
-      name: 'Mike Johnson',
-      feedback: 'I swapped my design skills for coding knowledge and loved the experience!',
-      role: 'Graphic Designer',
-      photo: 'assets/images/user3.jpg',
-    },
-  ];
+  ngOnDestroy(): void {
+    this.stopAutoSlide(); // ❗️ Stop auto-slide when component is destroyed
+  }
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
     this.isScrolled = window.scrollY > 50;
+  }
+
+  // ✅ Load Good Feedbacks (Rating > 3)
+  loadGoodFeedbacks() {
+    this.userService.getFeedbackRating().subscribe({
+      next: (res: any) => {
+        this.feedbacks = res;
+        console.log('Loaded Feedbacks:', this.feedbacks);
+      },
+      error: (err) => {
+        console.error('Error fetching good feedbacks', err);
+      },
+    });
+  }
+
+  // 📅 Format Date for Display
+  formatDate(date: string): string {
+    return new Date(date).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    });
+  }
+
+  // ⏩ Go to Next Slide
+  nextSlide() {
+    this.activeIndex = (this.activeIndex + 1) % this.feedbacks.length;
+  }
+
+  // ⏪ Go to Previous Slide
+  prevSlide() {
+    this.activeIndex = (this.activeIndex - 1 + this.feedbacks.length) % this.feedbacks.length;
+  }
+
+  // 🎥 Start Auto-slide (Every 5 Seconds)
+  startAutoSlide() {
+    this.autoSlideInterval = setInterval(() => {
+      this.nextSlide();
+    }, 5000);
+  }
+
+  // ⏹️ Stop Auto-slide
+  stopAutoSlide() {
+    if (this.autoSlideInterval) {
+      clearInterval(this.autoSlideInterval);
+    }
   }
 }

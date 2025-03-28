@@ -32,20 +32,26 @@
   </div>
 </section>
 
-<!-- ✅ Testimonials Section -->
 <section class="testimonials">
-  <div class="container">
-    <h2>What Our <span>Users Say</span></h2>
-    <div class="testimonial-wrapper">
-      <div class="testimonial-card" *ngFor="let testimonial of testimonials">
-        <p class="testimonial-text">"{{ testimonial.feedback }}"</p>
-        <div class="user-info">
-          <img [src]="testimonial.photo" [alt]="testimonial.name" />
-          <h4>{{ testimonial.name }}</h4>
-          <p class="role">{{ testimonial.role }}</p>
+  <h2>What Our Users Say ❤️</h2>
+
+  <div class="carousel-container" *ngIf="feedbacks.length > 0">
+    <div class="carousel-wrapper" [style.transform]="'translateX(-' + activeIndex * 100 + '%)'">
+      <div *ngFor="let feedback of feedbacks" class="testimonial">
+        <p class="feedback">"{{ feedback.feedback }}"</p>
+        <h4>{{ feedback.user?.firstname }} {{ feedback.user?.lastname }}</h4>
+        <div class="rating">
+          <span *ngFor="let star of [1, 2, 3, 4, 5]" [class.filled]="star <= feedback.rating">
+            ★
+          </span>
         </div>
+        <small>{{ formatDate(feedback.timestamp) }}</small>
       </div>
     </div>
+
+    <!-- Navigation Controls -->
+    <button class="prev" (click)="prevSlide()">❮</button>
+    <button class="next" (click)="nextSlide()">❯</button>
   </div>
 </section>
 

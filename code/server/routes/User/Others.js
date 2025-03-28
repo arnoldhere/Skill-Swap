@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const City = require("../../models/Cities");
 const Feedback = require("../../models/Feedback");
+const User = require("../../models/User");
 
 // Get all unique states from cities collection
 router.get("/states", async (req, res) => {
@@ -28,7 +29,7 @@ router.get("/cities/:stateName", async (req, res) => {
 router.post("/save-feedback/:id", async (req, res) => {
 	try {
 		console.log("Received Data:", req.body);
-		const { subject, message , rating } = req.body;
+		const { subject, message, rating } = req.body;
 		if (!subject || !message) {
 			return res
 				.status(400)
@@ -50,6 +51,21 @@ router.post("/save-feedback/:id", async (req, res) => {
 			return res.status(500).json({ message: "Failed to save feedback..." });
 	} catch (error) {
 		res.status(500).json({ message: "Internal server error..." });
+	}
+});
+
+router.get("/get-feedbacks-rating", async (req, res) => {
+	try {
+		const goodFeedbacks = await Feedback.find({ rating: { $gt: 0 } })
+			.populate("user", "firstname lastname") // Populate user's name
+			.sort({ timestamp: -1 }) // Sort by latest
+			.limit(8);
+		console.log(goodFeedbacks);
+		res.status(200).json(goodFeedbacks);
+	} catch (err) {
+		res
+			.status(500)
+			.json({ message: "Error fetching feedbacks", error: err.message });
 	}
 });
 

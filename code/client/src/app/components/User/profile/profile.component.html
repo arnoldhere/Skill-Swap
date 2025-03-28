@@ -30,7 +30,7 @@
         </button>
       </mat-card-header>
       <mat-card-content>
-        <p [class.truncated]="!isBioExpanded">{{user?.bio || 'No bio information available.'}}</p>
+        <p [class.truncated]="!isBioExpanded" class="text-justify">{{user?.bio || 'No bio information available.'}}</p>
         <button *ngIf="user?.bio && user.bio.length > 150" mat-button color="primary"
           (click)="isBioExpanded = !isBioExpanded">
           {{isBioExpanded ? 'Show Less' : 'Show More'}}
@@ -57,9 +57,9 @@
         <div class="contact-item">
           <mat-icon color="primary">home</mat-icon>
           <span *ngIf="!isAddressValid(user?.location)">Address not found !!</span>
-          <span *ngIf="isAddressValid(user?.location)">
-            {{ `${user?.location?.house}, ${user?.location?.area}\n ${user?.location?.city}, \t ${user?.location?.state}
-            - ${user?.location?.pincode}` }}
+          <span *ngIf="isAddressValid(user?.location)" class="text-justify">
+            {{ `${user.location.house}, ${user.location.area}, ${user.location.city}, ${user.location.state}
+            - ${user.location.pincode}` }}
           </span>
         </div>
 

@@ -6,7 +6,7 @@
 }
 
 .contact-us {
-  background: linear-gradient(to right, #1f2937, #4b5563);
+  background: linear-gradient(to right, #8F87F1, #E9A5F1);
   color: #f9fafb;
   padding: 80px 20px;
   text-align: center;
@@ -34,6 +34,7 @@ p {
   font-size: 1.2rem;
   margin-bottom: 40px;
   line-height: 1.8;
+  color: #ef4444 !important;
 }
 
 /* 📝 Form Styles */
@@ -64,15 +65,36 @@ textarea {
   font-size: 1rem;
   outline: none;
   transition: border 0.3s ease-in-out;
+  color: #1f2937;
 }
 
 input:focus,
 textarea:focus {
   border-color: #facc15;
+  color: #1f2937;
 }
 
 .invalid {
   border-color: #ef4444;
+}
+
+/* ⭐️ Rating Section */
+.rating-group {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.star {
+  font-size: 24px;
+  color: #d1d5db;
+  transition: color 0.3s;
+  cursor: pointer;
+}
+
+.star.filled {
+  color: #facc15;
 }
 
 /* 🔥 Button Style */
@@ -136,105 +158,76 @@ button:disabled {
   }
 }
 
-.contact-us {
-  background: #f9fafb;
-  padding: 60px 20px;
-  text-align: center;
+/* 🧰 Extra Contact Section Refinement */
+.contact-us .container {
+  max-width: 600px;
+  margin: 0 auto;
+}
 
-  .container {
-    max-width: 600px;
-    margin: 0 auto;
-  }
+.contact-us h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
 
-  h2 {
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-  }
+.contact-us p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  color: #6b7280;
+}
 
-  p {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
-    color: #6b7280;
-  }
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
 
-  .contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+/* 🎨 Form Styles */
+.form-group label {
+  font-size: 1rem;
+  margin-bottom: 8px;
+  display: block;
+  color: #1f2937;
+}
 
-    .form-group {
-      text-align: left;
+textarea {
+  resize: none;
+}
 
-      label {
-        font-size: 1rem;
-        margin-bottom: 8px;
-        display: block;
-        color: #1f2937;
-      }
+/* 🟡 Rating Section Styling */
+.rating-group {
+  display: flex;
+  justify-content: flex-start;
+  gap: 5px;
+  cursor: pointer;
+}
 
-      input,
-      textarea {
-        width: 100%;
-        padding: 12px;
-        border-radius: 8px;
-        border: 1px solid #d1d5db;
-        font-size: 1rem;
-      }
+.star {
+  font-size: 24px;
+  color: #d1d5db;
+  transition: color 0.3s;
+}
 
-      textarea {
-        resize: none;
-      }
+.star.filled {
+  color: #facc15;
+}
 
-      .error {
-        color: #e53e3e;
-        font-size: 0.9rem;
-        margin-top: 5px;
-      }
+/* 🎉 Button Enhancement */
+button {
+  padding: 12px 20px;
+  font-size: 1rem;
+  background-color: #3b82f6;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
 
-      &.invalid input,
-      &.invalid textarea {
-        border-color: #e53e3e;
-      }
-    }
-  }
+button:hover {
+  background-color: #2563eb;
+}
 
-  /* ⭐️ Rating Section */
-  .rating-group {
-    .star-rating {
-      display: flex;
-      justify-content: flex-start;
-      gap: 5px;
-      cursor: pointer;
-
-      .star {
-        font-size: 24px;
-        color: #d1d5db;
-        transition: color 0.3s;
-
-        &.filled {
-          color: #facc15;
-        }
-      }
-    }
-  }
-
-  button {
-    padding: 12px 20px;
-    font-size: 1rem;
-    background-color: #3b82f6;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-
-    &:hover {
-      background-color: #2563eb;
-    }
-
-    &:disabled {
-      background-color: #9ca3af;
-      cursor: not-allowed;
-    }
-  }
+button:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
 }
