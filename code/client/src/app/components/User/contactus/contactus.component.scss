@@ -135,3 +135,106 @@ button:disabled {
     font-size: 1rem;
   }
 }
+
+.contact-us {
+  background: #f9fafb;
+  padding: 60px 20px;
+  text-align: center;
+
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+
+  p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    color: #6b7280;
+  }
+
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .form-group {
+      text-align: left;
+
+      label {
+        font-size: 1rem;
+        margin-bottom: 8px;
+        display: block;
+        color: #1f2937;
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #d1d5db;
+        font-size: 1rem;
+      }
+
+      textarea {
+        resize: none;
+      }
+
+      .error {
+        color: #e53e3e;
+        font-size: 0.9rem;
+        margin-top: 5px;
+      }
+
+      &.invalid input,
+      &.invalid textarea {
+        border-color: #e53e3e;
+      }
+    }
+  }
+
+  /* ⭐️ Rating Section */
+  .rating-group {
+    .star-rating {
+      display: flex;
+      justify-content: flex-start;
+      gap: 5px;
+      cursor: pointer;
+
+      .star {
+        font-size: 24px;
+        color: #d1d5db;
+        transition: color 0.3s;
+
+        &.filled {
+          color: #facc15;
+        }
+      }
+    }
+  }
+
+  button {
+    padding: 12px 20px;
+    font-size: 1rem;
+    background-color: #3b82f6;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #2563eb;
+    }
+
+    &:disabled {
+      background-color: #9ca3af;
+      cursor: not-allowed;
+    }
+  }
+}

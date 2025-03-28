@@ -28,7 +28,7 @@ router.get("/cities/:stateName", async (req, res) => {
 router.post("/save-feedback/:id", async (req, res) => {
 	try {
 		console.log("Received Data:", req.body);
-		const { subject, message } = req.body;
+		const { subject, message , rating } = req.body;
 		if (!subject || !message) {
 			return res
 				.status(400)
@@ -39,6 +39,7 @@ router.post("/save-feedback/:id", async (req, res) => {
 			user: req.params.id,
 			subject: subject,
 			feedback: message,
+			rating: rating,
 		});
 		const result = await save.save();
 		if (result) {

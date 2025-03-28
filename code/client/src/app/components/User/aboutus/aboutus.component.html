@@ -31,4 +31,22 @@
     </div>
   </div>
 </section>
+
+<!-- ✅ Testimonials Section -->
+<section class="testimonials">
+  <div class="container">
+    <h2>What Our <span>Users Say</span></h2>
+    <div class="testimonial-wrapper">
+      <div class="testimonial-card" *ngFor="let testimonial of testimonials">
+        <p class="testimonial-text">"{{ testimonial.feedback }}"</p>
+        <div class="user-info">
+          <img [src]="testimonial.photo" [alt]="testimonial.name" />
+          <h4>{{ testimonial.name }}</h4>
+          <p class="role">{{ testimonial.role }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <app-footer></app-footer>
