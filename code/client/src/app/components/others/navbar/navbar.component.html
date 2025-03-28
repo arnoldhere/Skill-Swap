@@ -21,7 +21,7 @@
         <a mat-raised-button color="accent" routerLink="/user/profile" (click)="closeMenu()">
           Welcome, {{ getFirstName() }}
         </a>
-        <button mat-raised-button color="warn" (click)="logout()">Logout</button>
+        <button mat-raised-button color="primary" class="btn-danger" (click)="logout()">Logout</button>
       </ng-container>
 
       <ng-template #loggedOut>

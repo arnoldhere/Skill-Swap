@@ -6,6 +6,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { NavbarComponent } from "../../others/navbar/navbar.component";
 import { FooterComponent } from "../../others/footer/footer.component";
 import { ToastService } from 'angular-toastify';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'app-contact-us',
@@ -24,14 +25,14 @@ export class ContactUsComponent {
   contactForm!: FormGroup;
   isSubmitting: boolean = false;
 
-  constructor(private fb: FormBuilder, private snackBar: MatSnackBar, private toast: ToastService) {
+  constructor(private fb: FormBuilder, private snackBar: MatSnackBar, private toast: ToastService, private userService: UserService) {
     this.initializeForm();
   }
 
   // ✅ Initialize Form
   initializeForm() {
     this.contactForm = this.fb.group({
-      subject: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
+      subject: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(100)]],
       message: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(500)]],
     });
   }
@@ -44,11 +45,19 @@ export class ContactUsComponent {
     }
 
     this.isSubmitting = true;
-    setTimeout(() => {
-      this.isSubmitting = false;
-      this.toast.success('Your message has been sent successfully !!!');
-      this.contactForm.reset(); // Reset the form after submission
-    }, 1500);
+    const id = localStorage.getItem("id") || "";
+    this.userService.saveFeedback(id, this.contactForm.value).subscribe({
+      next: (res: any) => {
+        setTimeout(() => {
+          this.isSubmitting = false;
+          this.toast.success(res.message || 'Your message has been sent successfully !!!');
+          this.contactForm.reset(); // Reset the form after submission
+        }, 1500);
+      }, error: (err: any) => {
+        this.isSubmitting = false;
+        this.toast.error(err.message.message || 'Failed to save feedback..Try again.');
+        console.log(err);
+      }
+    })
   }
-
 }

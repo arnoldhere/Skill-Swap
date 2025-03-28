@@ -13,6 +13,8 @@ import { FooterComponent } from "../../others/footer/footer.component";
 export class AboutUsComponent {
   isScrolled = false;
   public communityPhoto: string = 'assets/images/about1.jpeg';
+  public skillSwapPhoto: string = 'assets/images/about2.jpeg';
+  public growPhoto: string = 'assets/images/about3.jpeg';
 
   @HostListener('window:scroll', [])
   onWindowScroll() {

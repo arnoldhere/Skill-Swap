@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
 <section class="about-us" [ngClass]="{ 'scrolled': isScrolled }">
-  <div class="container" >
+  <div class="container">
     <div class="content">
       <h2>About <span>SkillSwap</span></h2>
       <p>
@@ -10,20 +10,20 @@
       </p>
 
       <div class="features">
-        <div class="feature-card" >
+        <div class="feature-card">
           <img [src]="communityPhoto" alt="Community" />
           <h3>Community Driven</h3>
           <p>Join a thriving community and exchange knowledge with like-minded individuals.</p>
         </div>
 
-        <div class="feature-card" >
-          <img src="assets/icons/skills.svg" alt="Skills" />
+        <div class="feature-card">
+          <img [src]="skillSwapPhoto" alt="Skills" />
           <h3>Skill Exchange</h3>
           <p>Swap skills and learn new talents with ease and efficiency.</p>
         </div>
 
-        <div class="feature-card" >
-          <img src="assets/icons/growth.svg" alt="Growth" />
+        <div class="feature-card">
+          <img [src]="growPhoto" alt="Growth" />
           <h3>Grow Together</h3>
           <p>Enhance your skillset while contributing to the community’s growth.</p>
         </div>

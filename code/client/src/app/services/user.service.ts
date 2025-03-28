@@ -36,7 +36,12 @@ export class UserService {
   changePassword(email: string, newPassword: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/Auth/Change-password`, { email, newPassword });
   }
-  /*******************   USER Services & routes   ****************************/
+  /*******************   api Services & routes   ****************************/
+
+  saveFeedback(id:string , data : any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/others/save-feedback/${id}`, data);
+  }
+
   getCurrentUser(id: string): Observable<any> {
     console.log(id)
     return this.http.get(`${this.apiUrl}/user/get-current-user/${id}`);

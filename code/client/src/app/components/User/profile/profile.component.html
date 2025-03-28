@@ -1,5 +1,5 @@
 <app-navbar></app-navbar>
-<div class="profile-container" *ngIf="!loading; else loadingTemplate">
+<div class="profile-container" *ngIf="!loading; else loadingTemplate" @fadeIn>
   <div class="profile-header mat-elevation-z2">
     <div class="profile-cover"></div>
     <div class="profile-avatar-container">
@@ -21,7 +21,7 @@
   </div>
 
 
-  <div class="profile-content-wrapper">
+  <div class="profile-content-wrapper" @fadeIn>
     <mat-card class="profile-card bio-card">
       <mat-card-header>
         <mat-card-title>About Me</mat-card-title>
@@ -38,7 +38,7 @@
       </mat-card-content>
     </mat-card>
 
-    <mat-card class="profile-card contact-card">
+    <mat-card class="profile-card contact-card" >
       <mat-card-header>
         <mat-card-title>Personal Information</mat-card-title>
         <a mat-icon-button color="primary" class="card-action-btn" routerLink="/user/edit-personal-details">

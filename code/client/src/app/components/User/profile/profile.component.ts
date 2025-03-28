@@ -1,4 +1,5 @@
 import { Component, ElementRef, inject, OnInit, ViewChild } from "@angular/core";
+import { trigger, transition, style, animate } from '@angular/animations';
 import { ToastService } from "angular-toastify";
 import { UserService } from "../../../services/user.service";
 import { Router, RouterLink, RouterModule } from "@angular/router";
@@ -36,6 +37,14 @@ import { EditBioSectionComponent } from "./tools/edit-bio-section/edit-bio-secti
   ],
   templateUrl: "./profile.component.html",
   styleUrls: ["./profile.component.scss"],
+  animations: [
+    trigger('fadeIn', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('400ms ease-in', style({ opacity: 1 })),
+      ]),
+    ]),
+  ],
 })
 export class ProfileComponent implements OnInit {
   user: any = null;
