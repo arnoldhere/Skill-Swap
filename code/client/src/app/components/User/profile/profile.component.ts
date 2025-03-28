@@ -77,10 +77,6 @@ export class ProfileComponent implements OnInit {
       error: (err) => {
         console.error("Error fetching user:", err);
         this.toast.error("Failed to load profile data... try again later");
-        this.error = "Failed to load profile data";
-        this.loading = false;
-        this.isLoading = false;
-
         // Redirect after delay
         setTimeout(() => {
           this.router.navigate(["/Home"]);
@@ -88,6 +84,12 @@ export class ProfileComponent implements OnInit {
       }
     });
   }
+  isAddressValid(location: any): boolean {
+    if (!location) return false;
+    const { house, area, city, state, pincode } = location;
+    return !!(house || area || city || state || pincode);
+  }
+
   // Register social media SVG icons
   private registerSocialIcons(): void {
     // LinkedIn icon

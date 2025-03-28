@@ -5,6 +5,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { NavbarComponent } from "../../others/navbar/navbar.component";
 import { FooterComponent } from "../../others/footer/footer.component";
+import { ToastService } from 'angular-toastify';
 
 @Component({
   selector: 'app-contact-us',
@@ -23,7 +24,7 @@ export class ContactUsComponent {
   contactForm!: FormGroup;
   isSubmitting: boolean = false;
 
-  constructor(private fb: FormBuilder, private snackBar: MatSnackBar) {
+  constructor(private fb: FormBuilder, private snackBar: MatSnackBar, private toast: ToastService) {
     this.initializeForm();
   }
 
@@ -38,23 +39,16 @@ export class ContactUsComponent {
   // ✅ Form Submission Handler
   onSubmit() {
     if (this.contactForm.invalid) {
-      this.showToast('Please fill in all required fields correctly!', 'error');
+      this.toast.error('Please fill in all required fields correctly!');
       return;
     }
 
     this.isSubmitting = true;
     setTimeout(() => {
       this.isSubmitting = false;
-      this.showToast('Your message has been sent successfully!', 'success');
+      this.toast.success('Your message has been sent successfully !!!');
       this.contactForm.reset(); // Reset the form after submission
     }, 1500);
   }
 
-  // ✅ Show Toast Message
-  showToast(message: string, type: 'success' | 'error') {
-    this.snackBar.open(message, 'Close', {
-      duration: 3000,
-      panelClass: type === 'success' ? 'toast-success' : 'toast-error',
-    });
-  }
 }

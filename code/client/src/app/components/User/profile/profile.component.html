@@ -56,10 +56,13 @@
         </div>
         <div class="contact-item">
           <mat-icon color="primary">home</mat-icon>
-          <span *ngIf="user?.location == null"> Address not found !!</span>
-          <span>{{`${user.location.house}, ${user.location.area}\n ${user.location.city}, \t ${user.location.state} -
-            ${user.location.pincode}`}}</span>
+          <span *ngIf="!isAddressValid(user?.location)">Address not found !!</span>
+          <span *ngIf="isAddressValid(user?.location)">
+            {{ `${user?.location?.house}, ${user?.location?.area}\n ${user?.location?.city}, \t ${user?.location?.state}
+            - ${user?.location?.pincode}` }}
+          </span>
         </div>
+
         <div class="social-links">
           <a mat-icon-button color="primary" [href]="user?.socialMedia?.linkedin" target="_blank"
             *ngIf="user?.socialMedia?.linkedin">
