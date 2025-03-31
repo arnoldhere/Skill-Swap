@@ -15,7 +15,7 @@ export class SidebarComponent {
   isMobile = false;
 
   menuItems = [
-    { label: 'Dashboard', icon: 'dashboard', link: '/admin/dashboard', active: true },
+    { label: 'Dashboard', icon: 'dashboard', link: '/admin/dashboard', active: false },
     { label: 'Users', icon: 'people', link: '/admin/users', active: false },
     { label: 'Skill Category', icon: 'category', link: '/admin/skills', active: false },
     { label: 'Feedback', icon: 'feedback', link: '/admin/feedback', active: false },

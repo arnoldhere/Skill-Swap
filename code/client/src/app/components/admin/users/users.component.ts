@@ -51,11 +51,6 @@ export class UsersComponent implements OnInit {
     return headers + rows;
   }
 
-  addAdmin() {
-    this.toast.info('Add Admin functionality coming soon...');
-    // Implement modal or form here to add an admin user
-  }
-
   // 📅 Format date for display
   formatDate(date: string): string {
     return new Date(date).toLocaleDateString('en-US', {

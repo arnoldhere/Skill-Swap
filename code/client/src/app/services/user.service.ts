@@ -43,6 +43,10 @@ export class UserService {
     return this.http.get(`${this.apiUrl}/admin/get-profile/${id}`);
   }
 
+  addAdmin(data: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/admin/add-admin`, data);
+  }
+
   // 💾 Update Admin Profile
   updateAdminProfile(id: string, updatedData: any): Observable<any> {
     return this.http.put(`${this.apiUrl}/admin/update-profile/${id}`, updatedData);

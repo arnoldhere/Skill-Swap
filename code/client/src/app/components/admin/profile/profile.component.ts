@@ -5,6 +5,7 @@ import { UserService } from '../../../services/user.service';
 import { HeaderComponent } from '../others/header/header.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { EditProfileComponent } from '../others/edit-profile/edit-profile.component';
+import { NewAdminComponent } from '../newadmin/newadmin.component';
 
 @Component({
   selector: 'app-profile',
@@ -56,7 +57,15 @@ export class ProfileComponent implements OnInit {
 
   // ➕ Add Admin Button Click
   addAdmin() {
-    console.log('Add Admin functionality coming soon...');
+    const dialogRef = this.dialog.open(NewAdminComponent, {
+      width: '40rem',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.loadAdmins(); // ✅ Refresh admin list after adding
+      }
+    });
   }
 
   // ✏️ Open Edit Profile Modal
