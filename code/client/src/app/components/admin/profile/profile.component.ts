@@ -69,21 +69,8 @@ export class ProfileComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.updateProfile(result); // Call update if valid
+        window.location.reload();
       }
-    });
-  }
-
-  // 💾 Update Admin Profile After Modal Save
-  updateProfile(updatedData: any) {
-    this.userService.updateAdminProfile(updatedData).subscribe({
-      next: (res: any) => {
-        this.admin = res;
-        console.log('Profile updated successfully');
-      },
-      error: (err) => {
-        console.error('Error updating profile:', err);
-      },
     });
   }
 }

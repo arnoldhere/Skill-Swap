@@ -44,11 +44,11 @@ export class UserService {
   }
 
   // 💾 Update Admin Profile
-  updateAdminProfile(data: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/admin/update-profile`, data);
+  updateAdminProfile(id: string, updatedData: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/admin/update-profile/${id}`, updatedData);
   }
 
-  // 📊 Get All Admin Users
+  // 📊 Get All Admin users
   getAdminUsers(id: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/admin/get-admins/${id}`);
   }

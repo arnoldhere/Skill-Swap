@@ -29,11 +29,33 @@ router.get("/get-profile/:id", async (req, res) => {
 	}
 });
 
+// Update Admin Profile Route
+router.put("/api/admins/:id", async (req, res) => {
+	const adminId = req.params.id;
+	const updateData = req.body;
+
+	try {
+		const updatedAdmin = await Admin.findByIdAndUpdate(adminId, updateData, {
+			new: true,
+			runValidators: true,
+		});
+
+		if (!updatedAdmin) {
+			return res.status(404).json({ message: "Admin not found!" });
+		}
+
+		res.json(updatedAdmin);
+	} catch (error) {
+		console.error("Error updating admin:", error);
+		res.status(500).json({ message: "Error updating admin profile." });
+	}
+});
+
 router.get("/get-admins/:id", async (req, res) => {
 	try {
 		const admins = await User.find({
 			role: "admin",
-			_id: { $ne: req.params.id }, 
+			_id: { $ne: req.params.id },
 		}).sort({ createdAt: -1 });
 		res.status(200).json(admins);
 	} catch (err) {
