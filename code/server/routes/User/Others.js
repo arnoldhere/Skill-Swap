@@ -60,7 +60,7 @@ router.get("/get-feedbacks-rating", async (req, res) => {
 			.populate("user", "firstname lastname") // Populate user's name
 			.sort({ timestamp: -1 }) // Sort by latest
 			.limit(8);
-		console.log(goodFeedbacks);
+		// console.log(goodFeedbacks);
 		res.status(200).json(goodFeedbacks);
 	} catch (err) {
 		res

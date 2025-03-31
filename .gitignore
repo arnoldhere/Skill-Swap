@@ -6,6 +6,7 @@ code/client/out-tsc
 code/client/bazel-out
 code/client/.vscode
 
+code/client/.vscode
 
 code/server/node_modules
 code/server/uploads
