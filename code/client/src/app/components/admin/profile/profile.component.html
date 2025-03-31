@@ -1,5 +1,4 @@
-<app-navbar></app-navbar>
-
+<app-header></app-header>
 <div class="profile-container">
   <!-- 🎯 Admin Profile Section -->
   <div class="profile-card">
@@ -8,6 +7,8 @@
     <p>Email: {{ admin.email }}</p>
     <p>Phone: {{ admin.phone || 'N/A' }}</p>
     <button (click)="addAdmin()">➕ Add Admin</button>
+    <br />
+    <button class="edit-btn" (click)="openEditModal()">✏️ Edit Profile</button>
   </div>
 
   <!-- 📊 Admin List Section -->
@@ -43,7 +44,7 @@
     <!-- 😢 No Admins Available -->
     <ng-template #noData>
       <div class="no-data">
-        <p>No admin users found! 😢</p>
+        <p>No admin users found! </p>
       </div>
     </ng-template>
   </div>

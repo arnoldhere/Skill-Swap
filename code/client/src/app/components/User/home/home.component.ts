@@ -22,7 +22,11 @@ export class HomeComponent implements OnInit {
 
 
   ngOnInit() {
-
+    if (this.userService.isLoggedIn()) {
+      if (this.userService.getRole() === "admin") {
+        this.router.navigate(['/admin/dashboard']);
+      }
+    }
   }
 
 }

@@ -1,35 +1,36 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { NavbarComponent } from '../../others/navbar/navbar.component';
 import { UserService } from '../../../services/user.service';
+import { HeaderComponent } from '../others/header/header.component';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { EditProfileComponent } from '../others/edit-profile/edit-profile.component';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, NavbarComponent, FormsModule],
+  imports: [CommonModule, FormsModule, HeaderComponent, MatDialogModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',
 })
 export class ProfileComponent implements OnInit {
-  admin: any = {}; // 🎯 Logged-in admin data
+  admin: any = {}; // 🎯 Admin data
   admins: any[] = []; // 📊 Admin users data
-  defaultPhoto = 'assets/images/default-avatar.png'; // 📸 Default avatar
+  defaultPhoto = '../../../../assets/images/default-avatar.png'; // 📸 Default avatar
 
-  // ✨ Edit Modal State
-  isEditModalOpen = false;
-  editForm: any = {};
+  private id = localStorage.getItem('id') || '';
+  private dialog = inject(MatDialog);
 
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-    this.loadAdminData(); // Load current admin profile
-    this.loadAdmins(); // Fetch all admin users
+    this.loadAdminData(); // Load admin profile
+    this.loadAdmins(); // Load all admins
   }
 
   // ✅ Load Logged-in Admin Details
   loadAdminData() {
-    const id = localStorage.getItem("id") || "";
+    const id = localStorage.getItem('id') || '';
     this.userService.getAdminProfile(id).subscribe({
       next: (res: any) => {
         this.admin = res;
@@ -42,7 +43,7 @@ export class ProfileComponent implements OnInit {
 
   // 📊 Fetch All Admin Users
   loadAdmins() {
-    const id = localStorage.getItem("id") || "";
+    const id = localStorage.getItem('id') || '';
     this.userService.getAdminUsers(id).subscribe({
       next: (res: any) => {
         this.admins = res;
@@ -60,21 +61,25 @@ export class ProfileComponent implements OnInit {
 
   // ✏️ Open Edit Profile Modal
   openEditModal() {
-    this.editForm = { ...this.admin }; // Clone current admin data
-    this.isEditModalOpen = true;
+    const dialogRef = this.dialog.open(EditProfileComponent, {
+      width: '35rem',
+      height: 'auto',
+      data: this.admin, // Pass admin data to modal
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.updateProfile(result); // Call update if valid
+      }
+    });
   }
 
-  // ❌ Close Edit Modal
-  closeEditModal() {
-    this.isEditModalOpen = false;
-  }
-
-  // 💾 Update Admin Profile
-  updateProfile() {
-    this.userService.updateAdminProfile(this.editForm).subscribe({
+  // 💾 Update Admin Profile After Modal Save
+  updateProfile(updatedData: any) {
+    this.userService.updateAdminProfile(updatedData).subscribe({
       next: (res: any) => {
         this.admin = res;
-        this.closeEditModal();
+        console.log('Profile updated successfully');
       },
       error: (err) => {
         console.error('Error updating profile:', err);

@@ -31,10 +31,9 @@ router.get("/get-profile/:id", async (req, res) => {
 
 router.get("/get-admins/:id", async (req, res) => {
 	try {
-		// Exclude the logged-in admin using req.user.id (Assuming JWT is used)
 		const admins = await User.find({
 			role: "admin",
-			_id: { $ne: req.user.id }, // 🔥 Exclude logged-in admin
+			_id: { $ne: req.params.id }, 
 		}).sort({ createdAt: -1 });
 		res.status(200).json(admins);
 	} catch (err) {

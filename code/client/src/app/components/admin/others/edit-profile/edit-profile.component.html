@@ -1,0 +1,52 @@
+<div class="container-main">
+  <h2>Edit Admin Profile ✏️</h2>
+
+<form [formGroup]="editForm" (ngSubmit)="saveChanges()">
+  <!-- 📝 First Name -->
+  <div class="form-group" [ngClass]="{ 'has-error': f['firstname'].invalid && (f['firstname'].dirty || f['firstname'].touched) }">
+    <label>First Name</label>
+    <input type="text" formControlName="firstname" required />
+    <small *ngIf="f['firstname'].invalid && (f['firstname'].dirty || f['firstname'].touched)">
+      {{ getErrorMessage('firstname') }}
+    </small>
+  </div>
+
+  <!-- 📝 Last Name -->
+  <div class="form-group" [ngClass]="{ 'has-error': f['lastname'].invalid && (f['lastname'].dirty || f['lastname'].touched) }">
+    <label>Last Name</label>
+    <input type="text" formControlName="lastname" required />
+    <small *ngIf="f['lastname'].invalid && (f['lastname'].dirty || f['lastname'].touched)">
+      {{ getErrorMessage('lastname') }}
+    </small>
+  </div>
+
+  <!-- 📧 Email -->
+  <div class="form-group" [ngClass]="{ 'has-error': f['email'].invalid && (f['email'].dirty || f['email'].touched) }">
+    <label>Email</label>
+    <input type="email" formControlName="email" required />
+    <small *ngIf="f['email'].invalid && (f['email'].dirty || f['email'].touched)">
+      {{ getErrorMessage('email') }}
+    </small>
+  </div>
+
+  <!-- 📞 Phone -->
+  <div class="form-group" [ngClass]="{ 'has-error': f['phone'].invalid && (f['phone'].dirty || f['phone'].touched) }">
+    <label>Phone</label>
+    <input type="text" formControlName="phone" />
+    <small *ngIf="f['phone'].invalid && (f['phone'].dirty || f['phone'].touched)">
+      {{ getErrorMessage('phone') }}
+    </small>
+  </div>
+
+  <!-- 🎯 Button Group -->
+  <div class="btn-group">
+    <button type="submit" class="save-btn" [disabled]="editForm.invalid">
+      💾 Save Changes
+    </button>
+    <button type="button" class="cancel-btn" (click)="closeDialog()">
+      ❌ Cancel
+    </button>
+  </div>
+</form>
+
+</div>
