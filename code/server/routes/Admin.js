@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const sendEmail = require("../utils/Sendemail");
+const Category = require("../models/SkillCategory");
 
 // 🧑‍💼 Get All Users
 router.get("/get-users", async (req, res) => {
@@ -38,7 +39,7 @@ router.post("/add-admin", async (req, res) => {
 		// Check if admin already exists
 		const existingAdmin = await User.findOne({ email });
 		if (existingAdmin) {
-			return res.status(400).json({ message: "Admin already exists!" });
+			return res.status(409).json({ message: "Admin already exists!" });
 		}
 
 		const password = await bcrypt.hash("123456", 8);
@@ -70,6 +71,51 @@ router.post("/add-admin", async (req, res) => {
 	} catch (error) {
 		console.error(error);
 		res.status(500).json({ message: "Server Error", error });
+	}
+});
+
+router.get("/get-skills-category", async (req, res) => {
+	try {
+		const categories = await Category.find({});
+		res.status(200).json(categories);
+	} catch (err) {
+		res
+			.status(500)
+			.json({ message: "Error fetching admin users", error: err.message });
+	}
+});
+
+router.post("/add-skills-category", async (req, res) => {
+	try {
+		const data = req.body;
+		// console.log(data);
+
+		// 🔎 Check if category already exists
+		const exists = await Category.find({ name: data.name });
+		if (exists.length > 0) {
+			return res.status(409).json({ message: "Category already exists!" });
+		}
+
+		// ➕ Create and Save New Category
+		const newCategory = await Category.create({
+			name: data.name,
+			description: data.description,
+		});
+
+		if (newCategory) {
+			res.status(201).json({
+				message: "Category added successfully! 🎉",
+				category: newCategory,
+			});
+		} else {
+			res.status(400).json({ message: "Invalid category data! ❗" });
+		}
+	} catch (err) {
+		console.error("Error adding category:", err);
+		res.status(500).json({
+			message: "Error adding skill category! 🚨",
+			error: err.message,
+		});
 	}
 });
 

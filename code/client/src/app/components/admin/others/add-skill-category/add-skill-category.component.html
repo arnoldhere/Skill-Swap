@@ -1,0 +1,43 @@
+<div class="container-main">
+  <h2>Add Skill Category ➕</h2>
+
+  <form [formGroup]="editForm" (ngSubmit)="saveChanges()">
+    <!-- 📝 Category Name -->
+    <div
+      class="form-group"
+      [ngClass]="{ 'has-error': f['name'].invalid && (f['name'].dirty || f['name'].touched) }"
+    >
+      <label>Category Name</label>
+      <input type="text" formControlName="name" required />
+      <small
+        *ngIf="f['name'].invalid && (f['name'].dirty || f['name'].touched)"
+      >
+        {{ getErrorMessage('name') }}
+      </small>
+    </div>
+
+    <!-- 📝 Description -->
+    <div
+      class="form-group"
+      [ngClass]="{ 'has-error': f['description'].invalid && (f['description'].dirty || f['description'].touched) }"
+    >
+      <label>Description</label>
+      <textarea formControlName="description" required></textarea>
+      <small
+        *ngIf="f['description'].invalid && (f['description'].dirty || f['description'].touched)"
+      >
+        {{ getErrorMessage('description') }}
+      </small>
+    </div>
+
+    <!-- 🎯 Button Group -->
+    <div class="btn-group">
+      <button type="submit" class="save-btn" [disabled]="editForm.invalid">
+        💾 Save Category
+      </button>
+      <button type="button" class="cancel-btn" (click)="closeDialog()">
+        ❌ Cancel
+      </button>
+    </div>
+  </form>
+</div>

@@ -43,6 +43,15 @@ export class UserService {
     return this.http.get(`${this.apiUrl}/admin/get-profile/${id}`);
   }
 
+  getSkillsCategory(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/admin/get-skills-category`);
+  }
+
+  addSkillCategory(data: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/admin/add-skills-category`, data);
+  }
+
+
   addAdmin(data: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/admin/add-admin`, data);
   }

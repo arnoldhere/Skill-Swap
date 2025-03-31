@@ -1,0 +1,77 @@
+<app-header></app-header>
+<app-sidebar></app-sidebar>
+
+<div class="user-container">
+  <!-- 🎯 Header Section -->
+  <div class="header">
+    <h2>Skill Categories 📚</h2>
+    <div class="actions">
+      <button (click)="openAddCategoryModal()">➕ Add New Category</button>
+    </div>
+  </div>
+
+  <!-- 📊 Skill Categories List -->
+  <div class="user-list" *ngIf="skillsCategory.length > 0; else noData">
+    <table class="user-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of skillsCategory; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ c.name }}</td>
+          <td>{{ c.description }}</td>
+          <td>
+            <i class="fa-solid fa-trash btn-md btn p-2 bg-danger m-1"></i>
+            <i class="fa-regular fa-pen-to-square btn-md btn p-2 bg-info m-1"></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 😢 No Data Template -->
+  <ng-template #noData>
+    <div class="no-data">
+      <p>No skill categories found! 😢</p>
+    </div>
+  </ng-template>
+
+  <!-- 📢 Add Category Modal -->
+  <div class="modal-backdrop" *ngIf="isAddModalOpen">
+    <div class="modal">
+      <h2>Add Skill Category ➕</h2>
+      <form [formGroup]="categoryForm" (ngSubmit)="saveCategory()">
+        <div class="form-group">
+          <label>Category Name</label>
+          <input type="text" formControlName="name" placeholder="Enter category name" />
+          <small *ngIf="f['name'].invalid && (f['name'].dirty || f['name'].touched)">
+            {{ getErrorMessage('name') }}
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label>Description</label>
+          <textarea formControlName="description" placeholder="Enter category description"></textarea>
+          <small *ngIf="f['description'].invalid && (f['description'].dirty || f['description'].touched)">
+            {{ getErrorMessage('description') }}
+          </small>
+        </div>
+
+        <div class="btn-group">
+          <button type="submit" [disabled]="categoryForm.invalid">
+            💾 Save Category
+          </button>
+          <button type="button" class="cancel-btn" (click)="closeAddCategoryModal()">
+            ❌ Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
