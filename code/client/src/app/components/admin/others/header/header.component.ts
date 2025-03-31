@@ -4,13 +4,13 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
 import { MatIcon } from '@angular/material/icon';
 import { ToastService } from 'angular-toastify';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { UserService } from '../../../../services/user.service';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, MatBadgeModule, MatMenuModule, MatIcon],
+  imports: [CommonModule, MatBadgeModule, MatMenuModule, MatIcon , RouterModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })

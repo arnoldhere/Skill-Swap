@@ -38,6 +38,21 @@ export class UserService {
   }
   /*******************   api Services & routes   ****************************/
 
+  // 🎯 Get Logged-in Admin Profile
+  getAdminProfile(id: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/admin/get-profile/${id}`);
+  }
+
+  // 💾 Update Admin Profile
+  updateAdminProfile(data: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/admin/update-profile`, data);
+  }
+
+  // 📊 Get All Admin Users
+  getAdminUsers(id: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/admin/get-admins/${id}`);
+  }
+
   getUsers(): Observable<any> {
     return this.http.get(`${this.apiUrl}/admin/get-users`);
   }

@@ -11,7 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './sidebar.component.scss',
 })
 export class SidebarComponent {
-  isCollapsed = false;
+  isCollapsed = true;
   isMobile = false;
 
   menuItems = [

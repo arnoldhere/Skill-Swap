@@ -90,6 +90,12 @@ export const routes: Routes = [
         loadComponent: () => import("./components/admin/users/users.component").then(c => c.UsersComponent),
         canActivate: [AuthGuard],
         data: { roles: ['admin'] } // Only admins can access
+      },
+      {
+        path: "profile",
+        loadComponent: () => import("./components/admin/profile/profile.component").then(c => c.ProfileComponent),
+        canActivate: [AuthGuard],
+        data: { roles: ['admin'] } // Only admins can access
       }
     ]
   },

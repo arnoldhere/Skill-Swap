@@ -1,0 +1,50 @@
+<app-navbar></app-navbar>
+
+<div class="profile-container">
+  <!-- 🎯 Admin Profile Section -->
+  <div class="profile-card">
+    <img [src]="admin.profilephoto || defaultPhoto" alt="Admin Photo" />
+    <h3>{{ admin.firstname }} {{ admin.lastname }}</h3>
+    <p>Email: {{ admin.email }}</p>
+    <p>Phone: {{ admin.phone || 'N/A' }}</p>
+    <button (click)="addAdmin()">➕ Add Admin</button>
+  </div>
+
+  <!-- 📊 Admin List Section -->
+  <div class="admin-list">
+    <div class="header">
+      <h2>List of Admins 🧑‍💼</h2>
+    </div>
+    <div *ngIf="admins.length > 0; else noData">
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Role</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of admins; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ user.firstname }} {{ user.lastname }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.phone || 'N/A' }}</td>
+            <td>
+              <span class="badge">{{ user.role }}</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 😢 No Admins Available -->
+    <ng-template #noData>
+      <div class="no-data">
+        <p>No admin users found! 😢</p>
+      </div>
+    </ng-template>
+  </div>
+</div>

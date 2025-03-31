@@ -15,13 +15,13 @@
 
     <!-- Profile Section -->
     <div class="profile" (click)="toggleProfileMenu()">
-      <button class="profile-name"  mat-raised-button>{{user?.firstname}}</button>
+      <button class="profile-name" mat-raised-button>{{user?.firstname}}</button>
     </div>
 
     <!-- Profile Menu Dropdown -->
     <div class="profile-menu" *ngIf="isProfileMenuOpen">
       <ul>
-        <li >Profile</li>
+        <li routerLink="/admin/profile">Profile</li>
         <li (click)="logout()">Logout</li>
       </ul>
     </div>
