@@ -3,6 +3,7 @@ const router = express.Router();
 const City = require("../../models/Cities");
 const Feedback = require("../../models/Feedback");
 const User = require("../../models/User");
+const SkillCategory = require("../../models/SkillCategory");
 
 // Get all unique states from cities collection
 router.get("/states", async (req, res) => {
@@ -66,6 +67,17 @@ router.get("/get-feedbacks-rating", async (req, res) => {
 		res
 			.status(500)
 			.json({ message: "Error fetching feedbacks", error: err.message });
+	}
+});
+
+// Get all skill categories
+router.get("/get-skills-category", async (req, res) => {
+	try {
+		const categories = await SkillCategory.find();
+		res.status(200).json(categories);
+	} catch (err) {
+		console.log(err);
+		res.status(500).json({ error: "Failed to fetch categories" });
 	}
 });
 

@@ -15,8 +15,8 @@
           <th>#</th>
           <th>Name</th>
           <th>Email</th>
-          <th>Role</th>
-          <th>Created At</th>
+          <th>Phone</th>
+          <th>Location</th>
         </tr>
       </thead>
       <tbody>
@@ -24,12 +24,14 @@
           <td>{{ i + 1 }}</td>
           <td>{{ user.firstname }} {{ user.lastname }}</td>
           <td>{{ user.email }}</td>
-          <td>
+          <td>{{ user.phone }}</td>
+          <td>{{ user.location.city}} - {{user.location.state}} </td>
+          <!-- <td>
             <span [ngClass]="user.role === 'admin' ? 'badge-admin' : 'badge-user'">
               {{ user.role }}
             </span>
-          </td>
-          <td>{{ formatDate(user.createdAt) }}</td>
+          </td> -->
+          <!-- <td>{{ formatDate(user.createdAt) }}</td> -->
         </tr>
       </tbody>
     </table>

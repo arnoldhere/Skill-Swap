@@ -123,6 +123,10 @@ export class UserService {
     return this.http.post<any>(`${this.apiUrl}/user/update-bio/${id}`, bio);
   };
 
+  fetchSkillsCategory(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/others/get-skills-category`);
+  }
+
   /********  Other Services  ********/
   storeUserData(token: string, firstname: string, lastname: string, role: string, id: string) {
     localStorage.setItem('token', token);

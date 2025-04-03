@@ -31,16 +31,15 @@
   </section>
 
   <section id="skills" class="skills">
-    <h2>Popular Skills</h2>
+    <h2>Browse skills by category</h2>
     <div class="skill-grid">
-      <div class="skill-item">Web Development</div>
-      <div class="skill-item">Graphic Design</div>
-      <div class="skill-item">Language Learning</div>
-      <div class="skill-item">Photography</div>
-      <div class="skill-item">Music Production</div>
-      <div class="skill-item">Cooking</div>
+      <div *ngFor="let category of skillCategories" class="skill-item">
+        <h3>{{ category.name }}</h3>
+        <button class="explore-btn" [routerLink]="['/skills', category._id]">Browse</button>
+      </div>
     </div>
   </section>
+
 
   <section id="contact" class="contact">
     <h2>Join Our Community</h2>
