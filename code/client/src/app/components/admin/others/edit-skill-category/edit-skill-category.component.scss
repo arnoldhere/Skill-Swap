@@ -1,0 +1,103 @@
+.container {
+  max-width: 600px;
+  margin: 40px auto;
+  height: auto;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.3s ease-in-out;
+
+  h2 {
+    text-align: center;
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+
+    label {
+      font-weight: 600;
+      color: #555;
+      margin-bottom: 5px;
+    }
+
+    textarea{
+      resize: vertical;
+      height: 150px !important;
+    }
+
+    input, textarea {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+      transition: 0.3s;
+      &:focus {
+        border-color: #007bff;
+        outline: none;
+        box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+      }
+    }
+
+
+    small {
+      color: red;
+      font-size: 0.9rem;
+      margin-top: 4px;
+    }
+  }
+
+  .btn-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+
+    button {
+      padding: 10px 15px;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .save-btn {
+      background: #28a745;
+      color: white;
+      &:hover {
+        background: #218838;
+      }
+    }
+
+    .cancel-btn {
+      background: #dc3545;
+      color: white;
+      &:hover {
+        background: #c82333;
+      }
+    }
+  }
+}
+
+// Animation
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -14,6 +14,8 @@ import { UserService } from '../../../services/user.service';
 import { ToastService } from 'angular-toastify';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { AddSkillCategoryComponent } from '../others/add-skill-category/add-skill-category.component';
+import { EditSkillCategoryComponent } from '../others/edit-skill-category/edit-skill-category.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-skill-category',
@@ -24,7 +26,8 @@ import { AddSkillCategoryComponent } from '../others/add-skill-category/add-skil
     FormsModule,
     HeaderComponent,
     SidebarComponent,
-    MatDialogModule
+    RouterModule,
+    MatDialogModule,
   ],
   templateUrl: './skill-category.component.html',
   styleUrl: './skill-category.component.scss',
@@ -37,9 +40,10 @@ export class SkillCategoryComponent implements OnInit {
   constructor(
     private userService: UserService,
     private toast: ToastService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private dialog: MatDialog
   ) { }
-  private dialog = inject(MatDialog);
+  // private dialog = inject(MatDialog);
 
 
   ngOnInit(): void {
@@ -80,7 +84,6 @@ export class SkillCategoryComponent implements OnInit {
       }
     });
   }
-
 
   // ❌ Close Add Modal
   closeAddCategoryModal() {
@@ -136,4 +139,56 @@ export class SkillCategoryComponent implements OnInit {
   get f(): { [key: string]: AbstractControl } {
     return this.categoryForm.controls;
   }
+
+  deleteCategory(id: string) {
+    if (!window.confirm("Are you sure you want to delete this category?")) {
+      return;
+    }
+
+    this.userService.deleteSkillCategory(id).subscribe({
+      next: (res: any) => {
+        if (res) {
+          this.toast.info(res.message || "Deleted successfully..");
+
+          // 🔄 Instead of reloading, trigger a state update
+          setTimeout(() => {
+            this.fetchSkillsCategory()
+          }, 1500);
+        }
+      },
+      error: (err) => {
+        console.error("Error deleting category:", err);
+        this.toast.error(err.error?.message || "Failed to delete category!");
+      },
+    });
+  }
+
+
+  openEditCategoryModal(category: any) {
+    console.log('Opening edit modal for:', category); // Debugging
+
+    const dialogRef = this.dialog.open(EditSkillCategoryComponent, {
+      width: '35rem',
+      height: 'auto',
+      data: category, // ✅ Pass category data properly
+    });
+
+    dialogRef.afterClosed().subscribe((updatedCategory) => {
+      console.log('Modal closed', updatedCategory); // Debugging
+      if (updatedCategory) {
+        this.userService.updateSkillCategory(updatedCategory._id, updatedCategory).subscribe({
+          next: () => {
+            this.toast.success('Category updated successfully! 🎉');
+            this.fetchSkillsCategory();
+          },
+          error: (err) => {
+            console.error('Error updating category:', err);
+            this.toast.error('Failed to update category! ❗');
+          },
+        });
+      }
+    });
+  }
+
+
 }

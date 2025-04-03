@@ -85,6 +85,59 @@ router.get("/get-skills-category", async (req, res) => {
 	}
 });
 
+router.delete("/delete-skills-category/:id", async (req, res) => {
+	try {
+		const result = await Category.findByIdAndDelete(req.params.id);
+		if (result) {
+			return res
+				.status(200)
+				.json({ message: "Category deleted successfully!" });
+		} else {
+			return res.status(404).json({ message: "Category not found!" });
+		}
+	} catch (err) {
+		console.log(err);
+		res.status(500).json({ message: "Error to delete category...." });
+	}
+});
+
+router.get("/get-skill-category/:id", async (req, res) => {
+	try {
+		const category = await Category.findById(req.params.id);
+		if (!category) return res.status(404).json({ error: "Category not found" });
+		res.json(category);
+	} catch (error) {
+		res.status(500).json({ error: "Server error" });
+	}
+});
+
+router.put("/update-skills-category/:id", async (req, res) => {
+	try {
+		const { name, description } = req.body;
+
+		if (!name || !description) {
+			return res
+				.status(400)
+				.json({ error: "Name and description are required" });
+		}
+
+		const updatedCategory = await Category.findByIdAndUpdate(req.params.id, {
+			name,
+			description,
+		});
+
+		if (!updatedCategory)
+			return res.status(404).json({ error: "Category not found" });
+
+		res.status(200).json({
+			message: "Category updated successfully",
+			category: updatedCategory,
+		});
+	} catch (error) {
+		res.status(500).json({ error: "Server error" });
+	}
+});
+
 router.post("/add-skills-category", async (req, res) => {
 	try {
 		const data = req.body;

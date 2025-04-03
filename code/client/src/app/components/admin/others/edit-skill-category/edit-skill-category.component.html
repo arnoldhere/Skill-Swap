@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="container-fluid">
+    <h2>Edit Skill Category ✏️</h2>
+
+    <form [formGroup]="editForm" (ngSubmit)="saveChanges()">
+      <!-- Category Name -->
+      <div class="form-group" [ngClass]="{ 'has-error': editForm.get('name')?.invalid && editForm.get('name')?.touched }">
+        <label>Category Name</label>
+        <input type="text" formControlName="name" required />
+        <small *ngIf="editForm.get('name')?.invalid && editForm.get('name')?.touched">
+          {{ editForm.get('name')?.errors?.['required'] ? 'This field is required!' : 'Must be at least 3 characters!' }}
+        </small>
+      </div>
+
+      <!-- Description -->
+      <div class="form-group" [ngClass]="{ 'has-error': editForm.get('description')?.invalid && editForm.get('description')?.touched }">
+        <label>Description</label>
+        <textarea formControlName="description" required></textarea>
+        <small *ngIf="editForm.get('description')?.invalid && editForm.get('description')?.touched">
+          {{ editForm.get('description')?.errors?.['required'] ? 'This field is required!' : 'Must be at least 5 characters!' }}
+        </small>
+      </div>
+
+      <!-- Button Group -->
+      <div class="btn-group">
+        <button type="submit" class="save-btn" [disabled]="editForm.invalid || loading">💾 Save Category</button>
+        <button type="button" class="cancel-btn" [routerLink]="['/admin/skill-categories']">❌ Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -8,6 +8,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { UserService } from '../../../services/user.service';
 import { CustomToastService } from '../../../services/toast.service';
+import { AngularToastifyModule } from 'angular-toastify';
 
 @Component({
   selector: 'app-navbar',
@@ -16,6 +17,7 @@ import { CustomToastService } from '../../../services/toast.service';
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
+    AngularToastifyModule,
     MatSidenavModule,
     MatListModule,],
   templateUrl: './navbar.component.html',

@@ -102,6 +102,12 @@ export const routes: Routes = [
         loadComponent: () => import("./components/admin/skill-category/skill-category.component").then(c => c.SkillCategoryComponent),
         canActivate: [AuthGuard],
         data: { roles: ['admin'] } // Only admins can access
+      },
+      {
+        path: "edit-skill-category/:id" ,
+        loadComponent: () => import("./components/admin/others/edit-skill-category/edit-skill-category.component").then(c => c.EditSkillCategoryComponent),
+        canActivate: [AuthGuard],
+        data: { roles: ['admin'] } // Only admins can access
       }
     ]
   },

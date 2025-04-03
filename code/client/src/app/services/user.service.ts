@@ -51,6 +51,18 @@ export class UserService {
     return this.http.post(`${this.apiUrl}/admin/add-skills-category`, data);
   }
 
+  deleteSkillCategory(id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/admin/delete-skills-category/${id}`);
+  }
+
+  // Fetch category by ID
+  getSkillCategoryById(id: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/admin/get-skill-category/${id}`);
+  }
+
+  updateSkillCategory(id: string, data: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/admin/update-skills-category/${id}`, data);
+  }
 
   addAdmin(data: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/admin/add-admin`, data);
