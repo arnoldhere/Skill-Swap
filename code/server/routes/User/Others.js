@@ -81,4 +81,26 @@ router.get("/get-skills-category", async (req, res) => {
 	}
 });
 
+router.get("/get-all-users", async (req, res) => {
+	try {
+		const users = await User.find({ role: "user" });
+		const baseUrl = `${req.protocol}://${req.get("host")}/uploads/profilephotos/`;
+
+		const usersWithFullPhoto = users.map((user) => {
+			return {
+				...user._doc,
+				profilephoto: user.profilephoto
+					? `${baseUrl}${user.profilephoto}`
+					: null,
+			};
+		});
+
+		res.status(200).json(usersWithFullPhoto);
+	} catch (err) {
+		console.log(err);
+		res.status(500).json({ error: "Failed to fetch users" });
+	}
+});
+
+
 module.exports = router;

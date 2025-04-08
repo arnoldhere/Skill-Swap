@@ -15,7 +15,7 @@
   }
 
   .user-card {
-    background-color: #fff;
+    background-color: #d4cece;
     border-radius: 1rem;
     padding: 1.2rem;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
@@ -68,6 +68,20 @@
       border-radius: 0.5rem;
       cursor: pointer;
 
+      &:hover {
+        background-color: #0056b3;
+      }
+    }
+    .view-btn {
+      margin-top: 1rem;
+      padding: 0.5rem 1.2rem;
+      background-color: #ff2a00;
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: ease-in-out 0.7s;
+      margin: 0.3rem;
       &:hover {
         background-color: #0056b3;
       }

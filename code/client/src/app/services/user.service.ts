@@ -102,7 +102,7 @@ export class UserService {
     }
 
   getAllUsers(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/user/get-all-users`);
+    return this.http.get(`${this.apiUrl}/others/get-all-users`);
   }
 
   getCurrentUser(id: string): Observable<any> {

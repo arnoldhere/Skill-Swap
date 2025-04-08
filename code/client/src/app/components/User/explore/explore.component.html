@@ -1,17 +1,23 @@
+<app-navbar></app-navbar>
 <section class="explore-page">
   <h2 class="title">🌟 Explore Skill Swappers</h2>
   <div class="user-grid">
     <div class="user-card" *ngFor="let user of users">
       <div class="avatar">
-        <img [src]="user.avatar || defaultAvatar" alt="User Avatar">
+        <img [src]="user.profilephoto || defaultAvatar" alt="User Avatar">
       </div>
       <div class="user-info">
-        <h3>{{ user.name }}</h3>
+        <h3>{{ user.firstname }} {{user.lastname}}</h3>
         <p class="role">{{ user.role }}</p>
-        <p class="skills">Skills: {{ user.skills.join(', ') }}</p>
-        <p class="location" *ngIf="user.location">📍 {{ user.location }}</p>
+        <!-- <p class="skills">Skills: {{ user.skills.join(', ') }}</p> -->
+        <p class="location" *ngIf="user.location">📍 {{ user.location.city}} - {{ user.location.state }} </p>
       </div>
-      <button class="connect-btn" (click)="connect(user._id)">🤝 Connect</button>
+      <button class="connect-btn" (click)="connect(user._id)"><span><i class="fa-brands fa-rocketchat"></i></span>
+        Chat</button>
+
+      <button class="view-btn" (click)="connect(user._id)"><span><i class="fa-brands fa-rocketchat"></i></span>
+        View</button>
     </div>
   </div>
 </section>
+<app-footer></app-footer>
