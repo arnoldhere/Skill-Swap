@@ -16,6 +16,7 @@ import { FooterComponent } from "../../others/footer/footer.component";
 export class ExploreComponent implements OnInit {
   users: any[] = [];
   defaultAvatar = 'assets/img/default-user.png';
+  loggedInUserId: string | null = null;
 
   constructor(private toast: ToastService, private userService: UserService, private router: Router) { }
 
@@ -23,7 +24,11 @@ export class ExploreComponent implements OnInit {
     this.userService.getAllUsers().subscribe({
       next: (res) => {
         // this.users = res.filter((u: { _id: string; }) => u._id !== this.userService.getUserId());
-        this.users = res;
+        // Get logged-in user's ID from localStorage
+        this.loggedInUserId = localStorage.getItem('id');
+        // Filter out the logged-in user
+        this.users = res.filter((u: { _id: string | null; }) => u._id !== this.loggedInUserId);
+        // this.users = res;
       },
       error: (err) => {
         this.toast.error("Failed to load users 😓");

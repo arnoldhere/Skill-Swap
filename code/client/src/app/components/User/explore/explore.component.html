@@ -8,7 +8,7 @@
       </div>
       <div class="user-info">
         <h3>{{ user.firstname }} {{user.lastname}}</h3>
-        <p class="role">{{ user.role }}</p>
+        <p class="role">{{ user.phone }}</p>
         <!-- <p class="skills">Skills: {{ user.skills.join(', ') }}</p> -->
         <p class="location" *ngIf="user.location">📍 {{ user.location.city}} - {{ user.location.state }} </p>
       </div>
