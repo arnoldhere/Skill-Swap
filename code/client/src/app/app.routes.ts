@@ -72,6 +72,12 @@ export const routes: Routes = [
         canActivate: [AuthGuard],
         data: { roles: ['user'] } // Only users can access
       },
+      {
+        path: "explore",
+        loadComponent: () => import("./components/User/explore/explore.component").then(c => c.ExploreComponent),
+        canActivate: [AuthGuard],
+        data: { roles: ['user'] } // Only users can access
+      }
     ]
   },
 
@@ -98,13 +104,13 @@ export const routes: Routes = [
         data: { roles: ['admin'] } // Only admins can access
       },
       {
-        path:"skill-categories",
+        path: "skill-categories",
         loadComponent: () => import("./components/admin/skill-category/skill-category.component").then(c => c.SkillCategoryComponent),
         canActivate: [AuthGuard],
         data: { roles: ['admin'] } // Only admins can access
       },
       {
-        path: "edit-skill-category/:id" ,
+        path: "edit-skill-category/:id",
         loadComponent: () => import("./components/admin/others/edit-skill-category/edit-skill-category.component").then(c => c.EditSkillCategoryComponent),
         canActivate: [AuthGuard],
         data: { roles: ['admin'] } // Only admins can access

@@ -90,6 +90,21 @@ export class UserService {
     return this.http.post(`${this.apiUrl}/others/save-feedback/${id}`, data);
   }
 
+  // ✅ Get user by ID
+  getUserById(userId: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${userId}`);
+  }
+
+    // ✅ Get logged-in user ID (if stored in localStorage or decoded from token)
+    getUserId(): string {
+      const userData = localStorage.getItem('user');
+      return userData ? JSON.parse(userData)._id : '';
+    }
+
+  getAllUsers(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/user/get-all-users`);
+  }
+
   getCurrentUser(id: string): Observable<any> {
     console.log(id)
     return this.http.get(`${this.apiUrl}/user/get-current-user/${id}`);
