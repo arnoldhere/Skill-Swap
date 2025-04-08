@@ -22,6 +22,14 @@ router.get("/get-current-user/:id", async (req, res) => {
 			userData.profilephoto = userData.profilephoto
 				? `${baseUrl}${userData.profilephoto}`
 				: null;
+		}else if ((userData.modeoflogin === "google")){
+			// Send full image URL
+			const baseUrl = `${req.protocol}://${req.get(
+				"host"
+			)}/uploads/profilephotos/`;
+			userData.profilephoto = userData.profilephoto
+				? `${baseUrl}${userData.profilephoto}`
+				: null;
 		}
 
 		res.status(201).json(userData);
