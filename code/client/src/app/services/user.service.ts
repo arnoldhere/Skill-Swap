@@ -95,11 +95,15 @@ export class UserService {
     return this.http.get<any>(`${this.apiUrl}/${userId}`);
   }
 
-    // ✅ Get logged-in user ID (if stored in localStorage or decoded from token)
-    getUserId(): string {
-      const userData = localStorage.getItem('user');
-      return userData ? JSON.parse(userData)._id : '';
-    }
+  // ✅ Get logged-in user ID (if stored in localStorage or decoded from token)
+  getUserId(): string {
+    const userData = localStorage.getItem('user');
+    return userData ? JSON.parse(userData)._id : '';
+  }
+
+  uploadSkill(data: any, id :string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/user/add-skills/${id}`, data);
+  }
 
   getAllUsers(): Observable<any> {
     return this.http.get(`${this.apiUrl}/others/get-all-users`);

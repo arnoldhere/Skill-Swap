@@ -56,13 +56,12 @@ const userSchema = new mongoose.Schema(
 
 		phone: String,
 		bio: String,
-		skills: {
-			title: String,
-			description: String,
-			category: String,
-			mode: { type: String, enum: ["offline", "online"], default: "offline" },
-			availability: Array,
-		},
+		skills: 
+			[{
+				category: { type: mongoose.Schema.Types.ObjectId, ref: "SkillCategory" },
+				certificate: { type: String },
+				createdAt: { type: Date, default: Date.now },
+			}],
 		socialLinks: {
 			instagram: String,
 			linkedin: String,

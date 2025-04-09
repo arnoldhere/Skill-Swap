@@ -1,0 +1,29 @@
+<app-navbar></app-navbar>
+<div class="add-skill-form">
+  <h2>Add New Skill</h2>
+  <form [formGroup]="skillForm" (ngSubmit)="submit()">
+    <!-- Category Dropdown -->
+    <div class="form-group">
+      <label for="category">Skill Category</label>
+      <select formControlName="category" id="category">
+        <option value="" disabled>Select a category</option>
+        <option *ngFor="let cat of categories" [value]="cat._id">{{ cat.name }}</option>
+      </select>
+      <small *ngIf="skillForm.get('category')?.invalid && skillForm.get('category')?.touched">
+        Category is required.
+      </small>
+    </div>
+
+    <!-- File Upload -->
+    <div class="form-group">
+      <label for="pdf">Upload Skill Certificate (PDF)</label>
+      <input type="file" id="pdf" (change)="onFileSelected($event)" accept="application/pdf" />
+      <small *ngIf="skillForm.get('pdf')?.invalid && skillForm.get('pdf')?.touched">
+        PDF is required.
+      </small>
+    </div>
+
+    <button type="submit" class="submit-btn" [disabled]="skillForm.invalid">Submit</button>
+  </form>
+</div>
+<app-footer></app-footer>

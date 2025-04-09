@@ -6,16 +6,29 @@
       <div class="avatar">
         <img [src]="user.profilephoto || defaultAvatar" alt="User Avatar">
       </div>
+
       <div class="user-info">
         <h3>{{ user.firstname }} {{user.lastname}}</h3>
         <p class="role">{{ user.phone }}</p>
-        <!-- <p class="skills">Skills: {{ user.skills.join(', ') }}</p> -->
-        <p class="location" *ngIf="user.location">📍 {{ user.location.city}} - {{ user.location.state }} </p>
+
+        <div class="skills" *ngIf="user.skills && user.skills.length">
+          Skills:
+          <span class="skill-tag" *ngFor="let skill of user.skills">
+            {{ skill.category?.name }}
+          </span>
+        </div>
+
+        <p class="skills" *ngIf="!user.skills || !user.skills.length">Skills: Not added</p>
+
+        <p class="location" *ngIf="user.location">
+          📍 {{ user.location.city}} - {{ user.location.state }}
+        </p>
       </div>
+
       <button class="connect-btn" (click)="connect(user._id)"><span><i class="fa-brands fa-rocketchat"></i></span>
         Chat</button>
 
-      <button class="view-btn" (click)="connect(user._id)"><span><i class="fa-brands fa-rocketchat"></i></span>
+      <button class="view-btn" (click)="connect(user._id)"><span><i class="fa-solid fa-eye"></i></span>
         View</button>
     </div>
   </div>

@@ -83,8 +83,13 @@ router.get("/get-skills-category", async (req, res) => {
 
 router.get("/get-all-users", async (req, res) => {
 	try {
-		const users = await User.find({ role: "user" });
-		const baseUrl = `${req.protocol}://${req.get("host")}/uploads/profilephotos/`;
+		const users = await User.find({ role: "user" }).populate(
+			"skills.category",
+			"name"
+		);
+		const baseUrl = `${req.protocol}://${req.get(
+			"host"
+		)}/uploads/profilephotos/`;
 
 		const usersWithFullPhoto = users.map((user) => {
 			return {
@@ -101,6 +106,5 @@ router.get("/get-all-users", async (req, res) => {
 		res.status(500).json({ error: "Failed to fetch users" });
 	}
 });
-
 
 module.exports = router;
