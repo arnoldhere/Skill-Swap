@@ -1,45 +1,51 @@
 <app-header></app-header>
 <app-sidebar></app-sidebar>
-<div class="user-container">
-  <div class="header">
-    <h2>Users 👥</h2>
-    <div class="actions">
-      <button (click)="downloadData()">📥 Download Data</button>
-    </div>
-  </div>
+<div class="user-wrapper">
+  <div class="card">
+    <div class="card-header">
+      <h2>All Users</h2>
 
-  <div class="user-list" *ngIf="users.length > 0; else noData">
-    <table class="user-table">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Phone</th>
-          <th>Location</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let user of users; let i = index">
-          <td>{{ i + 1 }}</td>
-          <td>{{ user.firstname }} {{ user.lastname }}</td>
-          <td>{{ user.email }}</td>
-          <td>{{ user.phone }}</td>
-          <td>{{ user.location.city}} - {{user.location.state}} </td>
-          <!-- <td>
-            <span [ngClass]="user.role === 'admin' ? 'badge-admin' : 'badge-user'">
-              {{ user.role }}
-            </span>
-          </td> -->
-          <!-- <td>{{ formatDate(user.createdAt) }}</td> -->
-        </tr>
-      </tbody>
-    </table>
-  </div>
+      <div class="controls">
+        <input type="text" placeholder="Search users..." [(ngModel)]="searchTerm" class="search-box" />
 
-  <ng-template #noData>
-    <div class="no-data">
-      <p>No users found! 😢</p>
+        <select [(ngModel)]="itemsPerPage" class="dropdown">
+          <option [value]="4">4 per page</option>
+          <option [value]="6">6 per page</option>
+          <option [value]="10">10 per page</option>
+        </select>
+
+        <button (click)="downloadData()" class="download-btn">Download CSV</button>
+      </div>
     </div>
-  </ng-template>
+
+    <div class="table-wrapper">
+      <table class="user-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th (click)="changeSort('email')">Email</th>
+            <th (click)="changeSort('phone')">Phone</th>
+            <th (click)="changeSort('location')">Location</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of filteredUsers() | paginate: { itemsPerPage, currentPage }; let i = index">
+            <td>{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.phone }}</td>
+            <td>{{ user.location?.city || '-' }}, {{ user.location?.state || '-' }}</td>
+            <td>
+              <!-- <button class="view-btn" (click)="viewUser(user._id)"><span><i class="fa-solid fa-eye"></i></span>
+                View</button> -->
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div *ngIf="filteredUsers().length === 0" class="no-data">No users found.</div>
+    </div>
+
+    <pagination-controls (pageChange)="currentPage = $event" [autoHide]="true" previousLabel="«" nextLabel="»">
+    </pagination-controls>
+  </div>
 </div>
