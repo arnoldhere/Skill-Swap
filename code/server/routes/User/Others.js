@@ -107,4 +107,29 @@ router.get("/get-all-users", async (req, res) => {
 	}
 });
 
+router.get("/get-user/:id", async (req, res) => {
+	try {
+		const id = req.params.id;
+
+		const user = await User.findById(id).populate("skills.category"); // <-- Populate category inside skills
+
+		if (!user) {
+			return res.status(404).json({ message: "User not found..." });
+		}
+
+		const baseUrl = `${req.protocol}://${req.get(
+			"host"
+		)}/uploads/profilephotos/`;
+		const userWithFullPhoto = {
+			...user._doc,
+			profilephoto: user.profilephoto ? `${baseUrl}${user.profilephoto}` : null,
+		};
+
+		return res.status(200).json({ user: userWithFullPhoto });
+	} catch (error) {
+		console.error(error);
+		return res.status(500).json({ message: "Internal server error..." });
+	}
+});
+
 module.exports = router;

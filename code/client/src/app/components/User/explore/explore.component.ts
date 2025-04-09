@@ -37,6 +37,11 @@ export class ExploreComponent implements OnInit {
     });
   }
 
+  viewUser(userId: string) {
+    this.router.navigate(['/user/user-details', userId]); // Navigates to the user details page
+  }
+
+
   connect(userId: string) {
     // Trigger message, invite, or redirect to chat/profile
     this.router.navigate(['/chat', userId]);

@@ -1,0 +1,27 @@
+<app-navbar></app-navbar>
+<section *ngIf="user" class="user-details">
+  <h2>User Details</h2>
+
+  <div class="profile-section">
+    <img [src]="user.profilephoto || defaultAvatar" alt="Profile" class="profile-img">
+    <div class="info">
+      <p><strong>Name:</strong> {{ user.firstname }} {{ user.lastname }}</p>
+      <p><strong>Email:</strong> {{ user.email }}</p>
+      <p><strong>Phone:</strong> {{ user.phone }}</p>
+      <p *ngIf="user.location"><strong>Location:</strong> {{ user.location.city }} - {{ user.location.state }}</p>
+    </div>
+  </div>
+
+  <div class="skills-section">
+    <strong>Skills:</strong>
+    <div *ngIf="user.skills && user.skills.length; else noSkills" class="skills-wrapper">
+      <span class="skill-badge" *ngFor="let skill of user.skills">
+        {{ skill.category?.name }}
+      </span>
+    </div>
+
+    <ng-template #noSkills>
+      <p class="no-skill">Skills: Not added</p>
+    </ng-template>
+  </div>
+</section>

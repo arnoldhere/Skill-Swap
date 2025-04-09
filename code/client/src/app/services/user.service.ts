@@ -92,7 +92,7 @@ export class UserService {
 
   // ✅ Get user by ID
   getUserById(userId: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/${userId}`);
+    return this.http.get(`${this.apiUrl}/others/get-user/${userId}`)
   }
 
   // ✅ Get logged-in user ID (if stored in localStorage or decoded from token)
@@ -101,7 +101,7 @@ export class UserService {
     return userData ? JSON.parse(userData)._id : '';
   }
 
-  uploadSkill(data: any, id :string): Observable<any> {
+  uploadSkill(data: any, id: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/user/add-skills/${id}`, data);
   }
 

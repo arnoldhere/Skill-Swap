@@ -83,7 +83,13 @@ export const routes: Routes = [
         loadComponent: () => import("./components/User/add-skills/add-skills.component").then(c => c.AddSkillsComponent),
         canActivate: [AuthGuard],
         data: { roles: ['user'] } // Only users can access
-      }
+      },
+      {
+        path: 'user-details/:id',
+        loadComponent: () => import("./components/others/user-details/user-details.component").then(c => c.UserDetailsComponent),
+        canActivate: [AuthGuard],
+        data: { roles: ['user'] } // Only users can access
+      },
     ]
   },
 
