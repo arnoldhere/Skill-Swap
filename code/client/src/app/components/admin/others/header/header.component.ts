@@ -10,7 +10,7 @@ import { UserService } from '../../../../services/user.service';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, MatBadgeModule, MatMenuModule, MatIcon , RouterModule],
+  imports: [CommonModule, MatBadgeModule, MatMenuModule , RouterModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -16,6 +16,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { AddSkillCategoryComponent } from '../others/add-skill-category/add-skill-category.component';
 import { EditSkillCategoryComponent } from '../others/edit-skill-category/edit-skill-category.component';
 import { RouterModule } from '@angular/router';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-skill-category',
@@ -28,30 +29,33 @@ import { RouterModule } from '@angular/router';
     SidebarComponent,
     RouterModule,
     MatDialogModule,
+    NgxPaginationModule,
   ],
   templateUrl: './skill-category.component.html',
   styleUrl: './skill-category.component.scss',
 })
 export class SkillCategoryComponent implements OnInit {
-  skillsCategory: any[] = []; // 📚 Skill Categories Data
-  isAddModalOpen = false; // ➕ Add Modal Visibility
-  categoryForm!: FormGroup; // 📝 Category Form
+  skillsCategory: any[] = [];
+  isAddModalOpen = false;
+  categoryForm!: FormGroup;
+  currentPage = 1;
+  itemsPerPage = 4;
+  searchTerm = '';
+  sortColumn = '';
+  sortDirection: 'asc' | 'desc' = 'asc';
 
   constructor(
     private userService: UserService,
     private toast: ToastService,
     private fb: FormBuilder,
     private dialog: MatDialog
-  ) { }
-  // private dialog = inject(MatDialog);
-
+  ) {}
 
   ngOnInit(): void {
-    this.fetchSkillsCategory(); // Load Skills on Init
-    this.initForm(); // Initialize Form
+    this.fetchSkillsCategory();
+    this.initForm();
   }
 
-  // ✅ Initialize Add Category Form
   initForm() {
     this.categoryForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
@@ -59,7 +63,6 @@ export class SkillCategoryComponent implements OnInit {
     });
   }
 
-  // 📚 Fetch Skill Categories
   fetchSkillsCategory() {
     this.userService.getSkillsCategory().subscribe({
       next: (res: any) => {
@@ -75,22 +78,20 @@ export class SkillCategoryComponent implements OnInit {
     const dialogRef = this.dialog.open(AddSkillCategoryComponent, {
       width: '35rem',
       height: 'auto',
-      data: {}, // ✅ Pass empty data if adding new category
+      data: {},
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.fetchSkillsCategory(); // ✅ Refetch categories after adding
+        this.fetchSkillsCategory();
       }
     });
   }
 
-  // ❌ Close Add Modal
   closeAddCategoryModal() {
     this.isAddModalOpen = false;
   }
 
-  // 💾 Save New Skill Category
   saveCategory() {
     if (this.categoryForm.valid) {
       const categoryData = this.categoryForm.value;
@@ -110,71 +111,45 @@ export class SkillCategoryComponent implements OnInit {
     }
   }
 
-  // 📅 Format Date for Display
-  formatDate(date: string): string {
-    return new Date(date).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric',
-    });
-  }
-
-  // 📣 Get Custom Error Messages
   getErrorMessage(controlName: string): string {
     const control = this.categoryForm.get(controlName);
     if (control?.hasError('required')) {
-      return `${controlName.replace(/^\w/, (c) =>
-        c.toUpperCase()
-      )} is required!`;
+      return `${controlName.charAt(0).toUpperCase() + controlName.slice(1)} is required!`;
     } else if (control?.hasError('minlength')) {
-      return `${controlName.replace(/^\w/, (c) =>
-        c.toUpperCase()
-      )} must be at least ${control.errors?.['minlength'].requiredLength
-        } characters!`;
+      return `${controlName.charAt(0).toUpperCase() + controlName.slice(1)} must be at least ${
+        control.errors?.['minlength'].requiredLength
+      } characters!`;
     }
     return '';
   }
 
-  // 🎯 Get Form Controls for Validation
   get f(): { [key: string]: AbstractControl } {
     return this.categoryForm.controls;
   }
 
   deleteCategory(id: string) {
-    if (!window.confirm("Are you sure you want to delete this category?")) {
-      return;
-    }
+    if (!window.confirm('Are you sure you want to delete this category?')) return;
 
     this.userService.deleteSkillCategory(id).subscribe({
       next: (res: any) => {
-        if (res) {
-          this.toast.info(res.message || "Deleted successfully..");
-
-          // 🔄 Instead of reloading, trigger a state update
-          setTimeout(() => {
-            this.fetchSkillsCategory()
-          }, 1500);
-        }
+        this.toast.info(res.message || 'Deleted successfully..');
+        setTimeout(() => this.fetchSkillsCategory(), 1500);
       },
       error: (err) => {
-        console.error("Error deleting category:", err);
-        this.toast.error(err.error?.message || "Failed to delete category!");
+        console.error('Error deleting category:', err);
+        this.toast.error(err.error?.message || 'Failed to delete category!');
       },
     });
   }
 
-
   openEditCategoryModal(category: any) {
-    console.log('Opening edit modal for:', category); // Debugging
-
     const dialogRef = this.dialog.open(EditSkillCategoryComponent, {
       width: '35rem',
       height: 'auto',
-      data: category, // ✅ Pass category data properly
+      data: category,
     });
 
     dialogRef.afterClosed().subscribe((updatedCategory) => {
-      console.log('Modal closed', updatedCategory); // Debugging
       if (updatedCategory) {
         this.userService.updateSkillCategory(updatedCategory._id, updatedCategory).subscribe({
           next: () => {
@@ -190,5 +165,34 @@ export class SkillCategoryComponent implements OnInit {
     });
   }
 
+  filteredCategories(): any[] {
+    let filtered = this.skillsCategory.filter((skill) => {
+      const term = this.searchTerm.toLowerCase();
+      return (
+        skill.name?.toLowerCase().includes(term) ||
+        skill.description?.toLowerCase().includes(term)
+      );
+    });
 
+    if (this.sortColumn) {
+      filtered.sort((a, b) => {
+        const valA = a[this.sortColumn]?.toString().toLowerCase() || '';
+        const valB = b[this.sortColumn]?.toString().toLowerCase() || '';
+        return this.sortDirection === 'asc'
+          ? valA.localeCompare(valB)
+          : valB.localeCompare(valA);
+      });
+    }
+
+    return filtered;
+  }
+
+  changeSort(column: string) {
+    if (this.sortColumn === column) {
+      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.sortColumn = column;
+      this.sortDirection = 'asc';
+    }
+  }
 }

@@ -8,22 +8,36 @@
     <div class="actions">
       <button (click)="openAddCategoryModal()">➕ Add New Category</button>
     </div>
+
+    <div class="controls">
+      <input type="text" placeholder="Search categories..." [(ngModel)]="searchTerm" class="search-box" />
+      <select [(ngModel)]="itemsPerPage" class="dropdown">
+        <option [value]="4">4 per page</option>
+        <option [value]="6">6 per page</option>
+        <option [value]="10">10 per page</option>
+      </select>
+    </div>
+
   </div>
 
   <!-- 📊 Skill Categories List -->
   <div class="user-list" *ngIf="skillsCategory.length > 0; else noData">
-    <table class="user-table">
+    <table class="user-table table table-stripped table-hover table-bordered">
       <thead>
         <tr>
           <th>#</th>
-          <th>Name</th>
-          <th>Description</th>
+          <th (click)="changeSort('name')">Name</th>
+          <th (click)="changeSort('description')">Description</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let c of skillsCategory; let i = index">
-          <td>{{ i + 1 }}</td>
+        <tr *ngFor="
+          let c of filteredCategories()
+            | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage };
+          let i = index
+        ">
+          <td>{{ i + 1 + (currentPage - 1) * itemsPerPage }}</td>
           <td>{{ c.name }}</td>
           <td>{{ c.description }}</td>
           <td>
@@ -40,6 +54,9 @@
       </tbody>
     </table>
   </div>
+
+  <pagination-controls (pageChange)="currentPage = $event" [autoHide]="true" previousLabel="«" nextLabel="»">
+  </pagination-controls>
 
   <!-- 😢 No Data Template -->
   <ng-template #noData>

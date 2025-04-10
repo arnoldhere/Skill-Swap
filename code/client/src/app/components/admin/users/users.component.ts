@@ -40,12 +40,6 @@ export class UsersComponent implements OnInit {
     });
   }
 
-
-  // viewUser(userId: string) {
-  //   // this.router.navigate(['/user/user-details', userId]); // Navigates to the user details page
-  //   this.userService.getUserById(userId).subscribe({})
-  // }
-
   filteredUsers(): any[] {
     let filtered = this.users.filter((user) => {
       const term = this.searchTerm.toLowerCase();
