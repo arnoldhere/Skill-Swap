@@ -39,12 +39,12 @@ export class UserService {
   /*******************   api Services & routes   ****************************/
 
   // 🎯 Get Logged-in Admin Profile
-  getAdminProfile(id: string): Observable<any> {
+  getAdminProfile(id: string ): Observable<any> {
     return this.http.get(`${this.apiUrl}/admin/get-profile/${id}`);
   }
 
-  deleteSkillById(id:string): Observable <any>{
-    return this.http.delete(`${this.apiUrl}/user/delete-skill/${id}`);
+  deleteSkillById(id:string , uid:string): Observable <any>{
+    return this.http.get(`${this.apiUrl}/user/delete-skill/${id}/${uid}`);
   }
 
 

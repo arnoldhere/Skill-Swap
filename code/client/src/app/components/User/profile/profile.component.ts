@@ -168,13 +168,23 @@ export class ProfileComponent implements OnInit {
   }
 
   viewSkill(skill: any) {
-    // Open dialog or navigate to a detailed skill view component
-    this.router.navigate(['/user/skill', skill._id]);
+    const certificateUrl = skill?.certificate;
+    console.log("Certificate URL:", certificateUrl);
+
+    if (certificateUrl) {
+      const backendBaseUrl = 'http://localhost:5000'; // or your deployed domain
+      const fullUrl = `${backendBaseUrl}/${certificateUrl}`;
+      console.log("Opening certificate:", fullUrl);
+      window.open(fullUrl, '_blank');
+    } else {
+      this.toast.warn('No certificate found for this skill.');
+    }
   }
 
   deleteSkill(skillId: string): void {
     if (confirm('Are you sure you want to delete this skill?')) {
-      this.userService.deleteSkillById(skillId).subscribe({
+      const uid = localStorage.getItem("id") || "";
+      this.userService.deleteSkillById(skillId, uid).subscribe({
         next: (res) => {
           this.user.skills = this.user.skills.filter((s: { _id: string; }) => s._id !== skillId);
           console.log('Skill deleted successfully');

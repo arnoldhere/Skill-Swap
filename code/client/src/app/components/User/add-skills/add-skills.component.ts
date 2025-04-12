@@ -28,7 +28,8 @@ export class AddSkillsComponent implements OnInit {
   ngOnInit() {
     this.skillForm = this.fb.group({
       category: ['', Validators.required],
-      pdf: [null, Validators.required],
+      fees: [null, Validators.required],
+      pdf: [null, Validators.required], // You’re manually handling file validity
     });
 
     this.fetchCategories();
@@ -43,33 +44,37 @@ export class AddSkillsComponent implements OnInit {
 
   onFileSelected(event: any) {
     const file = event.target.files[0];
+    const pdfControl = this.skillForm.get('pdf');
 
-    if (!file) return;
+    if (!file) {
+      this.selectedFile = undefined;
+      pdfControl?.setErrors({ required: true });
+      return;
+    }
 
     const isPDF = file.type === 'application/pdf';
-    const isUnder10MB = file.size <= 10 * 1024 * 1024; // 10 MB
+    const isUnder10MB = file.size <= 10 * 1024 * 1024;
 
     if (isPDF && isUnder10MB) {
       this.selectedFile = file;
-      this.skillForm.get('pdf')?.setErrors(null); // Clear previous errors
+      pdfControl?.setErrors(null);
+      pdfControl?.markAsTouched();
     } else {
       this.selectedFile = undefined;
-      let errorMsg = '';
-
       if (!isPDF) {
-        errorMsg = '❌ Please upload a valid PDF file!';
-        this.skillForm.get('pdf')?.setErrors({ invalidType: true });
-      } else if (!isUnder10MB) {
-        errorMsg = '📄 File size must be less than 10MB!';
-        this.skillForm.get('pdf')?.setErrors({ fileTooLarge: true });
+        pdfControl?.setErrors({ invalidType: true });
+        this.toast.error('❌ Please upload a valid PDF file!');
+      } else {
+        pdfControl?.setErrors({ fileTooLarge: true });
+        this.toast.error('📄 File size must be less than 10MB!');
       }
-
-      this.toast.error(errorMsg);
     }
   }
 
 
+
   submit() {
+    console.log(this.skillForm.value)
     if (this.skillForm.invalid || !this.selectedFile) {
       this.toast.error('Please fill out the form properly');
       return;
@@ -78,6 +83,7 @@ export class AddSkillsComponent implements OnInit {
     const formData = new FormData();
     formData.append('category', this.skillForm.value.category);
     formData.append('document', this.selectedFile);
+    formData.append('fees', this.skillForm.value.fees);
 
     const id = localStorage.getItem("id") || "";
     this.userService.uploadSkill(formData, id).subscribe({

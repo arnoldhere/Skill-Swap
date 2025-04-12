@@ -11,7 +11,7 @@ router.get("/get-current-user/:id", async (req, res) => {
 	try {
 		const userData = await User.findById(req.params.id).populate(
 			"skills.category",
-			"name"
+			"name certificate"
 		); // populate name of category
 		if (!userData) {
 			res.status(404).json({ message: "User not found" });
@@ -196,25 +196,36 @@ router.post("/add-skills/:id", upload.single("document"), async (req, res) => {
 	}
 });
 
-router.delete("/delete-skill/:id" , async(req,res)=>{
+router.get("/delete-skill/:skillId/:userId", async (req, res) => {
 	try {
-		
-		const id = req.params.id;
-		if(!id)
-			return res.status(404).json({message: "Id not found...try again"})
+		const skillId = req.params.skillId;
 
-		const res = SkillCategory.findByIdAndDelete(id)
+		if (!skillId) {
+			return res.status(400).json({ message: "Skill ID not provided" });
+		}
 
-		if(!res)
-			return res.status(409).json({message:"Could not delete...try again..."})
+		// Assuming you're getting the user ID from token or somewhere else (e.g., req.user.id)
+		const userId = req.params.userId; // or pass it via query/body if needed
 
-		return res.status(200).json({message: "Successfully deleted..."})
+		const user = await User.findById(userId);
+		if (!user) return res.status(404).json({ message: "User not found" });
+
+		// Filter out the skill
+		const originalSkillCount = user.skills.length;
+		user.skills = user.skills.filter((skill) => skill._id.toString() !== skillId);
+
+		if (user.skills.length === originalSkillCount) {
+			return res.status(404).json({ message: "Skill not found in user's profile" });
+		}
+
+		await user.save();
+		return res.status(200).json({ message: "Skill deleted successfully" });
 
 	} catch (error) {
-		console.log(error)
-		return res.status(500).json({message: "Internal server error..."})
+		console.log("Delete Skill Error:", error);
+		return res.status(500).json({ message: "Internal server error" });
 	}
-})
+});
 
 
 module.exports = router;

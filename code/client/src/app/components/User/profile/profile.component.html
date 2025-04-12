@@ -83,13 +83,9 @@
     <mat-card class="profile-card skills-card">
       <mat-card-header>
         <mat-card-title>Skills</mat-card-title>
-        <button
-        mat-icon-button
-        color="primary"
-        class="card-action-btn"
-        (click)="handleAddSkill()">
-        <mat-icon>add</mat-icon>
-      </button>
+        <button mat-icon-button color="primary" class="card-action-btn" (click)="handleAddSkill()">
+          <mat-icon>add</mat-icon>
+        </button>
 
       </mat-card-header>
 
@@ -104,7 +100,7 @@
               </div>
               <div class="skill-actions">
                 <button mat-icon-button color="primary" (click)="viewSkill(skill)">
-                  <mat-icon>visibility</mat-icon>
+                  <i class="fa-solid fa-file-pdf"></i>
                 </button>
                 <button mat-icon-button color="accent" (click)="editSkill(skill)">
                   <mat-icon>edit</mat-icon>
