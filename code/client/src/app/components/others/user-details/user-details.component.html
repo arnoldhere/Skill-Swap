@@ -15,9 +15,12 @@
   <div class="skills-section">
     <strong>Skills:</strong>
     <div *ngIf="user.skills && user.skills.length; else noSkills" class="skills-wrapper">
-      <span class="skill-badge" *ngFor="let skill of user.skills">
-        {{ skill.category?.name }}
-      </span>
+      <div class="skill-card" *ngFor="let skill of user.skills">
+        <span class="skill-badge">{{ skill.category?.name }}</span>
+        <button class="view-cert-btn" *ngIf="skill.certificate" (click)="viewCertificate(skill.certificate)">
+          <i class="fa-solid fa-file-pdf"></i> View Certificate
+        </button>
+      </div>
     </div>
 
     <ng-template #noSkills>

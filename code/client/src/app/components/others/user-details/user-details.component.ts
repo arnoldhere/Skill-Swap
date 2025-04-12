@@ -32,4 +32,15 @@ export class UserDetailsComponent implements OnInit {
       });
     }
   }
+  viewCertificate(certificatePath: string) {
+    if (certificatePath) {
+      const backendBaseUrl = 'http://localhost:5000'; // Adjust if deployed
+      const fullUrl = `${backendBaseUrl}/${certificatePath}`;
+      window.open(fullUrl, '_blank');
+    } else {
+      alert('Certificate not available');
+    }
+  }
+
+
 }
