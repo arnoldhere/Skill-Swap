@@ -1,0 +1,39 @@
+<app-navbar/>
+<div class="browse-skill">
+  <h2 class="title">🎯 Browse Skill Swappers</h2>
+
+  <div class="user-grid">
+    <div
+      class="user-card animate"
+      *ngFor="let user of users"
+      [@fadeInAnimation]>
+
+      <div class="avatar">
+        <img [src]="user.profilephoto || defaultAvatar" alt="User Avatar">
+      </div>
+
+      <div class="user-info">
+        <h3>{{ user.firstname }} {{ user.lastname }}</h3>
+        <p class="email">{{ user.email }}</p>
+        <p class="location" *ngIf="user.location">
+          📍 {{ user.location.city }} - {{ user.location.state }}
+        </p>
+
+        <div class="skills">
+          <span class="skill-tag" *ngFor="let skill of user.skills">
+            {{ skill.category?.name || 'Unnamed Skill' }}
+          </span>
+        </div>
+      </div>
+
+      <div class="btn-group">
+        <button class="chat-btn" (click)="chat(user._id)">
+          <i class="fa-brands fa-rocketchat"></i> Chat
+        </button>
+        <button class="view-btn" (click)="view(user._id)">
+          <i class="fa-solid fa-eye"></i> View
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

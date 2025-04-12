@@ -42,4 +42,8 @@ export class HomeComponent implements OnInit {
 
   }
 
+  browseSkill(id:string){
+    this.router.navigate(['/user/browse-skill', id]); // Navigates to the user details page
+  }
+
 }

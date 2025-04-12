@@ -39,6 +39,8 @@
     <div class="carousel-wrapper" [style.transform]="'translateX(-' + activeIndex * 100 + '%)'">
       <div *ngFor="let feedback of feedbacks" class="testimonial">
         <p class="feedback">"{{ feedback.feedback }}"</p>
+        <span class="text-muted text-center">{{feedback.subject}}</span>
+        <br>
         <h4>{{ feedback.user?.firstname }} {{ feedback.user?.lastname }}</h4>
         <div class="rating">
           <span *ngFor="let star of [1, 2, 3, 4, 5]" [class.filled]="star <= feedback.rating">

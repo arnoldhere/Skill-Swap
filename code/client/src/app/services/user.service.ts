@@ -95,6 +95,9 @@ export class UserService {
     return this.http.get(`${this.apiUrl}/others/get-user/${userId}`)
   }
 
+  getUsersBySkillCategory(id: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/skills/browse-by-category/${id}`)
+  }
   // ✅ Get logged-in user ID (if stored in localStorage or decoded from token)
   getUserId(): string {
     const userData = localStorage.getItem('user');

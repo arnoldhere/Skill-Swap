@@ -1,0 +1,128 @@
+.browse-skill {
+  padding: 2rem;
+
+  .title {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #3c3c3c;
+  }
+
+  .user-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .user-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: #fff;
+    border-radius: 1.5rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    height: 100%; // Ensures equal height cards
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin: 0 auto 1rem;
+      border: 3px solid #00bcd4;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    .user-info {
+      text-align: center;
+      margin-bottom: 1rem;
+
+      h3 {
+        font-size: 1.2rem;
+        margin: 0.5rem 0;
+      }
+
+      .email {
+        color: #666;
+        font-size: 0.9rem;
+      }
+
+      .location {
+        font-size: 0.9rem;
+        color: #007bff;
+        margin-top: 0.3rem;
+      }
+
+      .skills {
+        margin-top: 1rem;
+
+        .skill-tag {
+          display: inline-block;
+          background: #e0f7fa;
+          color: #00796b;
+          padding: 0.3rem 0.6rem;
+          border-radius: 999px;
+          margin: 0.2rem;
+          font-size: 0.8rem;
+        }
+      }
+    }
+
+    .btn-group {
+      margin-top: auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 0.5rem;
+
+      button {
+        flex: 1;
+        border: none;
+        border-radius: 25px;
+        padding: 0.6rem 0.8rem;
+        cursor: pointer;
+        font-weight: bold;
+        transition: all 0.3s ease;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        i {
+          margin-right: 0.4rem;
+        }
+
+        &.chat-btn {
+          background: #4caf50;
+          color: white;
+
+          &:hover {
+            background: #388e3c;
+          }
+        }
+
+        &.view-btn {
+          background: #2196f3;
+          color: white;
+
+          &:hover {
+            background: #1976d2;
+          }
+        }
+      }
+    }
+  }
+}

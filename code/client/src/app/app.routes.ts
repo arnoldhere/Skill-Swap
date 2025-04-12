@@ -90,6 +90,12 @@ export const routes: Routes = [
         canActivate: [AuthGuard],
         data: { roles: ['user'] } // Only users can access
       },
+      {
+        path: 'browse-skill/:id',
+        loadComponent: () => import("./components/User/browse-skill/browse-skill.component").then(c => c.BrowseSkillComponent),
+        canActivate: [AuthGuard],
+        data: { roles: ['user'] } // Only users can access
+      },
     ]
   },
 

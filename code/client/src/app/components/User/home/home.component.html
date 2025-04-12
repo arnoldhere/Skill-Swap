@@ -35,7 +35,7 @@
     <div class="skill-grid">
       <div *ngFor="let category of skillCategories" class="skill-item">
         <h3>{{ category.name }}</h3>
-        <button class="explore-btn" [routerLink]="['/skills', category._id]">Browse</button>
+        <button class="explore-btn" (click)="browseSkill(category._id)">Browse</button>
       </div>
     </div>
   </section>

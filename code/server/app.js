@@ -10,7 +10,8 @@ const path = require("path");
 const userRoutes = require("./routes/User/Profile");
 const OtherRoutes = require("./routes/User/Others");
 const AdminRoutes = require("./routes/Admin");
-const MessageRoutes = require("./routes/Messages")
+const MessageRoutes = require("./routes/Messages");
+const skillRoutes = require("./routes/User/Skill");
 
 // Middleware
 app.use(cors());
@@ -34,7 +35,7 @@ app.use("/user", userRoutes);
 app.use("/others", OtherRoutes);
 app.use("/admin", AdminRoutes);
 app.use("/message", MessageRoutes);
-
+app.use("/skills", skillRoutes);
 
 // Define a basic route
 app.get("/", (req, res) => {
