@@ -1,8 +1,8 @@
-<app-navbar/>
+<app-navbar></app-navbar>
 <div class="browse-skill">
   <h2 class="title">🎯 Browse Skill Swappers</h2>
 
-  <div class="user-grid">
+  <div *ngIf="users && users.length > 0; else noUsers" class="user-grid">
     <div
       class="user-card animate"
       *ngFor="let user of users"
@@ -36,4 +36,9 @@
       </div>
     </div>
   </div>
+
+  <!-- 👇 No Users Template -->
+  <ng-template #noUsers>
+    <p class="no-users-msg">😔 No users found for now. Please check back later!</p>
+  </ng-template>
 </div>

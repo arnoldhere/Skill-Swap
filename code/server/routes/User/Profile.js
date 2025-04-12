@@ -5,6 +5,7 @@ const {
 	upload,
 	deleteOldProfilePhoto,
 } = require("../../middleware/UploadMiddleware");
+const SkillCategory = require("../../models/SkillCategory");
 
 router.get("/get-current-user/:id", async (req, res) => {
 	try {
@@ -194,5 +195,26 @@ router.post("/add-skills/:id", upload.single("document"), async (req, res) => {
 		res.status(500).json({ message: "Server error", error });
 	}
 });
+
+router.delete("/delete-skill/:id" , async(req,res)=>{
+	try {
+		
+		const id = req.params.id;
+		if(!id)
+			return res.status(404).json({message: "Id not found...try again"})
+
+		const res = SkillCategory.findByIdAndDelete(id)
+
+		if(!res)
+			return res.status(409).json({message:"Could not delete...try again..."})
+
+		return res.status(200).json({message: "Successfully deleted..."})
+
+	} catch (error) {
+		console.log(error)
+		return res.status(500).json({message: "Internal server error..."})
+	}
+})
+
 
 module.exports = router;

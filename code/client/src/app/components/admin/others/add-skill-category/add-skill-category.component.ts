@@ -34,6 +34,7 @@ export class AddSkillCategoryComponent implements OnInit {
     this.editForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
       description: ['', [Validators.required, Validators.minLength(5)]],
+      fees: ['', [Validators.required]],
     });
   }
 

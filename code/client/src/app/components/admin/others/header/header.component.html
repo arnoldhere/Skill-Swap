@@ -7,7 +7,7 @@
 
   <!-- Notification and Profile Section -->
   <div class="actions">
-    Notification Bell with Badge
+    <!-- Notification Bell with Badge -->
     <!--<div class="notification" (click)="openNotifications()">
       <mat-icon class="icon">notifications</mat-icon>
       <span class="badge" *ngIf="notificationsCount > 0">{{ notificationsCount }}</span>
@@ -15,6 +15,7 @@
 
     <!-- Profile Section -->
     <div class="profile" (click)="toggleProfileMenu()">
+      <i class="fa-solid fa-user"></i>
       <button class="profile-name" mat-raised-button>{{user?.firstname}}</button>
     </div>
 

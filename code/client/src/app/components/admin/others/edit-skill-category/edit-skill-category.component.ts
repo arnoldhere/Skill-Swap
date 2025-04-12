@@ -34,6 +34,7 @@ export class EditSkillCategoryComponent implements OnInit {
     this.editForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
       description: ['', [Validators.required, Validators.minLength(5)]],
+      commission: ['', [Validators.required]],
     });
 
     if (this.categoryId) {

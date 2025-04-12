@@ -117,6 +117,7 @@ export class PersonalInfoComponent implements OnInit {
   updatePersonalInfo() {
     if (this.personalInfoForm.invalid) {
       this.toast.error("Please fill all required fields correctly!");
+      console.log(this.personalInfoForm.value)
       return;
     }
     this.isLoading = true;

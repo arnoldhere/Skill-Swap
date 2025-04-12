@@ -28,6 +28,7 @@
           <th>#</th>
           <th (click)="changeSort('name')">Name</th>
           <th (click)="changeSort('description')">Description</th>
+          <th (click)="changeSort('Commison')">commission %</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -40,6 +41,7 @@
           <td>{{ i + 1 + (currentPage - 1) * itemsPerPage }}</td>
           <td>{{ c.name }}</td>
           <td>{{ c.description }}</td>
+          <td>{{ c.commission }}</td>
           <td>
             <!-- Delete Button -->
             <button class="btn btn-danger btn-md p-2 m-1" (click)="deleteCategory(c._id)">

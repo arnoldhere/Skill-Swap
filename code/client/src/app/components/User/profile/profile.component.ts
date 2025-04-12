@@ -161,5 +161,40 @@ export class ProfileComponent implements OnInit {
 
   }
 
+  editSkill(skill: any): void {
+    // Open a dialog or navigate to skill edit page
+    console.log('Editing skill:', skill);
+    // Example: this.router.navigate(['/user/edit-skill', skill._id]);
+  }
+
+  viewSkill(skill: any) {
+    // Open dialog or navigate to a detailed skill view component
+    this.router.navigate(['/user/skill', skill._id]);
+  }
+
+  deleteSkill(skillId: string): void {
+    if (confirm('Are you sure you want to delete this skill?')) {
+      this.userService.deleteSkillById(skillId).subscribe({
+        next: (res) => {
+          this.user.skills = this.user.skills.filter((s: { _id: string; }) => s._id !== skillId);
+          console.log('Skill deleted successfully');
+        },
+        error: (err) => {
+          console.error('Failed to delete skill', err);
+        }
+      });
+    }
+  }
+
+  handleAddSkill() {
+    if (this.user?.skills?.length >= 3) {
+      this.toast.error('Only 3 skills are allowed')
+      return;
+    }
+
+    // Navigate to add skill page if under the limit
+    this.router.navigate(['/user/add-skills']);
+  }
+
 
 }

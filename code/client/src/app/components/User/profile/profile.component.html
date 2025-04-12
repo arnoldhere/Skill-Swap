@@ -14,9 +14,9 @@
     <div class="profile-title-section">
       <h1 class="profile-name">{{user?.firstname || 'John'}} {{user?.lastname || 'Doe'}}</h1>
       <p class="profile-role" style="text-transform: capitalize;">{{user?.role || 'Professional'}}</p>
-      <div class="availability-badge" [ngClass]="{'online': user?.availabilityStatus === 'online'}">
+      <!-- <div class="availability-badge" [ngClass]="{'online': user?.availabilityStatus === 'online'}">
         {{user?.availabilityStatus === 'online' ? 'Available' : 'Unavailable'}}
-      </div>
+      </div> -->
     </div>
   </div>
 
@@ -83,22 +83,45 @@
     <mat-card class="profile-card skills-card">
       <mat-card-header>
         <mat-card-title>Skills</mat-card-title>
-        <button mat-icon-button color="primary" class="card-action-btn" routerLink="/user/add-skills">
-          <mat-icon>add</mat-icon>
-        </button>
+        <button
+        mat-icon-button
+        color="primary"
+        class="card-action-btn"
+        (click)="handleAddSkill()">
+        <mat-icon>add</mat-icon>
+      </button>
+
       </mat-card-header>
+
       <mat-card-content>
         <div class="skills-section">
           <h3>Skills I Can Offer</h3>
-          <mat-chip-listbox aria-label="Skills offered">
-            <mat-chip *ngFor="let skill of user?.skills" color="primary" selected>
-              {{ skill.category.name }}
-            </mat-chip>
-            <mat-chip *ngIf="!user?.skills?.length" disabled>No skills added</mat-chip>
-          </mat-chip-listbox>
-        </div>
-      </mat-card-content>
 
+          <div *ngIf="user?.skills?.length > 0; else noSkills">
+            <div class="skill-row" *ngFor="let skill of user.skills">
+              <div class="skill-info">
+                <span class="skill-name">{{ skill.category.name }}</span>
+              </div>
+              <div class="skill-actions">
+                <button mat-icon-button color="primary" (click)="viewSkill(skill)">
+                  <mat-icon>visibility</mat-icon>
+                </button>
+                <button mat-icon-button color="accent" (click)="editSkill(skill)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="deleteSkill(skill._id)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <ng-template #noSkills>
+            <mat-chip disabled>No skills added</mat-chip>
+          </ng-template>
+        </div>
+
+      </mat-card-content>
     </mat-card>
 
 

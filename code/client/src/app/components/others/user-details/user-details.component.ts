@@ -41,6 +41,4 @@ export class UserDetailsComponent implements OnInit {
       alert('Certificate not available');
     }
   }
-
-
 }

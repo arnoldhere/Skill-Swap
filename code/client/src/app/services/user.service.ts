@@ -43,6 +43,12 @@ export class UserService {
     return this.http.get(`${this.apiUrl}/admin/get-profile/${id}`);
   }
 
+  deleteSkillById(id:string): Observable <any>{
+    return this.http.delete(`${this.apiUrl}/user/delete-skill/${id}`);
+  }
+
+
+
   getSkillsCategory(): Observable<any> {
     return this.http.get(`${this.apiUrl}/admin/get-skills-category`);
   }

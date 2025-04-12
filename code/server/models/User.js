@@ -53,15 +53,19 @@ const userSchema = new mongoose.Schema(
 			city: { type: String, required: false },
 			pincode: { type: String, required: false },
 		},
-
 		phone: String,
 		bio: String,
-		skills: 
-			[{
-				category: { type: mongoose.Schema.Types.ObjectId, ref: "SkillCategory" },
+		skills: [
+			{
+				category: {
+					type: mongoose.Schema.Types.ObjectId,
+					ref: "SkillCategory",
+				},
 				certificate: { type: String },
 				createdAt: { type: Date, default: Date.now },
-			}],
+				fees: { type: Number, default: 0.0 },
+			},
+		],
 		socialLinks: {
 			instagram: String,
 			linkedin: String,

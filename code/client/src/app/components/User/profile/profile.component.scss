@@ -509,3 +509,20 @@ $transition-speed: 0.7s;
   border-radius: 50%;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
+
+.skill-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e0e0e0;
+
+  .skill-info {
+    font-weight: 500;
+  }
+
+  .skill-actions {
+    display: flex;
+    gap: 8px;
+  }
+}

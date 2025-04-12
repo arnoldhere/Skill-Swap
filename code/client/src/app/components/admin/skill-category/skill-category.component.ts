@@ -60,6 +60,7 @@ export class SkillCategoryComponent implements OnInit {
     this.categoryForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
       description: ['', [Validators.required, Validators.minLength(5)]],
+      fees: ['', [Validators.required]],
     });
   }
 
