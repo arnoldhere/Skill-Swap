@@ -20,9 +20,14 @@
           <span class="skill-badge">{{ skill.category?.name }}</span>
           <p class="fees">💸 Fees/Day: ₹{{ skill.fees || 0 }}</p>
         </div>
-        <button class="view-cert-btn" *ngIf="skill.certificate" (click)="viewCertificate(skill.certificate)">
-          <i class="fa-solid fa-file-pdf"></i> View Certificate
-        </button>
+        <div class="d-flex">
+          <button class="view-cert-btn" *ngIf="skill.certificate" (click)="viewCertificate(skill.certificate)">
+            <i class="fa-solid fa-file-pdf"></i> View Certificate
+          </button>
+          <button class="book-cert-btn">
+            <i class="fa-solid fa-thumbs-up"></i> Book
+          </button>
+        </div>
       </div>
     </div>
 

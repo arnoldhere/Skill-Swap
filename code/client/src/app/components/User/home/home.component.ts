@@ -31,8 +31,9 @@ export class HomeComponent implements OnInit {
     }
     // Fetch skill categories
     this.userService.fetchSkillsCategory().subscribe({
-      next: (data) => {
-        this.skillCategories = data;
+      next: (res: any) => {
+        console.log('Fetched categories:', res.data);  // Log the structure of res
+        this.skillCategories = res.data;
       },
       error: (err) => {
         console.error('Error fetching categories:', err);
@@ -42,7 +43,7 @@ export class HomeComponent implements OnInit {
 
   }
 
-  browseSkill(id:string){
+  browseSkill(id: string) {
     this.router.navigate(['/user/browse-skill', id]); // Navigates to the user details page
   }
 

@@ -47,7 +47,7 @@ export class EditSkillsComponent implements OnInit {
 
     this.userService.fetchSkillsCategory().subscribe({
       next: (res: any) => {
-        this.categories = res.categories;
+        this.categories = res.data;
         console.log(this.categories)
       },
       error: () => {

@@ -86,6 +86,29 @@
       border: none;
       cursor: pointer;
       font-size: 0.9rem;
+      margin: 0.2rem 0.3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: background 0.3s ease;
+
+      i {
+        font-size: 1rem;
+      }
+
+      &:hover {
+        background-color: #1976d2;
+      }
+    }
+    .book-cert-btn {
+      background-color: #21f344;
+      color: #fff;
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      border: none;
+      margin: 0.2rem 0.3rem;
+      cursor: pointer;
+      font-size: 0.9rem;
       display: flex;
       align-items: center;
       gap: 0.4rem;
