@@ -74,7 +74,7 @@ router.get("/get-feedbacks-rating", async (req, res) => {
 router.get("/get-skills-category", async (req, res) => {
 	try {
 		const categories = await SkillCategory.find();
-		res.status(200).json(categories);
+		res.status(200).json({categories});
 	} catch (err) {
 		console.log(err);
 		res.status(500).json({ error: "Failed to fetch categories" });

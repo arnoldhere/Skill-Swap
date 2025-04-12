@@ -96,6 +96,12 @@ export const routes: Routes = [
         canActivate: [AuthGuard],
         data: { roles: ['user'] } // Only users can access
       },
+      {
+        path: 'edit-skill/:id',
+        loadComponent: () => import("./components/User/edit-skills/edit-skills.component").then(c => c.EditSkillsComponent),
+        canActivate: [AuthGuard],
+        data: { roles: ['user'] } // Only users can access
+      }
     ]
   },
 

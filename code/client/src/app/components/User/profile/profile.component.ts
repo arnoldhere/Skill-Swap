@@ -163,8 +163,7 @@ export class ProfileComponent implements OnInit {
 
   editSkill(skill: any): void {
     // Open a dialog or navigate to skill edit page
-    console.log('Editing skill:', skill);
-    // Example: this.router.navigate(['/user/edit-skill', skill._id]);
+    this.router.navigate(['/user/edit-skill', skill._id]);
   }
 
   viewSkill(skill: any) {

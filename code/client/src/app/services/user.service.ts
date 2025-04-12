@@ -39,11 +39,11 @@ export class UserService {
   /*******************   api Services & routes   ****************************/
 
   // 🎯 Get Logged-in Admin Profile
-  getAdminProfile(id: string ): Observable<any> {
+  getAdminProfile(id: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/admin/get-profile/${id}`);
   }
 
-  deleteSkillById(id:string , uid:string): Observable <any>{
+  deleteSkillById(id: string, uid: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/user/delete-skill/${id}/${uid}`);
   }
 
@@ -64,6 +64,14 @@ export class UserService {
   // Fetch category by ID
   getSkillCategoryById(id: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/admin/get-skill-category/${id}`);
+  }
+
+  getUserSkillById(skillId: string, uid: string) {
+    return this.http.get(`${this.apiUrl}/user/fetch-skill/${skillId}/${uid}`);
+  }
+
+  updateUserSkill(uid: string, sid: string, data: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/user/update-skill/${sid}/${uid}`, data);
   }
 
   updateSkillCategory(id: string, data: any): Observable<any> {

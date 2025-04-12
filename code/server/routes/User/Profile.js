@@ -41,6 +41,51 @@ router.get("/get-current-user/:id", async (req, res) => {
 	}
 });
 
+router.put(
+	"/update-skill/:sid/:uid",
+	upload.single("document"),
+	async (req, res) => {
+		try {
+			const { sid, uid } = req.params;
+			const { category, fees } = req.body;
+			const user = await User.findById(uid);
+			if (!user) {
+				return res.status(404).json({ message: "User not found" });
+			}
+
+			// Find the skill by sid
+			const skillIndex = user.skills.findIndex(
+				(skill) => skill._id.toString() === sid
+			);
+			if (skillIndex === -1) {
+				return res.status(404).json({ message: "Skill not found" });
+			}
+
+			// Update skill fields
+			if (category) user.skills[skillIndex].category = category;
+			if (fees) user.skills[skillIndex].fees = fees;
+			if (req.file) {
+				// Optionally delete old certificate file here if needed
+				user.skills[skillIndex].certificate = null;
+				user.skills[
+					skillIndex
+				].certificate = `uploads/documents/${req.file.filename}`;
+			}
+
+			// Save changes
+			await user.save();
+
+			return res.status(200).json({
+				message: "Skill updated successfully",
+				skill: user.skills[skillIndex],
+			});
+		} catch (error) {
+			console.log(error);
+			return res.status(500).json({ message: "Internal server error" });
+		}
+	}
+);
+
 // Update availability
 router.post("/update-user-avail-status/:id", async (req, res) => {
 	try {
@@ -147,7 +192,7 @@ router.post("/update-current-user/:id", async (req, res) => {
 router.post("/add-skills/:id", upload.single("document"), async (req, res) => {
 	try {
 		const userId = req.params.id;
-		const { category } = req.body;
+		const { category, fees } = req.body;
 
 		console.log("Received category:", category);
 		console.log("Uploaded file:", req.file);
@@ -181,7 +226,7 @@ router.post("/add-skills/:id", upload.single("document"), async (req, res) => {
 		user.skills.push({
 			category,
 			certificate,
-			createdAt: new Date(),
+			fees,
 		});
 
 		await user.save();
@@ -212,20 +257,42 @@ router.get("/delete-skill/:skillId/:userId", async (req, res) => {
 
 		// Filter out the skill
 		const originalSkillCount = user.skills.length;
-		user.skills = user.skills.filter((skill) => skill._id.toString() !== skillId);
+		user.skills = user.skills.filter(
+			(skill) => skill._id.toString() !== skillId
+		);
 
 		if (user.skills.length === originalSkillCount) {
-			return res.status(404).json({ message: "Skill not found in user's profile" });
+			return res
+				.status(404)
+				.json({ message: "Skill not found in user's profile" });
 		}
 
 		await user.save();
 		return res.status(200).json({ message: "Skill deleted successfully" });
-
 	} catch (error) {
 		console.log("Delete Skill Error:", error);
 		return res.status(500).json({ message: "Internal server error" });
 	}
 });
 
+router.get("/fetch-skill/:sid/:uid", async (req, res) => {
+	try {
+		const userId = req.params.uid;
+		const skillId = req.params.sid;
+
+		const user = await User.findById(userId).populate("skills.category");
+
+		if (!user) return res.status(404).json({ message: "User not found" });
+
+		const skill = user.skills.find((skill) => skill._id.toString() === skillId);
+
+		if (!skill) return res.status(404).json({ message: "Skill not found" });
+
+		res.status(200).json({ skill });
+	} catch (error) {
+		console.log(error);
+		return res.status(500).json({ message: "Internal server error" });
+	}
+});
 
 module.exports = router;
