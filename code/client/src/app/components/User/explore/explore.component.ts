@@ -43,8 +43,12 @@ export class ExploreComponent implements OnInit {
 
 
   connect(userId: string) {
-    // Trigger message, invite, or redirect to chat/profile
-    this.router.navigate(['/chat', userId]);
+    this.toast.info("Please wait....")
+    const receiverId = userId
+    const senderId = localStorage.getItem("id")
+    setTimeout(() => {
+      this.router.navigate(['/user/chat', senderId, receiverId]);
+    }, 2000);
   }
 
 }

@@ -101,6 +101,12 @@ export const routes: Routes = [
         loadComponent: () => import("./components/User/edit-skills/edit-skills.component").then(c => c.EditSkillsComponent),
         canActivate: [AuthGuard],
         data: { roles: ['user'] } // Only users can access
+      },
+      {
+        path: 'chat/:senderId/:receiverId',
+        loadComponent: () => import("./components/User/chat/chat.component").then(c => c.ChatComponent),
+        canActivate: [AuthGuard],
+        data: { roles: ['user'] } // Only users can access
       }
     ]
   },

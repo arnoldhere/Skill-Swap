@@ -12,9 +12,23 @@ const OtherRoutes = require("./routes/User/Others");
 const AdminRoutes = require("./routes/Admin");
 const MessageRoutes = require("./routes/Messages");
 const skillRoutes = require("./routes/User/Skill");
+const setupSocket = require("./config/Socket");
+const http = require("http");
+const server = http.createServer(app);
 
-// Middleware
-app.use(cors());
+
+setupSocket(server);
+
+
+
+// Enable CORS for all origins (you can specify your frontend URL for more security)
+app.use(
+	cors({
+		origin: "http://localhost:4200", // Allow only the Angular frontend to access
+		methods: ["GET", "POST", "PUT", "DELETE"],
+		allowedHeaders: ["Content-Type", "Authorization"],
+	})
+);
 app.use(express.json()); //instead of bodyparser
 app.use(
 	session({
@@ -44,18 +58,6 @@ app.get("/", (req, res) => {
 // Handle 404 errors
 app.use((req, res) => {
 	res.status(404).json({ error: "Router not found" });
-});
-
-const mongoose = require("mongoose");
-const Grid = require("gridfs-stream");
-
-const conn = mongoose.createConnection(process.env.MONGO_URI);
-
-let gfs;
-
-conn.once("open", () => {
-	gfs = Grid(conn.db, mongoose.mongo);
-	gfs.collection("uploads"); // Ensure files are stored in "uploads" collection
 });
 
 module.exports = app;
