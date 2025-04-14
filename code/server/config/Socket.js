@@ -24,13 +24,11 @@ const setupSocket = (server) => {
 		socket.on("private-message", (senderId, recieverId, message) => {
 			const recieverSocketId = connectedUsers.get(recieverId);
 
-			if (recieverSocketId) {
 				socket.to(recieverSocketId).emit("private-message", {
 					senderId,
 					message,
 					time: new Date(),
 				});
-			}
 		});
 
 		//close the socket

@@ -185,7 +185,7 @@ $transition-speed: 0.7s;
   overflow: hidden;
   transition: transform $transition-speed ease,
     box-shadow $transition-speed ease;
-    // animation: ease-in-out 0.7s ease-out 0.2s infinite random($limit: 1) both;
+  // animation: ease-in-out 0.7s ease-out 0.2s infinite random($limit: 1) both;
 
   &:hover {
     transform: translateY(-5px);
@@ -525,4 +525,11 @@ $transition-speed: 0.7s;
     display: flex;
     gap: 8px;
   }
+}
+
+.request-content-wrapper {
+  display: grid;
+  margin: 2rem auto;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: $section-spacing;
 }

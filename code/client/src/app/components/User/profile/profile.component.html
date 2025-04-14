@@ -63,20 +63,6 @@
           </span>
         </div>
 
-        <div class="social-links">
-          <a mat-icon-button color="primary" [href]="user?.socialMedia?.linkedin" target="_blank"
-            *ngIf="user?.socialMedia?.linkedin">
-            <mat-icon svgIcon="linkedin"></mat-icon>
-          </a>
-          <a mat-icon-button color="primary" [href]="user?.socialMedia?.github" target="_blank"
-            *ngIf="user?.socialMedia?.github">
-            <mat-icon svgIcon="github"></mat-icon>
-          </a>
-          <a mat-icon-button color="primary" [href]="user?.socialMedia?.twitter" target="_blank"
-            *ngIf="user?.socialMedia?.twitter">
-            <mat-icon svgIcon="twitter"></mat-icon>
-          </a>
-        </div>
       </mat-card-content>
     </mat-card>
 
@@ -124,7 +110,23 @@
 
 
   </div>
+  <div class="request-content-wrapper" @fadeIn>
+    <mat-card class="profile-card bio-card">
+      <mat-card-header>
+        <mat-card-title>Skill Exchange Requests</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p [class.truncated]="!isBioExpanded" class="text-justify">{{user?.bio || 'No bio information available.'}}</p>
+        <button *ngIf="user?.bio && user.bio.length > 150" mat-button color="primary"
+          (click)="isBioExpanded = !isBioExpanded">
+          {{isBioExpanded ? 'Show Less' : 'Show More'}}
+        </button>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>
+
+
 
 <ng-template #loadingTemplate>
   <div class="loading-container">
