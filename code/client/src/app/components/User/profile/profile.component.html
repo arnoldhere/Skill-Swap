@@ -97,6 +97,8 @@
             <div class="skill-row" *ngFor="let skill of user.skills">
               <div class="skill-info">
                 <span class="skill-name">{{ skill.category.name }}</span>
+                <p class="fees">💸 Fees/Day: ₹{{ skill.fees || 0 }}</p>
+
               </div>
               <div class="skill-actions">
                 <button mat-icon-button color="primary" (click)="viewSkill(skill)">
