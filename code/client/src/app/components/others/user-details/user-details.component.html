@@ -24,7 +24,7 @@
           <button class="view-cert-btn" *ngIf="skill.certificate" (click)="viewCertificate(skill.certificate)">
             <i class="fa-solid fa-file-pdf"></i> View Certificate
           </button>
-          <button class="book-cert-btn">
+          <button class="book-cert-btn" (click)="openBooking(user._id , skill.category._id)">
             <i class="fa-solid fa-thumbs-up"></i> Book
           </button>
         </div>

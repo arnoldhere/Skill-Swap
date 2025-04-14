@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NavbarComponent } from "../navbar/navbar.component";
+import { ToastService } from 'angular-toastify';
 
 @Component({
   selector: 'app-user-details',
@@ -16,7 +17,7 @@ export class UserDetailsComponent implements OnInit {
   user: any;
   defaultAvatar = 'assets/img/default-user.png';
 
-  constructor(private route: ActivatedRoute, private userService: UserService) { }
+  constructor(private route: ActivatedRoute, private userService: UserService, private toast: ToastService, private router: Router) { }
 
   ngOnInit() {
     this.userId = this.route.snapshot.paramMap.get('id') || '';
@@ -40,5 +41,9 @@ export class UserDetailsComponent implements OnInit {
     } else {
       alert('Certificate not available');
     }
+  }
+
+  openBooking(swapperId: string , skillId :string) {
+    this.router.navigate(["/user/book", swapperId , skillId])
   }
 }

@@ -1,0 +1,23 @@
+<app-navbar />
+<div class="form-container" [@fadeInUp]>
+  <h2>Request a Skill Exchange</h2>
+
+  <form [formGroup]="requestForm" (ngSubmit)="onSubmit()">
+    <label for="date">Date</label>
+    <input type="date" id="date" formControlName="date" [min]="todayDate" />
+
+    <label for="time">Timings</label>
+    <select formControlName="time" id="time">
+      <option value="0" disabled selected>Select Timings</option>
+      <option value="Morning">Morning</option>
+      <option value="Noon">Noon</option>
+      <option value="Evening">Evening</option>
+      <option value="Night">Night</option>
+    </select>
+    <label for="message">Message <small>(optional)</small></label>
+    <textarea id="message" formControlName="message" rows="3" placeholder="Your message..."></textarea>
+
+    <button type="submit" [disabled]="requestForm.invalid">Send Request</button>
+  </form>
+</div>
+<app-footer />

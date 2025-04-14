@@ -126,6 +126,11 @@ export class UserService {
     return this.http.get(`${this.apiUrl}/others/get-all-users`);
   }
 
+  bookSwapper(swapper_id: string, uid: string, data: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/skills/book/${uid}/${swapper_id}`, { data })
+  }
+
+
   getCurrentUser(id: string): Observable<any> {
     console.log(id)
     return this.http.get(`${this.apiUrl}/user/get-current-user/${id}`);

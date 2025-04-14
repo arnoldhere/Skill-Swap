@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 var Skillcategory = new mongoose.Schema({
 	name: String,
 	description: String,
-	commission: { type: Number, default: 0.0 },
+	commission: { type: Number, default: 5.5 },
 });
 
 module.exports = mongoose.model("SkillCategory", Skillcategory);

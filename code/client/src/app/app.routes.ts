@@ -103,6 +103,12 @@ export const routes: Routes = [
         data: { roles: ['user'] } // Only users can access
       },
       {
+        path: 'book/:swapperId/:skillId',
+        loadComponent: () => import("./components/User/booking-request/booking-request.component").then(c => c.BookingRequestComponent),
+        canActivate: [AuthGuard],
+        data: { roles: ['user'] } // Only users can access
+      },
+      {
         path: 'chat/:senderId/:receiverId',
         loadComponent: () => import("./components/User/chat/chat.component").then(c => c.ChatComponent),
         canActivate: [AuthGuard],
