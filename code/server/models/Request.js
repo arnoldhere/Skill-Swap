@@ -6,7 +6,7 @@ const requestSchema = new mongoose.Schema({
 		ref: "SkillCategory",
 		required: true,
 	},
-	swapperId: {
+	swapperId: { // user who got the request
 		type: mongoose.Schema.Types.ObjectId,
 		ref: "User",
 		required: true,

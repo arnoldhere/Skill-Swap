@@ -16,6 +16,7 @@ import { DomSanitizer } from "@angular/platform-browser";
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ImageUploadDialogComponent } from "./tools/image-upload-dialog/image-upload-dialog.component";
 import { EditBioSectionComponent } from "./tools/edit-bio-section/edit-bio-section.component";
+import { MatList, MatListItem } from "@angular/material/list";
 
 @Component({
   selector: "app-profile",
@@ -33,7 +34,7 @@ import { EditBioSectionComponent } from "./tools/edit-bio-section/edit-bio-secti
     FormsModule,
     MatChipsModule,
     ReactiveFormsModule,
-    RouterLink
+    RouterLink,
   ],
   templateUrl: "./profile.component.html",
   styleUrls: ["./profile.component.scss"],
@@ -56,7 +57,7 @@ export class ProfileComponent implements OnInit {
   error: string | null = null;
   profileCompletion: number = 0;
   activeSection: string = 'overview';
-
+  exchangeRequests: any = null;
   constructor(
     private toast: ToastService,
     private userService: UserService,
@@ -73,6 +74,18 @@ export class ProfileComponent implements OnInit {
     setTimeout(() => {
       this.isLoading = false;
     }, 1000);
+
+    // fetch requests
+    this.userService.getAllExchangeRequests(this.id).subscribe({
+      next: (res: any) => {
+        this.exchangeRequests = res
+        console.log(this.exchangeRequests)
+      },
+      error: (err: any) => {
+        console.log(err)
+        this.toast.error(err.message || "internal server error...")
+      }
+    })
 
     this.userService.getCurrentUser(this.id).subscribe({
       next: (userData: any) => {
@@ -205,5 +218,18 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(['/user/add-skills']);
   }
 
+  deleteReq(id: string) {
+    if (!window.confirm('Are you sure you want to delete ?')) return;
+
+    this.userService.deleteExchangeRequest(id).subscribe({
+      next: (res: any) => {
+        this.toast.info(res.message || "Deleted succefully..")
+        window.location.reload()
+      },
+      error: (err: any) => {
+        this.toast.info(err.message || "error in delete..")
+      }
+    })
+  }
 
 }

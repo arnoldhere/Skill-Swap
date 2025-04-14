@@ -12,11 +12,6 @@ const OtherRoutes = require("./routes/User/Others");
 const AdminRoutes = require("./routes/Admin");
 const MessageRoutes = require("./routes/Messages");
 const skillRoutes = require("./routes/User/Skill");
-const setupSocket = require("./config/Socket");
-const http = require("http");
-
-const server = http.createServer(app);
-setupSocket(server);
 
 // Enable CORS for all origins (you can specify your frontend URL for more security)
 app.use(

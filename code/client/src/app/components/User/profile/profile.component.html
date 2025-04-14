@@ -5,7 +5,6 @@
     <div class="profile-avatar-container">
       <div class="profile-avatar mat-elevation-z4">
         <img [src]="user?.profilephoto || 'assets/images/default-avatar.png'" alt="Profile Photo">
-        <!-- Edit icon below and slightly overlapping the profile picture -->
         <button mat-icon-button class="edit-avatar-btn" (click)="openImageUploadDialog()">
           <mat-icon color="primary">edit</mat-icon>
         </button>
@@ -14,12 +13,8 @@
     <div class="profile-title-section">
       <h1 class="profile-name">{{user?.firstname || 'John'}} {{user?.lastname || 'Doe'}}</h1>
       <p class="profile-role" style="text-transform: capitalize;">{{user?.role || 'Professional'}}</p>
-      <!-- <div class="availability-badge" [ngClass]="{'online': user?.availabilityStatus === 'online'}">
-        {{user?.availabilityStatus === 'online' ? 'Available' : 'Unavailable'}}
-      </div> -->
     </div>
   </div>
-
 
   <div class="profile-content-wrapper" @fadeIn>
     <mat-card class="profile-card bio-card">
@@ -58,11 +53,10 @@
           <mat-icon color="primary">home</mat-icon>
           <span *ngIf="!isAddressValid(user?.location)">Address not found !!</span>
           <span *ngIf="isAddressValid(user?.location)" class="text-justify">
-            {{ `${user.location.house}, ${user.location.area}, ${user.location.city}, ${user.location.state}
-            - ${user.location.pincode}` }}
+            {{ `${user.location.house}, ${user.location.area}, ${user.location.city}, ${user.location.state} -
+            ${user.location.pincode}` }}
           </span>
         </div>
-
       </mat-card-content>
     </mat-card>
 
@@ -72,19 +66,15 @@
         <button mat-icon-button color="primary" class="card-action-btn" (click)="handleAddSkill()">
           <mat-icon>add</mat-icon>
         </button>
-
       </mat-card-header>
-
       <mat-card-content>
         <div class="skills-section">
           <h3>Skills I Can Offer</h3>
-
           <div *ngIf="user?.skills?.length > 0; else noSkills">
             <div class="skill-row" *ngFor="let skill of user.skills">
               <div class="skill-info">
                 <span class="skill-name">{{ skill.category.name }}</span>
                 <p class="fees">💸 Fees/Day: ₹{{ skill.fees || 0 }}</p>
-
               </div>
               <div class="skill-actions">
                 <button mat-icon-button color="primary" (click)="viewSkill(skill)">
@@ -99,34 +89,51 @@
               </div>
             </div>
           </div>
-
           <ng-template #noSkills>
             <mat-chip disabled>No skills added</mat-chip>
           </ng-template>
         </div>
-
       </mat-card-content>
     </mat-card>
-
-
   </div>
   <div class="request-content-wrapper" @fadeIn>
-    <mat-card class="profile-card bio-card">
-      <mat-card-header>
-        <mat-card-title>Skill Exchange Requests</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <p [class.truncated]="!isBioExpanded" class="text-justify">{{user?.bio || 'No bio information available.'}}</p>
-        <button *ngIf="user?.bio && user.bio.length > 150" mat-button color="primary"
-          (click)="isBioExpanded = !isBioExpanded">
-          {{isBioExpanded ? 'Show Less' : 'Show More'}}
-        </button>
-      </mat-card-content>
-    </mat-card>
+    <h2 class="section-title">Skill Exchange Requests</h2>
+    <div class="requests-table-container">
+      <ng-container *ngIf="exchangeRequests.length > 0; else noRequests">
+        <table class="requests-table">
+          <thead>
+            <tr>
+              <th>Skill</th>
+              <th>Status</th>
+              <th>Swapper</th>
+              <th>Date & Time</th>
+              <th>Message</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let req of exchangeRequests">
+              <td>{{ req.skillId.name }}</td>
+              <td>{{ req.status }}</td>
+              <td>{{ req.swapperId.firstname }} {{ req.swapperId.lastname }} <br />📧 {{ req.swapperId.email }}</td>
+              <td>{{ req.date | date: 'mediumDate' }} ⏰ {{ req.time }}</td>
+              <td>{{ req.message }}</td>
+              <td>
+                <button class="btn btn-danger btn-md p-2 m-1" (click)="deleteReq(req._id)">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+      <ng-template #noRequests>
+        <p class="no-requests-message">No skill exchange requests found.</p>
+      </ng-template>
+    </div>
   </div>
+
 </div>
-
-
 
 <ng-template #loadingTemplate>
   <div class="loading-container">

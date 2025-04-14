@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../../models/User");
+const sendEmail = require('../../utils/Sendemail')
+const Request = require("../../models/Request");
 const {
 	upload,
 	deleteOldProfilePhoto,
@@ -292,6 +294,51 @@ router.get("/fetch-skill/:sid/:uid", async (req, res) => {
 	} catch (error) {
 		console.log(error);
 		return res.status(500).json({ message: "Internal server error" });
+	}
+});
+
+router.get("/get-all-exchange-req/:id", async (req, res) => {
+	try {
+		const id = req.params.id;
+		const results = await Request.find({ requesterId: id })
+			.populate("skillId", "name description") // populate skill category
+			.populate("swapperId", "firstname lastname email profilephoto"); // populate swapper info
+
+		return res.status(200).json(results);
+	} catch (error) {
+		console.log(error);
+		return res.status(500).json({ message: "Internal server error.." });
+	}
+});
+
+router.delete("/del-exchange-req/:id", async (req, res) => {
+	try {
+		const rid = req.params.id;
+
+		// Find the request by ID
+		const request = await Request.findById(rid);
+		if (!request) {
+			return res.status(404).json({ message: "Request not found" });
+		}
+
+		// Get the swapperId (the user to be notified)
+		const swapper = await User.findById(request.swapperId);
+		if (!swapper) {
+			return res.status(404).json({ message: "Swapper not found" });
+		}
+		// Delete the request
+		await Request.findByIdAndDelete(rid);
+
+		const toemail = swapper.email;
+		const subject = "Skill Exchange Request Canceled";
+		const text = `Dear ${swapper.firstname},\n\nWe regret to inform you that the skill exchange request has been canceled.\n\nBest regards,\nSkillSwap Team`;
+
+		await sendEmail(toemail , subject , text)
+		return res.status(200).json({ message: 'Request canceled successfully..' });
+
+	} catch (error) {
+		console.log(error);
+		return res.status(500).json({ message: "internal server error" });
 	}
 });
 

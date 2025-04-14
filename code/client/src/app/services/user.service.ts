@@ -47,6 +47,13 @@ export class UserService {
     return this.http.get(`${this.apiUrl}/user/delete-skill/${id}/${uid}`);
   }
 
+  getAllExchangeRequests(userId: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/user/get-all-exchange-req/${userId}`);
+  }
+
+  deleteExchangeRequest(id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/user/del-exchange-req/${id}`);
+  }
 
 
   getSkillsCategory(): Observable<any> {
