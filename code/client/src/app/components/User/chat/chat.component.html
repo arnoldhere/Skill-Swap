@@ -1,13 +1,19 @@
-
 <div class="chat-container">
   <div class="chat-header">
-    <h3>Chat with {{ receiverName }}</h3>
+    <div class="chat-user-info">
+      <i class="fa-solid fa-user"></i> chat with {{ receiverName }}
+    </div>
+    <button class="close-btn" (click)="closeChat()">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
   </div>
 
   <div class="chat-messages" #scrollMe>
     <div *ngFor="let msg of chatMessages"
-      [ngClass]="{'sent': msg.senderId === currentUserId, 'received': msg.senderId !== currentUserId}">
-      <div class="message-text">{{ msg.text || msg.content}}</div>
+      [ngClass]="{'sent': msg.senderId === currentUserId, 'received': msg.senderId !== currentUserId}"
+      class="fade-in-message">
+      <div class="message-text">{{ msg.text || msg.content }}</div>
+      <div *ngIf="typingUser" class="typing-indicator">💬 Typing...</div>
       <div class="message-time">{{ msg.time | date:'shortTime' }}</div>
     </div>
   </div>
@@ -15,7 +21,7 @@
   <div class="chat-input">
     <input type="text" placeholder="Type a message..." [(ngModel)]="message" (keydown.enter)="sendMessage()" />
     <button (click)="sendMessage()" [disabled]="!message.trim()">
-      Send
+      <i class="fa-solid fa-paper-plane"></i>
     </button>
   </div>
 </div>

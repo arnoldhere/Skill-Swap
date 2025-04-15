@@ -31,6 +31,20 @@ const setupSocket = (server) => {
 				});
 			}
 		});
+		// Emit seen acknowledgment
+		socket.on("message-seen", ({ senderId, receiverId }) => {
+			const senderSocketId = connectedUsers.get(senderId);
+			if (senderSocketId) {
+				socket.to(senderSocketId).emit("message-seen", { receiverId });
+			}
+		});
+		socket.on("typing", ({ senderId, receiverId }) => {
+			const receiverSocketId = connectedUsers.get(receiverId);
+			if (receiverSocketId) {
+				socket.to(receiverSocketId).emit("typing", { senderId });
+			}
+		});
+
 		//close the socket
 		socket.on("disconnect", () => {
 			for (let [userId, sockId] of connectedUsers.entries()) {

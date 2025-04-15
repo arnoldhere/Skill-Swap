@@ -42,12 +42,12 @@ export class ExploreComponent implements OnInit {
   }
 
 
-  connect(userId: string) {
+  connect(userId: string, name: string) {
     this.toast.info("Please wait....")
     const receiverId = userId
     const senderId = localStorage.getItem("id")
     setTimeout(() => {
-      this.router.navigate(['/user/chat', senderId, receiverId]);
+      this.router.navigate(['/user/chat', senderId, receiverId, name]);
     }, 2000);
   }
 

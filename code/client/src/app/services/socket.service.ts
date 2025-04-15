@@ -19,6 +19,21 @@ export class SocketService {
     this.socket.emit("private-message", { senderId, receiverId, message });
   }
 
+  emitSeen(senderId: string, receiverId: string) {
+    this.socket.emit("message-seen", { senderId, receiverId });
+  }
+
+  emitTyping(senderId: string, receiverId: string) {
+    this.socket.emit("typing", { senderId, receiverId });
+  }
+  onTyping(callback: (data: any) => void) {
+    this.socket.on("typing", callback);
+  }
+
+  onSeenStatus(callback: (data: any) => void) {
+    this.socket.on("message-seen", callback);
+  }
+
   onPrivateMessage(callback: (data: any) => void) {
     this.socket.on("private-message", callback);
   }

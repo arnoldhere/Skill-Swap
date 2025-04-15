@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ToastService } from 'angular-toastify';
 import { SocketService } from '../../../services/socket.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -13,20 +13,30 @@ import { CommonModule } from '@angular/common';
 })
 export class ChatComponent implements OnInit {
 
-  constructor(private activatedRoute: ActivatedRoute, private toast: ToastService, private socketService: SocketService) { }
-
+  constructor(private activatedRoute: ActivatedRoute, private toast: ToastService, private socketService: SocketService, private router: Router) { }
   currentUserId: string = '';  // Replace with actual user ID from session
   receiverId: string = '';    // Selected peer's user ID
   message: string = '';
   chatMessages: any[] = [];
   receiverName: string = '';
+  markLastMessageSeen: boolean = false;
+  typingUser: any = ''
+
+
 
   ngOnInit(): void {
-    this.receiverName = `${localStorage.getItem("firstname")} ${localStorage.getItem("lastname")}`;
+
+    this.socketService.emitSeen(this.receiverId, this.currentUserId);
     //fetch the users' id
     this.activatedRoute.paramMap.subscribe(params => {
       this.receiverId = params.get('senderId') || "";
       this.currentUserId = params.get('receiverId') || "";
+      this.receiverName = params.get('name') || "";
+    });
+
+    this.socketService.onSeenStatus((data) => {
+      // You can update UI to show ✅
+      this.markLastMessageSeen = true;
     });
 
     //socket services
@@ -56,4 +66,12 @@ export class ChatComponent implements OnInit {
       this.message = '';
     }
   }
+  closeChat() {
+    this.toast.info("Please wait.....Chat closed");
+    this.socketService.disconnect();
+    setTimeout(() => {
+      this.router.navigate(["/user/explore"])
+    }, 1500);
+  }
+
 }
