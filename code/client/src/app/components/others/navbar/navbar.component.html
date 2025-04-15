@@ -1,11 +1,10 @@
-
 <mat-toolbar color="primary" class="navbar" [ngClass]="{ 'scrolled': isScrolled }">
   <mat-toolbar-row>
     <!-- Logo & Hamburger Icon -->
     <div class="logo-container">
       <span class="logo text-center text-danger">SkillSwap</span>
       <button mat-icon-button class="menu-btn" (click)="toggleMenu()">
-        <mat-icon>{{ isMenuOpen ? 'close' : 'menu' }}</mat-icon>
+        <i class="fa-solid fa-bars">{{ isMenuOpen ? 'close' : 'bars' }}</i>
       </button>
     </div>
 
@@ -32,14 +31,6 @@
   </mat-toolbar-row>
 </mat-toolbar>
 
-<lib-toastify-toast-container
-  [position]="'top-left'"
-  [transition]="'bounce'"
-  [autoClose]="2500"
-  [hideProgressBar]="false"
-  [newestOnTop]="false"
-  [closeOnClick]="true"
-  [pauseOnHover]="true"
-  [pauseOnVisibilityChange]="true"
-  [iconLibrary]="'font-awesome'"
-></lib-toastify-toast-container>
+<lib-toastify-toast-container [position]="'top-left'" [transition]="'bounce'" [autoClose]="2500"
+  [hideProgressBar]="false" [newestOnTop]="false" [closeOnClick]="true" [pauseOnHover]="true"
+  [pauseOnVisibilityChange]="true" [iconLibrary]="'font-awesome'"></lib-toastify-toast-container>

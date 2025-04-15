@@ -1,4 +1,4 @@
-<!-- chat.component.html -->
+
 <div class="chat-container">
   <div class="chat-header">
     <h3>Chat with {{ receiverName }}</h3>
@@ -7,7 +7,7 @@
   <div class="chat-messages" #scrollMe>
     <div *ngFor="let msg of chatMessages"
       [ngClass]="{'sent': msg.senderId === currentUserId, 'received': msg.senderId !== currentUserId}">
-      <div class="message-text">{{ msg.text }}</div>
+      <div class="message-text">{{ msg.text || msg.content}}</div>
       <div class="message-time">{{ msg.time | date:'shortTime' }}</div>
     </div>
   </div>

@@ -6,8 +6,7 @@ const connectedUsers = new Map(); // userId => socketId
 const setupSocket = (server) => {
 	io = new Server(server, {
 		cors: {
-			origin: "*", // Use frontend URL in production
-			methods: ["GET", "POST"],
+			origin: "http://localhost:4200", // Use frontend URL in production
 		},
 	});
 
@@ -21,16 +20,17 @@ const setupSocket = (server) => {
 		});
 
 		//handle message
-		socket.on("private-message", (senderId, recieverId, message) => {
-			const recieverSocketId = connectedUsers.get(recieverId);
+		socket.on("private-message", ({ senderId, receiverId, message }) => {
+			const receiverSocketId = connectedUsers.get(receiverId);
 
-				socket.to(recieverSocketId).emit("private-message", {
+			if (receiverSocketId) {
+				socket.to(receiverSocketId).emit("private-message", {
 					senderId,
 					message,
 					time: new Date(),
 				});
+			}
 		});
-
 		//close the socket
 		socket.on("disconnect", () => {
 			for (let [userId, sockId] of connectedUsers.entries()) {

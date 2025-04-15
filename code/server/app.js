@@ -14,13 +14,7 @@ const MessageRoutes = require("./routes/Messages");
 const skillRoutes = require("./routes/User/Skill");
 
 // Enable CORS for all origins (you can specify your frontend URL for more security)
-app.use(
-	cors({
-		origin: "http://localhost:4200", // Allow only the Angular frontend to access
-		methods: ["GET", "POST", "PUT", "DELETE"],
-		allowedHeaders: ["Content-Type", "Authorization"],
-	})
-);
+app.use(cors());
 app.use(express.json()); //instead of bodyparser
 app.use(
 	session({

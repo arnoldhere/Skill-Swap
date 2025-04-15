@@ -10,8 +10,9 @@ const setupSocket = require("./config/Socket");
 const server = http.createServer(app); // ⬅ Create HTTP server manually
 setupSocket(server); // ⬅ Pass server to setupSocket
 
-
-
-app.listen(port, connectDB(), () => {
-	console.log(`Server is running on port ${port}`);
+// ✅ start the server correctly
+connectDB().then(() => {
+	server.listen(port, () => {
+		console.log(`Server is running on port ${port}`);
+	});
 });
