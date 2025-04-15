@@ -14,6 +14,7 @@
       <a mat-button routerLink="/aboutus" (click)="closeMenu()">About</a>
       <a mat-button routerLink="/user/explore" (click)="closeMenu()">Explore</a>
       <a mat-button routerLink="/user/contact" (click)="closeMenu()">Contact Us</a>
+      <a mat-button routerLink="/user/blog" (click)="closeMenu()">Blog</a>
 
       <!-- Authenticated / Non-authenticated states -->
       <ng-container *ngIf="isLoggedIn(); else loggedOut">

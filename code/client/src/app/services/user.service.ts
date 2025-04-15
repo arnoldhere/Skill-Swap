@@ -51,10 +51,17 @@ export class UserService {
     return this.http.get(`${this.apiUrl}/user/get-all-exchange-req/${userId}`);
   }
 
+  getAllBookingRequests(userId: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/user/get-booking-exchange-req/${userId}`);
+  }
+
   deleteExchangeRequest(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/user/del-exchange-req/${id}`);
   }
 
+  deleteBookingReq(id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/user/del-booking-exchange-req/${id}`);
+  }
 
   getSkillsCategory(): Observable<any> {
     return this.http.get(`${this.apiUrl}/admin/get-skills-category`);

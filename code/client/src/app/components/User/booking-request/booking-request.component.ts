@@ -81,7 +81,7 @@ export class BookingRequestComponent implements OnInit {
         this.router.navigate(['/user/explore']); // or wherever
       },
       error: (err) => {
-        this.toast.error(err.message.message ||'Something went wrong while sending request.');
+        this.toast.error(err.message.message ||'You have already booked or internal error..');
         console.error(err);
       }
     });

@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../../models/User");
-const sendEmail = require('../../utils/Sendemail')
+const sendEmail = require("../../utils/Sendemail");
 const Request = require("../../models/Request");
 const {
 	upload,
@@ -311,6 +311,21 @@ router.get("/get-all-exchange-req/:id", async (req, res) => {
 	}
 });
 
+router.get("/get-booking-exchange-req/:id", async (req, res) => {
+	try {
+		const id = req.params.id;
+		const results = await Request.find({ swapperId: id })
+			.populate("skillId", "name description") // populate skill category
+			.populate("requesterId", "firstname lastname email profilephoto");
+
+		console.log(results);
+		return res.status(200).json(results);
+	} catch (error) {
+		console.log(error);
+		return res.status(500).json({ message: "Internal server error.." });
+	}
+});
+
 router.delete("/del-exchange-req/:id", async (req, res) => {
 	try {
 		const rid = req.params.id;
@@ -328,14 +343,43 @@ router.delete("/del-exchange-req/:id", async (req, res) => {
 		}
 		// Delete the request
 		await Request.findByIdAndDelete(rid);
-
+		const requester = await User.findById(rid);
 		const toemail = swapper.email;
 		const subject = "Skill Exchange Request Canceled";
-		const text = `Dear ${swapper.firstname},\n\nWe regret to inform you that the skill exchange request has been canceled.\n\nBest regards,\nSkillSwap Team`;
+		const text = `Dear ${swapper.firstname},\n\nWe regret to inform you that the skill exchange request has been canceled.\n\n Skill Request Id: ${rid}\t skill Requester name: ${requester.firstname}\n Best regards,\nSkillSwap Team`;
 
-		await sendEmail(toemail , subject , text)
-		return res.status(200).json({ message: 'Request canceled successfully..' });
+		await sendEmail(toemail, subject, text);
+		return res.status(200).json({ message: "Request canceled successfully.." });
+	} catch (error) {
+		console.log(error);
+		return res.status(500).json({ message: "internal server error" });
+	}
+});
 
+router.delete("/del-booking-exchange-req/:id", async (req, res) => {
+	try {
+		const rid = req.params.id;
+
+		// Find the request by ID
+		const request = await Request.findById(rid);
+		if (!request) {
+			return res.status(404).json({ message: "Request not found" });
+		}
+
+		// Get the swapperId (the user to be notified)
+		const requester = await User.findById(request.requesterId);
+		if (!requester) {
+			return res.status(404).json({ message: "Swapper not found" });
+		}
+		// Delete the request
+		await Request.findByIdAndDelete(rid);
+		const swapper = await User.findById(rid);
+		const toemail = requester.email;
+		const subject = "Skill Exchange Request Canceled";
+		const text = `Dear ${requester.firstname},\n\nWe regret to inform you that the skill exchange request has been canceled.\n\n Skill Request Id: ${rid}\t skill Requester name: ${swapper.firstname}\n Best regards,\nSkillSwap Team`;
+
+		await sendEmail(toemail, subject, text);
+		return res.status(200).json({ message: "Request canceled successfully.." });
 	} catch (error) {
 		console.log(error);
 		return res.status(500).json({ message: "internal server error" });

@@ -97,9 +97,9 @@
     </mat-card>
   </div>
   <div class="request-content-wrapper" @fadeIn>
-    <h2 class="section-title">Skill Exchange Requests</h2>
+    <h2 class="section-title">Your Requests</h2>
     <div class="requests-table-container">
-      <ng-container *ngIf="exchangeRequests.length > 0; else noRequests">
+      <ng-container *ngIf="exchangeRequests.length> 0 ; else noRequests">
         <table class="requests-table">
           <thead>
             <tr>
@@ -133,6 +133,43 @@
     </div>
   </div>
 
+  <div class="request-content-wrapper" @fadeIn>
+    <h2 class="section-title">Your Bookings</h2>
+    <div class="requests-table-container">
+      <ng-container *ngIf="bookingRequests.length > 0 ; else noRequests">
+        <table class="requests-table">
+          <thead>
+            <tr>
+              <th>Skill</th>
+              <th>Status</th>
+              <th>Requester</th>
+              <th>Date & Time</th>
+              <th>Message</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let req of bookingRequests ">
+              <td>{{ req.skillId.name }}</td>
+              <td>{{ req.status }}</td>
+              <td>{{ req.requesterId.firstname }} {{ req.requesterId.lastname }} <br />📧 {{ req.requesterId.email }}
+              </td>
+              <td>{{ req.date | date: 'mediumDate' }} ⏰ {{ req.time }}</td>
+              <td>{{ req.message }}</td>
+              <td>
+                <button class="btn btn-danger btn-md p-2 m-1" (click)="deleteBooking(req._id)">
+                  Reject
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+      <ng-template #noRequests>
+        <p class="no-requests-message">No requests found.</p>
+      </ng-template>
+    </div>
+  </div>
 </div>
 
 <ng-template #loadingTemplate>

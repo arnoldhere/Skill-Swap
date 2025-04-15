@@ -58,6 +58,8 @@ export class ProfileComponent implements OnInit {
   profileCompletion: number = 0;
   activeSection: string = 'overview';
   exchangeRequests: any = null;
+  bookingRequests: any = null;
+
   constructor(
     private toast: ToastService,
     private userService: UserService,
@@ -87,11 +89,20 @@ export class ProfileComponent implements OnInit {
       }
     })
 
+    this.userService.getAllBookingRequests(this.id).subscribe({
+      next: (res: any) => {
+        this.bookingRequests = res
+      },
+      error: (err: any) => {
+        console.log(err)
+        this.toast.error(err.message || "internal server error...")
+      }
+    })
+
     this.userService.getCurrentUser(this.id).subscribe({
       next: (userData: any) => {
         this.user = userData;
         // console.log(this.user);
-        this.calculateProfileCompletion();
         this.loading = false; // Stop loading when data is fetched
         // Calculate profile completion percentage
 
@@ -131,24 +142,6 @@ export class ProfileComponent implements OnInit {
       'twitter',
       this.sanitizer.bypassSecurityTrustResourceUrl('assets/icons/twitter.svg')
     );
-  }
-  // Calculate profile completion percentage
-  private calculateProfileCompletion(): void {
-    if (!this.user) return;
-
-    const fields = [
-      !!this.user.firstName,
-      !!this.user.lastName,
-      !!this.user.bio,
-      !!(this.user.contact && this.user.contact.email),
-      !!(this.user.contact && this.user.contact.phone),
-      !!(this.user.skillsOffered && this.user.skillsOffered.length > 0),
-      !!(this.user.availableTimeSlots && this.user.availableTimeSlots.length > 0),
-      !!this.user.profilePhoto
-    ];
-
-    const completedFields = fields.filter(field => field).length;
-    this.profileCompletion = Math.round((completedFields / fields.length) * 100);
   }
 
   openImageUploadDialog(): void {
@@ -222,6 +215,20 @@ export class ProfileComponent implements OnInit {
     if (!window.confirm('Are you sure you want to delete ?')) return;
 
     this.userService.deleteExchangeRequest(id).subscribe({
+      next: (res: any) => {
+        this.toast.info(res.message || "Deleted succefully..")
+        window.location.reload()
+      },
+      error: (err: any) => {
+        this.toast.info(err.message || "error in delete..")
+      }
+    })
+  }
+
+  deleteBooking(id:string){
+    if (!window.confirm('Are you sure you want to cancel ?')) return;
+
+    this.userService.deleteBookingReq(id).subscribe({
       next: (res: any) => {
         this.toast.info(res.message || "Deleted succefully..")
         window.location.reload()
