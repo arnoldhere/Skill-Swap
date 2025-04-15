@@ -376,10 +376,39 @@ router.delete("/del-booking-exchange-req/:id", async (req, res) => {
 		const swapper = await User.findById(rid);
 		const toemail = requester.email;
 		const subject = "Skill Exchange Request Canceled";
-		const text = `Dear ${requester.firstname},\n\nWe regret to inform you that the skill exchange request has been canceled.\n\n Skill Request Id: ${rid}\t skill Requester name: ${swapper.firstname}\n Best regards,\nSkillSwap Team`;
+		const text = `Dear ${requester.firstname},\n\nWe regret to inform you that the skill exchange request has been canceled.\n\n Skill Request Id: ${rid}\t skill swapper name: ${swapper.firstname}\n Best regards,\nSkillSwap Team`;
 
 		await sendEmail(toemail, subject, text);
 		return res.status(200).json({ message: "Request canceled successfully.." });
+	} catch (error) {
+		console.log(error);
+		return res.status(500).json({ message: "internal server error" });
+	}
+});
+
+router.delete("/accept-booking-req/:id", async (req, res) => {
+	try {
+		const rid = req.params.id;
+
+		// Find the request by ID
+		const request = await Request.findByIdAndUpdate(rid, { status: "Accepted" });
+		if (!request) {
+			return res.status(404).json({ message: "Request not found" });
+		}
+
+		// Get the swapperId (the user to be notified)
+		const requester = await User.findById(request.requesterId);
+		console.log(requester)
+		if (!requester) {
+			return res.status(404).json({ message: "Swapper not found" });
+		}
+		const swapper = await User.findById(rid);
+		const toemail = requester.email;
+		const subject = "Skill Exchange Request Canceled";
+		const text = `Dear ${requester.firstname},\n\nWe glad to inform you that your booking request has been approved. kindly complete the payment by using our system for further proccess.\n Best regards,\nSkillSwap Team`;
+
+		await sendEmail(toemail, subject, text);
+		return res.status(200).json({ message: "Request accepted successfully.." });
 	} catch (error) {
 		console.log(error);
 		return res.status(500).json({ message: "internal server error" });

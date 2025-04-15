@@ -67,6 +67,10 @@ export class UserService {
     return this.http.get(`${this.apiUrl}/admin/get-skills-category`);
   }
 
+  acceptBookingReq(id: any): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/user/accept-booking-req/${id}`);
+  }
+
   addSkillCategory(data: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/admin/add-skills-category`, data);
   }

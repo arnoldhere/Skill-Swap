@@ -239,4 +239,22 @@ export class ProfileComponent implements OnInit {
     })
   }
 
+  acceptBooking(id:string){
+    if (!window.confirm('Are you sure you want to accept ?')) return;
+
+    this.userService.acceptBookingReq(id).subscribe({
+      next: (res: any) => {
+        this.toast.info(res.message || "Accepted succefully..")
+        window.location.reload()
+      },
+      error: (err: any) => {
+        this.toast.info(err.message || "error in delete..")
+      }
+    })
+  }
+
+  pay(id:string){
+
+  }
+
 }

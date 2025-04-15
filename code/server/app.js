@@ -12,6 +12,8 @@ const OtherRoutes = require("./routes/User/Others");
 const AdminRoutes = require("./routes/Admin");
 const MessageRoutes = require("./routes/Messages");
 const skillRoutes = require("./routes/User/Skill");
+const PaymentRoutes = require("./routes/Payment");
+
 
 // Enable CORS for all origins (you can specify your frontend URL for more security)
 app.use(cors());
@@ -36,6 +38,7 @@ app.use("/others", OtherRoutes);
 app.use("/admin", AdminRoutes);
 app.use("/message", MessageRoutes);
 app.use("/skills", skillRoutes);
+app.use("/pay", PaymentRoutes);
 
 // Define a basic route
 app.get("/", (req, res) => {

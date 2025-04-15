@@ -107,7 +107,7 @@
               <th>Status</th>
               <th>Swapper</th>
               <th>Date & Time</th>
-              <th>Message</th>
+              <th>Note</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -119,8 +119,15 @@
               <td>{{ req.date | date: 'mediumDate' }} ⏰ {{ req.time }}</td>
               <td>{{ req.message }}</td>
               <td>
-                <button class="btn btn-danger btn-md p-2 m-1" (click)="deleteReq(req._id)">
+                <button class="btn btn-danger btn-md p-2 m-1" (click)="deleteReq(req._id)" *ngIf="req.status=== 'Pending'  ">
                   <i class="fa-solid fa-trash"></i>
+                </button>
+
+
+                <!-- Pay Now Button -->
+                <button class="btn btn-success btn-md p-2 m-1" (click)="pay(req._id)"
+                  *ngIf="req.payment === 'Pending' && req.status === 'Accepted'">
+                  Pay Now
                 </button>
               </td>
             </tr>
@@ -144,7 +151,7 @@
               <th>Status</th>
               <th>Requester</th>
               <th>Date & Time</th>
-              <th>Message</th>
+              <th>Note</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -157,8 +164,23 @@
               <td>{{ req.date | date: 'mediumDate' }} ⏰ {{ req.time }}</td>
               <td>{{ req.message }}</td>
               <td>
-                <button class="btn btn-danger btn-md p-2 m-1" (click)="deleteBooking(req._id)">
+                <!-- Reject Button -->
+                <button class="btn btn-danger btn-md p-2 m-1" (click)="deleteBooking(req._id)"
+                  *ngIf="req.payment === 'Pending' && req.status !== 'Accepted'">
                   Reject
+                </button>
+
+                <!-- Accept Button -->
+                <button class="btn btn-info btn-md p-2 m-1" (click)="acceptBooking(req._id)"
+                  *ngIf="req.status === 'Pending'">
+                  Accept
+                </button>
+
+
+                <!-- Pay Now Button -->
+                <button class="btn btn-success btn-md p-2 m-1" (click)="acceptBooking(req._id)"
+                  *ngIf="req.payment === 'Pending' && req.status === 'Accepted'" disabled>
+                  Waiting to Pay
                 </button>
               </td>
             </tr>
