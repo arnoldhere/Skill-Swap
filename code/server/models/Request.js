@@ -24,6 +24,11 @@ const requestSchema = new mongoose.Schema({
 		enum: ["Pending", "Accepted", "Rejected"],
 		default: "Pending",
 	},
+	payment:{
+		type: String,
+		enum: ["Pending", "Accepted", "Rejected"],
+		default: "Pending",
+	},
 	createdAt: { type: Date, default: Date.now },
 });
 
