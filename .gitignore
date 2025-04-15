@@ -5,7 +5,7 @@ code/client/tmp
 code/client/out-tsc
 code/client/bazel-out
 code/client/.vscode
-
+code/client/src/environments
 code/client/.vscode
 
 code/server/node_modules

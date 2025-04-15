@@ -1,5 +1,6 @@
 import { Component, ElementRef, inject, OnInit, ViewChild } from "@angular/core";
 import { trigger, transition, style, animate } from '@angular/animations';
+import { HttpClient } from '@angular/common/http';
 import { ToastService } from "angular-toastify";
 import { UserService } from "../../../services/user.service";
 import { Router, RouterLink, RouterModule } from "@angular/router";
@@ -16,7 +17,9 @@ import { DomSanitizer } from "@angular/platform-browser";
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ImageUploadDialogComponent } from "./tools/image-upload-dialog/image-upload-dialog.component";
 import { EditBioSectionComponent } from "./tools/edit-bio-section/edit-bio-section.component";
-import { MatList, MatListItem } from "@angular/material/list";
+declare var Razorpay: any;
+import { environment } from '../../../../../src/environments/environment';
+
 
 @Component({
   selector: "app-profile",
@@ -60,12 +63,14 @@ export class ProfileComponent implements OnInit {
   exchangeRequests: any = null;
   bookingRequests: any = null;
 
+
   constructor(
     private toast: ToastService,
     private userService: UserService,
     private router: Router,
     private iconRegistry: MatIconRegistry,
     private sanitizer: DomSanitizer,
+    private http: HttpClient,
   ) {
     // Register custom SVG icons
     this.registerSocialIcons();
@@ -225,7 +230,7 @@ export class ProfileComponent implements OnInit {
     })
   }
 
-  deleteBooking(id:string){
+  deleteBooking(id: string) {
     if (!window.confirm('Are you sure you want to cancel ?')) return;
 
     this.userService.deleteBookingReq(id).subscribe({
@@ -239,7 +244,7 @@ export class ProfileComponent implements OnInit {
     })
   }
 
-  acceptBooking(id:string){
+  acceptBooking(id: string) {
     if (!window.confirm('Are you sure you want to accept ?')) return;
 
     this.userService.acceptBookingReq(id).subscribe({
@@ -252,9 +257,39 @@ export class ProfileComponent implements OnInit {
       }
     })
   }
+  pay(requestId: string) {
+    this.http.post(`${environment.apiBaseUrl}/pay/create-order`, { requestId }).subscribe((order: any) => {
+      const options = {
+        key: environment.razorpayKey, // 🔑 Replace with your real key
+        amount: order.amount,
+        currency: 'INR',
+        name: 'SkillSwap',
+        description: 'Skill Exchange Payment',
+        order_id: order.orderId,
+        handler: (response: any) => {
+          this.http.post(`${environment.apiBaseUrl}/pay/verify-payment`, {
+            razorpay_order_id: response.razorpay_order_id,
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_signature: response.razorpay_signature,
+            requestId: requestId
+          }).subscribe((res: any) => {
+            alert('✅ Payment Successful');
+            window.location.reload();
+          }, (err) => {
+            alert('❌ Payment verification failed');
+          });
+        },
+        prefill: {
+          name: 'SkillSwap User',
+          email: 'user@example.com'
+        },
+        theme: {
+          color: '#0d9488'
+        }
+      };
 
-  pay(id:string){
-
+      const rzp = new Razorpay(options);
+      rzp.open();
+    });
   }
-
 }

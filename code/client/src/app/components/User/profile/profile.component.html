@@ -129,6 +129,10 @@
                   *ngIf="req.payment === 'Pending' && req.status === 'Accepted'">
                   Pay Now
                 </button>
+                <button class="btn btn-warning btn-md p-2 m-1" disabled
+                *ngIf="req.payment === 'Accepted' && req.status === 'Accepted'">
+                Completed
+              </button>
               </td>
             </tr>
           </tbody>
