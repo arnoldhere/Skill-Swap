@@ -15,6 +15,14 @@
       <p class="profile-role" style="text-transform: capitalize;">{{user?.role || 'Professional'}}</p>
     </div>
   </div>
+  <div class="profit-box mat-elevation-z4" *ngIf="user.profit > 0" @fadeIn>
+    <mat-icon class="profit-icon">monetization_on</mat-icon>
+    <div>
+      <h3 class="text-center">Total Profit earned </h3>
+      <p class="text-center text-danger">₹{{ user.profit }}</p>
+    </div>
+  </div>
+
 
   <div class="profile-content-wrapper" @fadeIn>
     <mat-card class="profile-card bio-card">
@@ -59,6 +67,7 @@
         </div>
       </mat-card-content>
     </mat-card>
+
 
     <mat-card class="profile-card skills-card">
       <mat-card-header>
@@ -108,7 +117,8 @@
               <th>Swapper</th>
               <th>Date & Time</th>
               <th>Note</th>
-              <th>Action</th>
+              <th>Payment/Action</th>
+              <th>Stage</th>
             </tr>
           </thead>
           <tbody>
@@ -119,20 +129,22 @@
               <td>{{ req.date | date: 'mediumDate' }} ⏰ {{ req.time }}</td>
               <td>{{ req.message }}</td>
               <td>
-                <button class="btn btn-danger btn-md p-2 m-1" (click)="deleteReq(req._id)" *ngIf="req.status=== 'Pending'  ">
+                <button class="btn btn-danger btn-md p-2 m-1" (click)="deleteReq(req._id)"
+                  *ngIf="req.status=== 'Pending'  ">
                   <i class="fa-solid fa-trash"></i>
                 </button>
-
-
                 <!-- Pay Now Button -->
                 <button class="btn btn-success btn-md p-2 m-1" (click)="pay(req._id)"
                   *ngIf="req.payment === 'Pending' && req.status === 'Accepted'">
                   Pay Now
                 </button>
                 <button class="btn btn-warning btn-md p-2 m-1" disabled
-                *ngIf="req.payment === 'Accepted' && req.status === 'Accepted'">
-                Completed
-              </button>
+                  *ngIf="req.payment === 'Accepted' && req.status === 'Accepted'">
+                  Completed
+                </button>
+              </td>
+              <td>
+                {{req.stage}}
               </td>
             </tr>
           </tbody>
@@ -156,7 +168,8 @@
               <th>Requester</th>
               <th>Date & Time</th>
               <th>Note</th>
-              <th>Action</th>
+              <th>Payment/Action</th>
+              <th>Stage</th>
             </tr>
           </thead>
           <tbody>
@@ -173,18 +186,33 @@
                   *ngIf="req.payment === 'Pending' && req.status !== 'Accepted'">
                   Reject
                 </button>
-
                 <!-- Accept Button -->
                 <button class="btn btn-info btn-md p-2 m-1" (click)="acceptBooking(req._id)"
                   *ngIf="req.status === 'Pending'">
                   Accept
                 </button>
-
-
-                <!-- Pay Now Button -->
+                <button class="btn btn-success btn-md p-2 m-1"
+                  *ngIf="req.status === 'Accepted' && req.payment== 'Accepted' " disabled>
+                  PAID
+                </button>
+                <!-- Pay wait Button -->
                 <button class="btn btn-success btn-md p-2 m-1" (click)="acceptBooking(req._id)"
                   *ngIf="req.payment === 'Pending' && req.status === 'Accepted'" disabled>
                   Waiting to Pay
+                </button>
+              </td>
+              <td>
+                <button class="btn btn-primary btn-md p-2 m-1" (click)="stageModify(req._id)"
+                  *ngIf="req.payment === 'Accepted' && req.status === 'Accepted' && req.stage== 'Pending' ">
+                  {{req.stage}}
+                </button>
+                <button class="btn btn-primary btn-md p-2 m-1"
+                  *ngIf="req.payment === 'Pending' && req.status === 'Pending'" disabled>
+                  {{req.stage}}
+                </button>
+                <button class="btn btn-primary btn-md p-2 m-1" (click)="stageModify(req._id)"
+                  *ngIf="req.payment === 'Accepted' && req.status === 'Accepted' && req.stage=== 'Completed' " disabled>
+                  {{req.stage}}
                 </button>
               </td>
             </tr>

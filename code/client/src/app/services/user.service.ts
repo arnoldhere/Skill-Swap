@@ -84,6 +84,10 @@ export class UserService {
     return this.http.get(`${this.apiUrl}/admin/get-skill-category/${id}`);
   }
 
+  modifyStage(id: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/user/modify-stage/${id}`);
+  }
+
   getUserSkillById(skillId: string, uid: string) {
     return this.http.get(`${this.apiUrl}/user/fetch-skill/${skillId}/${uid}`);
   }

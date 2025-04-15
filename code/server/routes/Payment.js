@@ -110,7 +110,9 @@ router.post("/verify-payment", async (req, res) => {
 
 		const toemail = request.swapperId.email;
 		const subject = "Payment Successful";
-		const text = `Your payment for ${request.skillId.name} has been received.`;
+		const text = ` Dear ${request.swapperId.firstname},\n Your payment for ${request.skillId.name} has been received.\n\n 
+		Kindly complete your fixed schedule and update your requests in your profile to avoid profit deduction\n
+		`;
 
 		await sendEmail(toemail, subject, text);
 

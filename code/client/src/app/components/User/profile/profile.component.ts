@@ -292,4 +292,15 @@ export class ProfileComponent implements OnInit {
       rzp.open();
     });
   }
+
+  stageModify(id: string) {
+    this.userService.modifyStage(id).subscribe({
+      next: (res: any) => {
+        this.toast.info(res.message || "modified succefully..")
+        window.location.reload()
+      }, error: (err: any)=>{
+        this.toast.info(err.message || "error in update..")
+      }
+    })
+  }
 }

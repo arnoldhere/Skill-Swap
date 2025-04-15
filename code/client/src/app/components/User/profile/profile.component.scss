@@ -601,3 +601,45 @@ $transition-speed: 0.7s;
     }
   }
 }
+.profit-box {
+  position: absolute;
+  top: 100px;
+  right: 30px;
+  background: linear-gradient(to right, #00c6ff, #0072ff);
+  color: white;
+  padding: 15px 25px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+  animation: slideFadeIn 0.6s ease-in-out;
+}
+
+.profit-box h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.profit-box p {
+  margin: 0;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.profit-icon {
+  font-size: 36px;
+}
+
+@keyframes slideFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

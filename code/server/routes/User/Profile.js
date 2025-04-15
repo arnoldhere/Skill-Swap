@@ -348,7 +348,7 @@ router.delete("/del-exchange-req/:id", async (req, res) => {
 		const requester = await User.findById(rid);
 		const toemail = swapper.email;
 		const subject = "Skill Exchange Request Canceled";
-		const text = `Dear ${swapper.firstname},\n\nWe regret to inform you that the skill exchange request has been canceled.\n\n Skill Request Id: ${rid}\t skill Requester name: ${requester.firstname}\n Best regards,\nSkillSwap Team`;
+		const text = `Dear ${swapper.firstname},\n\nWe regret to inform you that the skill exchange request has been canceled.\n\n Skill Request Id: ${rid}\t \n Best regards,\nSkillSwap Team`;
 
 		await sendEmail(toemail, subject, text);
 		return res.status(200).json({ message: "Request canceled successfully.." });
@@ -416,6 +416,20 @@ router.delete("/accept-booking-req/:id", async (req, res) => {
 	} catch (error) {
 		console.log(error);
 		return res.status(500).json({ message: "internal server error" });
+	}
+});
+
+router.get("/modify-stage/:id", async (req, res) => {
+	try {
+		const rid = req.params.id;
+		const request = await Request.findByIdAndUpdate(rid, {
+			stage: "Completed",
+		});
+		await request.save();
+		return res.status(200).json({ message: "updated succesfully.." });
+	} catch (error) {
+		console.log(error);
+		return res.status(500).json({ message: "Internal server error" });
 	}
 });
 

@@ -6,7 +6,8 @@ const requestSchema = new mongoose.Schema({
 		ref: "SkillCategory",
 		required: true,
 	},
-	swapperId: { // user who got the request
+	swapperId: {
+		// user who got the request
 		type: mongoose.Schema.Types.ObjectId,
 		ref: "User",
 		required: true,
@@ -24,12 +25,17 @@ const requestSchema = new mongoose.Schema({
 		enum: ["Pending", "Accepted", "Rejected"],
 		default: "Pending",
 	},
-	payment:{
+	payment: {
 		type: String,
 		enum: ["Pending", "Accepted", "Rejected"],
 		default: "Pending",
 	},
 	createdAt: { type: Date, default: Date.now },
+	stage: {
+		type: String,
+		enum: ["Pending", "Completed"],
+		default: "Pending",
+	},
 });
 
 module.exports = mongoose.model("Request", requestSchema);
