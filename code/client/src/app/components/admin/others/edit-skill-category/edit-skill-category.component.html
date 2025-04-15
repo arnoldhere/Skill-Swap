@@ -24,6 +24,16 @@
         </small>
       </div>
 
+      <div class="form-group"
+      [ngClass]="{ 'has-error': editForm.get('price')?.invalid && editForm.get('price')?.touched }">
+      <label>price </label>
+      <input type="number" formControlName="price" required />
+      <small *ngIf="editForm.get('price')?.invalid && editForm.get('price')?.touched">
+        {{ editForm.get('price')?.errors?.['required'] ? 'This field is required!' : 'Must be at least 3 characters!'
+        }}
+      </small>
+    </div>
+
 
       <!-- Description -->
       <div class="form-group"

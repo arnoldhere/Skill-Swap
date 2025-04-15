@@ -43,6 +43,19 @@
     </small>
   </div>
 
+  <div
+  class="form-group"
+  [ngClass]="{ 'has-error': f['fees'].invalid && (f['fees'].dirty || f['fees'].touched) }"
+>
+  <label>Price/Charge</label>
+  <input type="number" formControlName="price" required/>
+  <small
+    *ngIf="f['price'].invalid && (f['price'].dirty || f['price'].touched)"
+  >
+    {{ getErrorMessage('price') }}
+  </small>
+</div>
+
     <!-- 🎯 Button Group -->
     <div class="btn-group">
       <button type="submit" class="save-btn" [disabled]="editForm.invalid">

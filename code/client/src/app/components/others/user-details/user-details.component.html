@@ -18,7 +18,7 @@
       <div class="skill-card" *ngFor="let skill of user.skills">
         <div class="skill-info">
           <span class="skill-badge">{{ skill.category?.name }}</span>
-          <p class="fees">💸 Fees/Day: ₹{{ skill.fees || 0 }}</p>
+          <p class="fees">💸 Fees/Day: ₹{{ skill.category.price || 0 }}</p>
         </div>
         <div class="d-flex">
           <button class="view-cert-btn" *ngIf="skill.certificate" (click)="viewCertificate(skill.certificate)">

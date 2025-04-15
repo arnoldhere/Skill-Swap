@@ -29,7 +29,9 @@ router.get("/get-profile/:id", async (req, res) => {
 		)}/uploads/profilephotos/`;
 		const updatedadmin = {
 			...admin._doc,
-			profilephoto: admin.profilephoto ? `${baseUrl}${admin.profilephoto}` : null,
+			profilephoto: admin.profilephoto
+				? `${baseUrl}${admin.profilephoto}`
+				: null,
 		};
 		res.status(200).json(updatedadmin);
 	} catch (err) {
@@ -120,7 +122,7 @@ router.get("/get-skill-category/:id", async (req, res) => {
 
 router.put("/update-skills-category/:id", async (req, res) => {
 	try {
-		const { name, description,commission } = req.body;
+		const { name, description, commission , price } = req.body;
 
 		if (!name || !description) {
 			return res
@@ -131,7 +133,8 @@ router.put("/update-skills-category/:id", async (req, res) => {
 		const updatedCategory = await Category.findByIdAndUpdate(req.params.id, {
 			name,
 			description,
-			commission
+			commission,
+			price
 		});
 
 		if (!updatedCategory)
@@ -162,6 +165,7 @@ router.post("/add-skills-category", async (req, res) => {
 			name: data.name,
 			description: data.description,
 			commission: data.fees,
+			price: data.price,
 		});
 
 		if (newCategory) {

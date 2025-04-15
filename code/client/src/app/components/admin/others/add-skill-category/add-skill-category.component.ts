@@ -35,6 +35,7 @@ export class AddSkillCategoryComponent implements OnInit {
       name: ['', [Validators.required, Validators.minLength(3)]],
       description: ['', [Validators.required, Validators.minLength(5)]],
       fees: ['', [Validators.required]],
+      price: ['', [Validators.required]],
     });
   }
 

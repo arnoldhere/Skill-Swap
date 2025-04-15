@@ -1,0 +1,4 @@
+
+to do 
+--
+add bank details in my profile for user to do payment after skill completion

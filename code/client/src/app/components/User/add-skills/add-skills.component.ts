@@ -28,7 +28,7 @@ export class AddSkillsComponent implements OnInit {
   ngOnInit() {
     this.skillForm = this.fb.group({
       category: ['', Validators.required],
-      fees: [null, Validators.required],
+      // fees: [null, Validators.required],
       pdf: [null, Validators.required], // You’re manually handling file validity
     });
 

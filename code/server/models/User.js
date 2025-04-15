@@ -71,6 +71,9 @@ const userSchema = new mongoose.Schema(
 			linkedin: String,
 			github: String,
 		},
+		profit:{
+			type:Number
+		},
 		availability: String,
 	},
 	{ timestamps: true }

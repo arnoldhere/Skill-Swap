@@ -5,7 +5,9 @@ const Fees = require("../models/Fees");
 const User = require("../models/User");
 const Request = require("../models/Request");
 const razorpay = require("../utils/RazorPay");
-const crypto = require("crypto")
+const crypto = require("crypto");
+const Payment = require("../models/Payment");
+
 router.post("/create-order", async (req, res) => {
 	const { requestId } = req.body;
 
@@ -13,30 +15,18 @@ router.post("/create-order", async (req, res) => {
 	const request = await Request.findById(requestId).populate(
 		"skillId swapperId"
 	);
-	if (!request) {
+	if (!request)
 		return res
 			.status(404)
 			.json({ success: false, message: "Request not found" });
-	}
 
 	// 2. Get the swapper user
 	const user = await User.findById(request.swapperId);
-
-	if (!user || !user.skills || user.skills.length === 0) {
-		return res
-			.status(404)
-			.json({ success: false, message: "Swapper's skills not found" });
-	}
-	// 3. Find the skill that matches request.skillId in user's skills
-	const userSkill = user.skills.find(
+	const userSkill = user?.skills?.find(
 		(skill) => skill.category.toString() === request.skillId._id.toString()
 	);
-
-	if (!userSkill) {
-		return res
-			.status(404)
-			.json({ success: false, message: "Skill not found in user's skills" });
-	}
+	if (!userSkill)
+		return res.status(404).json({ success: false, message: "Skill not found" });
 
 	// 4. Calculate amount
 	const amount = userSkill.fees * 100; // Razorpay needs amount in paise
@@ -75,16 +65,47 @@ router.post("/verify-payment", async (req, res) => {
 		.digest("hex");
 
 	if (generated_signature === razorpay_signature) {
-		const request = await Request.findById(requestId).populate("skillId");
+		const request = await Request.findById(requestId).populate(
+			"skillId swapperId"
+		);
+		if (!request) return res.status(404).json({ message: "Request not found" });
+
+		const user = await User.findById(request.swapperId);
+		const userSkill = user?.skills?.find(
+			(skill) => skill.category.toString() === request.skillId._id.toString()
+		);
+		if (!userSkill) return res.status(400).json({ message: "Skill not found" });
+		const actualFee = userSkill.fees;
+
+		// Commission and profit calculations
+		const commission = (actualFee * request.skillId.commission) / 100;
+		const userProfit = actualFee - commission;
+
+		// Update request status
 		request.payment = "Accepted";
 		await request.save();
 
-		// Calculate commission
-		const commission =
-			(request.skillId.fees * request.skillId.commission) / 100;
-		const saved = await new Fees({
+		// Store commission in Fees table
+		await Fees.create({
 			requestId: requestId,
 			commission: commission,
+		});
+
+		// Update swapper's profit
+		user.profit = (user.profit || 0) + userProfit;
+		await user.save();
+
+		// Store payment record
+		await Payment.create({
+			requestId: request._id,
+			amount: actualFee,
+			commission,
+			userProfit,
+			paidTo: user._id,
+			paymentId: razorpay_payment_id,
+			orderId: razorpay_order_id,
+			method: "Razorpay",
+			status: "Success",
 		});
 
 		const toemail = request.swapperId.email;

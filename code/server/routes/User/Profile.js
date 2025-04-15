@@ -194,7 +194,7 @@ router.post("/update-current-user/:id", async (req, res) => {
 router.post("/add-skills/:id", upload.single("document"), async (req, res) => {
 	try {
 		const userId = req.params.id;
-		const { category, fees } = req.body;
+		const { category } = req.body;
 
 		console.log("Received category:", category);
 		console.log("Uploaded file:", req.file);
@@ -224,11 +224,13 @@ router.post("/add-skills/:id", upload.single("document"), async (req, res) => {
 		// 	return res.status(409).json({ message: "Skill already added." });
 		// }
 
+		const skillc = await SkillCategory.findById(category);
+
 		// ✅ Push with correct structure
 		user.skills.push({
 			category,
 			certificate,
-			fees,
+			fees: skillc.price,
 		});
 
 		await user.save();
@@ -391,14 +393,16 @@ router.delete("/accept-booking-req/:id", async (req, res) => {
 		const rid = req.params.id;
 
 		// Find the request by ID
-		const request = await Request.findByIdAndUpdate(rid, { status: "Accepted" });
+		const request = await Request.findByIdAndUpdate(rid, {
+			status: "Accepted",
+		});
 		if (!request) {
 			return res.status(404).json({ message: "Request not found" });
 		}
 
 		// Get the swapperId (the user to be notified)
 		const requester = await User.findById(request.requesterId);
-		console.log(requester)
+		console.log(requester);
 		if (!requester) {
 			return res.status(404).json({ message: "Swapper not found" });
 		}
