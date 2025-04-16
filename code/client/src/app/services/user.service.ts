@@ -139,6 +139,13 @@ export class UserService {
     const userData = localStorage.getItem('user');
     return userData ? JSON.parse(userData)._id : '';
   }
+  getScoreCardsCounts():Observable<any> {
+    return this.http.get(`${this.apiUrl}/admin/get-counts`)
+  }
+
+  getCommissionData(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/admin/daily-commissions`);
+  }
 
   uploadSkill(data: any, id: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/user/add-skills/${id}`, data);

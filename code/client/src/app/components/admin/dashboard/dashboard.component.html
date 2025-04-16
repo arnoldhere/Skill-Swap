@@ -1,2 +1,54 @@
 <app-header></app-header>
 <app-sidebar></app-sidebar>
+
+<div class="p-4 md:ml-64 wrapper">
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6 scorecard-wrapper">
+    <!-- Total Users -->
+    <div
+      class="relative bg-white/60 backdrop-blur-lg border border-gray-100 p-6 rounded-2xl shadow-lg transition-all hover:shadow-xl hover:scale-[1.02] duration-300 scorecard">
+      <div class="flex items-center space-x-4">
+        <div class="w-12 h-12 flex items-center justify-center rounded-full bg-blue-100 text-blue-600 shadow">
+          <i class="fas fa-users text-xl"></i>
+        </div>
+        <div>
+          <p class="text-sm text-gray-500 font-medium">Total Users</p>
+          <h3 class="text-3xl font-bold text-blue-700">{{ totalUser }}</h3>
+        </div>
+      </div>
+    </div>
+
+    <!-- Total Requests -->
+    <div
+      class="relative bg-white/60 backdrop-blur-lg border border-gray-100 p-6 rounded-2xl shadow-lg transition-all hover:shadow-xl hover:scale-[1.02] duration-300 scorecard">
+      <div class="flex items-center space-x-4">
+        <div class="w-12 h-12 flex items-center justify-center rounded-full bg-green-100 text-green-600 shadow">
+          <i class="fas fa-file-alt text-xl"></i>
+        </div>
+        <div>
+          <p class="text-sm text-gray-500 font-medium">Total Requests</p>
+          <h3 class="text-3xl font-bold text-green-700">{{ totalReqs }}</h3>
+        </div>
+      </div>
+    </div>
+
+    <!-- Total Commission -->
+    <div
+      class="relative bg-white/60 backdrop-blur-lg border border-gray-100 p-6 rounded-2xl shadow-lg transition-all hover:shadow-xl hover:scale-[1.02] duration-300 scorecard">
+      <div class="flex items-center space-x-4">
+        <div class="w-12 h-12 flex items-center justify-center rounded-full bg-purple-100 text-purple-600 shadow">
+          <i class="fas fa-wallet text-xl"></i>
+        </div>
+        <div>
+          <p class="text-sm text-gray-500 font-medium">Total Commission</p>
+          <h3 class="text-3xl font-bold text-purple-700">₹ {{ totalCommison }}</h3>
+        </div>
+      </div>
+    </div>
+
+    <!-- You can insert charts or latest requests table here -->
+  </div>
+
+  <app-commission-chart />
+
+</div>

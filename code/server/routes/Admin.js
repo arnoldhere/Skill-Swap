@@ -4,6 +4,8 @@ const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const sendEmail = require("../utils/Sendemail");
 const Category = require("../models/SkillCategory");
+const Request = require("../models/Request");
+const Fees = require("../models/Fees");
 
 // 🧑‍💼 Get All Users
 router.get("/get-users", async (req, res) => {
@@ -122,7 +124,7 @@ router.get("/get-skill-category/:id", async (req, res) => {
 
 router.put("/update-skills-category/:id", async (req, res) => {
 	try {
-		const { name, description, commission , price } = req.body;
+		const { name, description, commission, price } = req.body;
 
 		if (!name || !description) {
 			return res
@@ -134,7 +136,7 @@ router.put("/update-skills-category/:id", async (req, res) => {
 			name,
 			description,
 			commission,
-			price
+			price,
 		});
 
 		if (!updatedCategory)
@@ -210,6 +212,50 @@ router.put("/update-profile/:id", async (req, res) => {
 		res
 			.status(500)
 			.json({ message: "Error updating profile", error: err.message });
+	}
+});
+
+router.get("/get-counts", async (req, res) => {
+	try {
+		const totalUser = await User.countDocuments();
+		const totalReqs = await Request.countDocuments();
+		const result = await Fees.aggregate([
+			{
+				$group: {
+					_id: null,
+					totalCommission: { $sum: "$commission" },
+				},
+			},
+		]);
+		const totalCommison = result[0]?.totalCommission || 0;
+		return res.status(200).json({ totalCommison, totalReqs, totalUser });
+	} catch (error) {
+		console.log(error);
+		return res.status(500).json({ message: "error in count..." });
+	}
+});
+router.get("/daily-commissions", async (req, res) => {
+	try {
+		// Get commission data from the database
+		const fees = await Fees.aggregate([
+			{
+				$project: {
+					day: { $dayOfWeek: "$timestamps" },
+					commission: 1,
+				},
+			},
+			{
+				$group: {
+					_id: "$day",
+					totalCommission: { $sum: "$commission" },
+				},
+			},
+			{ $sort: { _id: 1 } }, // Sort by day (from Monday to Sunday)
+		]);
+		return res.status(200).json({fees})
+	} catch (error) {
+		console.log(error)
+		res.status(500).send("Error fetching commissions");
 	}
 });
 

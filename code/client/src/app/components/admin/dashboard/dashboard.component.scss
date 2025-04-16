@@ -1,0 +1,21 @@
+.wrapper{
+  margin: 0 auto;
+}
+.scorecard-wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .scorecard{
+    padding: 3rem 3rem;
+  }
+}
+
+
+
+.card-animate {
+  transition: all 0.3s ease-in-out;
+}
+.card-animate:hover {
+  transform: scale(1.02);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+}
