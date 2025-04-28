@@ -1,0 +1,399 @@
+[{
+  "_id": {
+    "$oid": "67f69a897b65f87cac357fa5"
+  },
+  "firstname": "Arnold",
+  "lastname": "Macwan",
+  "email": "arnoldmacwan009@gmail.com",
+  "password": "$2a$10$IenKWXSKup8//2O88MXhH.UY1El0RVYLYDkObx3UhgP1cWRQl9ZxS",
+  "phone": "8200781208",
+  "modeoflogin": "manual",
+  "profilephoto": "1744214665693.jpg",
+  "role": "user",
+  "skills": [
+    {
+      "category": {
+        "$oid": "67ea795d53d89517f16bd09c"
+      },
+      "certificate": "uploads/documents/1744474112392.pdf",
+      "fees": 600,
+      "_id": {
+        "$oid": "67fa900004af463bb26207e1"
+      },
+      "createdAt": {
+        "$date": "2025-04-12T16:08:32.409Z"
+      }
+    },
+    {
+      "category": {
+        "$oid": "67ea79b253d89517f16bd0a4"
+      },
+      "certificate": "uploads/documents/1744478364043.pdf",
+      "fees": 450,
+      "_id": {
+        "$oid": "67fa901204af463bb26207e9"
+      },
+      "createdAt": {
+        "$date": "2025-04-12T16:08:50.739Z"
+      }
+    },
+    {
+      "category": {
+        "$oid": "67ea785b53d89517f16bd087"
+      },
+      "certificate": "uploads/documents/1744483490237.pdf",
+      "fees": 599,
+      "_id": {
+        "$oid": "67fab4a289559a9f64135dae"
+      },
+      "createdAt": {
+        "$date": "2025-04-12T18:44:50.264Z"
+      }
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-04-09T16:04:25.858Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-12T18:44:50.297Z"
+  },
+  "__v": 16,
+  "bio": "I am a highly motivated professional pursuing post-graduation, with a strong foundation in full-stack web development and expertise in modern tools, frameworks, and coding techniques. I excel in team and project management, with a proven ability to lead projects and collaborate effectively.",
+  "location": {
+    "house": "B28, Harekrishna Park ",
+    "area": "Vatva ",
+    "state": "Gujarat",
+    "city": "Gandhinagar",
+    "pincode": "382445"
+  }
+},
+{
+  "_id": {
+    "$oid": "67f69acd7b65f87cac357fae"
+  },
+  "firstname": "Steve",
+  "lastname": "Rogers",
+  "email": "srogers35@yahoo.com",
+  "password": "$2a$10$Wc4Pu21sCLZ1wd4on23Co.xDg5ppRTYihlS0YcRiau/kIjfyynsM.",
+  "phone": "1230456789",
+  "modeoflogin": "manual",
+  "profilephoto": "1744214733064.png",
+  "role": "user",
+  "skills": [],
+  "createdAt": {
+    "$date": "2025-04-09T16:05:33.196Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-12T09:07:30.233Z"
+  },
+  "__v": 0,
+  "location": {
+    "house": "103, 34th street south",
+    "area": "calangute",
+    "state": "Bihar",
+    "city": "Barbigha",
+    "pincode": "852741"
+  }
+},
+{
+  "_id": {
+    "$oid": "67f69aea7b65f87cac357fb1"
+  },
+  "firstname": "Maxine",
+  "lastname": "Mayfield",
+  "email": "maxfield254@yahoo.in",
+  "password": "$2a$10$XvU/nWJRje9PVaP7xlOOp.iETp5mL/oUF2GNB0zB1TLOjcARCdZ5W",
+  "phone": "8501236974",
+  "modeoflogin": "manual",
+  "profilephoto": "1744214762803.jpg",
+  "role": "user",
+  "skills": [
+    {
+      "category": {
+        "$oid": "67ea795d53d89517f16bd09c"
+      },
+      "certificate": "uploads/documents/1744694779195.pdf",
+      "fees": 699,
+      "_id": {
+        "$oid": "67fdedfb7efafddb7f0d6113"
+      },
+      "createdAt": {
+        "$date": "2025-04-15T05:26:19.229Z"
+      }
+    },
+    {
+      "category": {
+        "$oid": "67eece7419b8356d10c74916"
+      },
+      "certificate": "uploads/documents/1744694797693.pdf",
+      "fees": 599,
+      "_id": {
+        "$oid": "67fdee0d7efafddb7f0d611c"
+      },
+      "createdAt": {
+        "$date": "2025-04-15T05:26:37.717Z"
+      }
+    },
+    {
+      "category": {
+        "$oid": "67ea785b53d89517f16bd087"
+      },
+      "certificate": "uploads/documents/1744710637168.pdf",
+      "fees": 0.9,
+      "_id": {
+        "$oid": "67fe2bed2db824995dbcb5bc"
+      },
+      "createdAt": {
+        "$date": "2025-04-15T09:50:37.178Z"
+      }
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-04-09T16:06:02.958Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-15T09:50:37.186Z"
+  },
+  "__v": 3,
+  "bio": "Maxine \"Max\" Mayfield is one of the main protagonists of the Stranger Things franchise. She also appears as the titular main protagonist of the novel, Runaway Max. ",
+  "location": {
+    "house": "103, 34th street south",
+    "area": "Midtown Manhattan ",
+    "state": "Jammu & Kashmir",
+    "city": "Leh",
+    "pincode": "382448"
+  }
+},
+{
+  "_id": {
+    "$oid": "67f69b7a7b65f87cac357fd1"
+  },
+  "firstname": "Ronald",
+  "lastname": "Macwan",
+  "email": "ronaldmacwan4524@gmail.com",
+  "password": "$2a$10$RSOyqpBC4pamvvWrQVHUDOpMTaVUuSNS9dgC3pSeM7vZ6VAakxr0a",
+  "phone": "9824504348",
+  "modeoflogin": "manual",
+  "profilephoto": "1744214906131.jpeg",
+  "role": "user",
+  "skills": [
+    {
+      "category": {
+        "$oid": "67ea785b53d89517f16bd087"
+      },
+      "certificate": "uploads/documents/1744483150828.pdf",
+      "createdAt": {
+        "$date": "2025-04-09T16:10:25.903Z"
+      },
+      "_id": {
+        "$oid": "67f69bf17b65f87cac357fed"
+      },
+      "fees": 500
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-04-09T16:08:26.253Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-12T18:39:10.849Z"
+  },
+  "__v": 1,
+  "bio": "Hardest choices requires strongest will !!",
+  "location": {
+    "house": "Ticlo resorts",
+    "area": "calangute",
+    "state": "Goa",
+    "city": "Curchorem Cacora",
+    "pincode": "425682"
+  }
+},
+{
+  "_id": {
+    "$oid": "67f69b9f7b65f87cac357fd4"
+  },
+  "firstname": "Tony",
+  "lastname": "stark",
+  "email": "tstark@gmail.com",
+  "password": "$2a$10$SPrHC86kD2bSD50zuk6tLOQD54ooCBxbp4CnwIVlRhwe1e2C57Hu.",
+  "phone": "8200781200",
+  "modeoflogin": "manual",
+  "profilephoto": "1744214943341.jpg",
+  "role": "user",
+  "skills": [
+    {
+      "category": {
+        "$oid": "67ea795d53d89517f16bd09c"
+      },
+      "certificate": "uploads/documents/1744221821685.pdf",
+      "createdAt": {
+        "$date": "2025-04-09T18:03:41.692Z"
+      },
+      "_id": {
+        "$oid": "67f6b67d4d391bcd656285b2"
+      }
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-04-09T16:09:03.468Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-09T18:03:41.696Z"
+  },
+  "__v": 1,
+  "bio": "Iron Man is one of many Marvel heroes with a genius-level intellect, but his focus on societal application alongside hard science distinguishes him from other heroes. The character is a futurist, and he works to identify solutions for problems that have yet to emerge.",
+  "location": {
+    "house": "103, 34th street south",
+    "area": "hell's kitchen",
+    "state": "Gujarat",
+    "city": "Junagadh",
+    "pincode": "852741"
+  }
+},
+{
+  "_id": {
+    "$oid": "67f6b53f4d391bcd65628578"
+  },
+  "firstname": "Yash",
+  "lastname": "Shah",
+  "email": "yashshah4122002@gmail.com",
+  "password": "$2a$10$O0eN6rL8VIBTPmOaKQCHHuEcOcMTVZ2ZxUJiCdy.T94yHPac.cGP.",
+  "phone": "7990571191",
+  "modeoflogin": "manual",
+  "profilephoto": "1744221503655.png",
+  "role": "user",
+  "skills": [
+    {
+      "category": {
+        "$oid": "67ea795d53d89517f16bd09c"
+      },
+      "certificate": "uploads/documents/1744276248903.pdf",
+      "createdAt": {
+        "$date": "2025-04-10T09:10:48.911Z"
+      },
+      "_id": {
+        "$oid": "67f78b18cb87ced2b12e75d6"
+      }
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-04-09T17:58:23.785Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-10T09:10:48.914Z"
+  },
+  "__v": 1,
+  "bio": "I am a quick learner with excellent analytical and logical thinking abilities, and I am very good at applying my knowledge of backend development to a variety of technologies. I have demonstrated managerial experience and a strong belief in the value of teamwork, therefore I know how to produce excellent content with accuracy and clarity. I'm passionate about lifelong learning and am now working to improve my machine learning abilities to propel creative ideas in fast-paced settings.",
+  "location": {
+    "house": "24 , a-one apartment",
+    "area": "Shahpur",
+    "state": "Gujarat",
+    "city": "Ahmedabad",
+    "pincode": "380016"
+  }
+},
+{
+  "_id": {
+    "$oid": "67f6b5674d391bcd6562857b"
+  },
+  "firstname": "Manthan ",
+  "lastname": "Parmar",
+  "email": "parmarmanthan@gmail.com",
+  "password": "$2a$10$RcvgFSr5xlecCn3Alx7ZRuex34PEk/pRf.tP9se9DBQTCChV8it5y",
+  "phone": "8501236974",
+  "modeoflogin": "manual",
+  "profilephoto": "1744221543695.jpg",
+  "role": "user",
+  "skills": [
+    {
+      "category": {
+        "$oid": "67fa0f40c8ac4e9503ef5833"
+      },
+      "certificate": "uploads/documents/1744484153379.pdf",
+      "fees": 350,
+      "_id": {
+        "$oid": "67fab73989559a9f64135ded"
+      },
+      "createdAt": {
+        "$date": "2025-04-12T18:55:53.395Z"
+      }
+    }
+  ],
+  "createdAt": {
+    "$date": "2025-04-09T17:59:03.826Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-12T18:55:53.397Z"
+  },
+  "__v": 1,
+  "bio": "\nLorem ipsum, dolor sit amet consectetur adipisicing elit. Possimus non voluptas iusto est quo earum. Enim aliquam veniam, officiis ex vero veritatis exercitationem, sed harum voluptates iure atque magni rem saepe consequuntur repellendus ipsam assumenda mollitia. Incidunt harum inventore, vitae officiis ipsam quo aliquid error eum optio adipisci minima dicta!",
+  "location": {
+    "house": "503, Aashadip society",
+    "area": "CTM cross road",
+    "state": "Gujarat",
+    "city": "Amreli",
+    "pincode": "380016"
+  }
+},
+{
+  "_id": {
+    "$oid": "67f6b5d24d391bcd6562858b"
+  },
+  "firstname": "Bruce",
+  "lastname": "Wayne",
+  "email": "brucewayne221@gotham.in",
+  "password": "$2a$10$qsl7Z4nhxAfNPPu743VUj.sawYN55cca4W4.ieJQHYn7RnerPOkr.",
+  "phone": "8527419630",
+  "modeoflogin": "manual",
+  "profilephoto": "1744221650237.jpg",
+  "role": "user",
+  "skills": [],
+  "createdAt": {
+    "$date": "2025-04-09T18:00:50.392Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-09T18:00:50.392Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67f6beeb6e4cecf550bec483"
+  },
+  "firstname": "Doom ",
+  "lastname": "Victor",
+  "email": "dvictor35@gmail.com",
+  "password": "$2a$10$g5oo717CLroH0gFrffOfsOMXJmmSPwUDig3R/.oXdIf7bi6KaIqhm",
+  "phone": "8200781208",
+  "modeoflogin": "manual",
+  "profilephoto": "1744223979424.jpg",
+  "role": "admin",
+  "skills": [],
+  "createdAt": {
+    "$date": "2025-04-09T18:39:39.575Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-09T18:39:39.575Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "67fa0beb1228c62984940b5d"
+  },
+  "firstname": "Virat",
+  "lastname": "Kohli",
+  "email": "viratkohli18@gmail.com",
+  "password": "$2a$10$U80fAfaO.CkGv2.L8fIkrOh3NbMIFagUF1XV4R6SwXx3UXVINrOA2",
+  "phone": "8200781208",
+  "modeoflogin": "manual",
+  "profilephoto": "1744440299823.jpeg",
+  "role": "admin",
+  "skills": [],
+  "createdAt": {
+    "$date": "2025-04-12T06:44:59.983Z"
+  },
+  "updatedAt": {
+    "$date": "2025-04-12T06:44:59.983Z"
+  },
+  "__v": 0
+}]

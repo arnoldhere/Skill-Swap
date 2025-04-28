@@ -1,0 +1,54 @@
+[{
+  "_id": {
+    "$oid": "67ea785b53d89517f16bd087"
+  },
+  "name": "Creative & Artistic skills",
+  "description": "Creative and artistic skills are about using imagination and originality to produce something new, encompassing various forms of expression like painting, drawing, sculpting, writing & music. ",
+  "__v": 0,
+  "commission": 15
+},
+{
+  "_id": {
+    "$oid": "67ea795d53d89517f16bd09c"
+  },
+  "name": "Tech & Digital Skills",
+  "description": "Tech and digital skills encompass the ability to use and understand technology, including computers, software, and online tools, and are crucial for both personal and professional success in today's world. ",
+  "__v": 0,
+  "commission": 20
+},
+{
+  "_id": {
+    "$oid": "67ea798753d89517f16bd0a0"
+  },
+  "name": "Personal Development & Soft Skill",
+  "description": "They are crucial for both personal and professional growth, encompassing abilities like communication, teamwork, problem-solving, and emotional intelligence, which are essential for building relationships and navigating various situations. ",
+  "__v": 0,
+  "commission": 5
+},
+{
+  "_id": {
+    "$oid": "67ea79b253d89517f16bd0a4"
+  },
+  "name": "Health, Wellness & Fitness",
+  "description": "Health, wellness, and fitness skills encompass various areas, including nutrition, physical activity, stress management, and mindful practices, all contributing to a holistic approach to well-being",
+  "__v": 0,
+  "commission": 8
+},
+{
+  "_id": {
+    "$oid": "67eece7419b8356d10c74916"
+  },
+  "name": "Parenting & Family Skills",
+  "description": "Skills that help parents and families navigate life better.",
+  "__v": 0,
+  "commission": 18
+},
+{
+  "_id": {
+    "$oid": "67fa0f40c8ac4e9503ef5833"
+  },
+  "name": "DIY & Household Skills",
+  "description": "Practical skills that can be applied at home or in daily life such as Home Repair & Maintenance, Sewing & Embroidery, etc...\n",
+  "commission": 10,
+  "__v": 0
+}]
