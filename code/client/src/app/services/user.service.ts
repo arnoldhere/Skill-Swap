@@ -96,6 +96,10 @@ export class UserService {
     return this.http.get(`${this.apiUrl}/user/fetch-skill/${skillId}/${uid}`);
   }
 
+  dailyCommission(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/admin/commissions/daily`);
+  }
+
   updateUserSkill(uid: string, sid: string, data: any): Observable<any> {
     return this.http.put(`${this.apiUrl}/user/update-skill/${sid}/${uid}`, data);
   }

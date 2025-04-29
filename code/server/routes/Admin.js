@@ -6,6 +6,7 @@ const sendEmail = require("../utils/Sendemail");
 const Category = require("../models/SkillCategory");
 const Request = require("../models/Request");
 const Fees = require("../models/Fees");
+const Payment = require("../models/Payment");
 
 // 🧑‍💼 Get All Users
 router.get("/get-users", async (req, res) => {
@@ -234,28 +235,26 @@ router.get("/get-counts", async (req, res) => {
 		return res.status(500).json({ message: "error in count..." });
 	}
 });
-router.get("/daily-commissions", async (req, res) => {
+
+router.get("/commissions/daily", async (req, res) => {
 	try {
-		// Get commission data from the database
-		const fees = await Fees.aggregate([
-			{
-				$project: {
-					day: { $dayOfWeek: "$timestamps" },
-					commission: 1,
-				},
-			},
+		const result = await Payment.aggregate([
 			{
 				$group: {
-					_id: "$day",
+					_id: {
+						$dateToString: { format: "%d-%m", date: "$timestamp" }
+					},
 					totalCommission: { $sum: "$commission" },
-				},
+					count: { $sum: 1 }
+				}
 			},
-			{ $sort: { _id: 1 } }, // Sort by day (from Monday to Sunday)
+			{ $sort: { _id: 1 } } // sort by date
 		]);
-		return res.status(200).json({fees})
-	} catch (error) {
-		console.log(error)
-		res.status(500).send("Error fetching commissions");
+
+		res.status(200).json({result});
+	} catch (err) {
+		console.error("Error in commission report:", err);
+		res.status(500).json({ error: "Server Error" });
 	}
 });
 
