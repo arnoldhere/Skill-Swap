@@ -19,6 +19,7 @@ import { ImageUploadDialogComponent } from "./tools/image-upload-dialog/image-up
 import { EditBioSectionComponent } from "./tools/edit-bio-section/edit-bio-section.component";
 declare var Razorpay: any;
 import { environment } from '../../../../../src/environments/environment';
+import { OtpConfirmationComponent } from "../otp-confirmation/otp-confirmation.component";
 
 
 @Component({
@@ -296,11 +297,26 @@ export class ProfileComponent implements OnInit {
   stageModify(id: string) {
     this.userService.modifyStage(id).subscribe({
       next: (res: any) => {
-        this.toast.info(res.message || "modified succefully..")
-        window.location.reload()
-      }, error: (err: any)=>{
-        this.toast.info(err.message || "error in update..")
+        this.toast.info(res.message || "OTP sent successfully");
+
+        const dialogRef = this.dialog.open(OtpConfirmationComponent, {
+          width: '35rem',
+          height: '20rem',
+          data: { request: id }
+        });
+
+        dialogRef.afterClosed().subscribe((result) => {
+          if (result) {
+            this.toast.success("Updated successfully.... Please wait...");
+            setTimeout(() => window.location.reload(), 1500);
+          }
+        });
+
+      },
+      error: (err: any) => {
+        this.toast.error(err.message || "Error sending OTP");
       }
-    })
+    });
   }
+
 }

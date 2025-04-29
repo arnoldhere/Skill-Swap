@@ -1,0 +1,14 @@
+<div class="container">
+  <h2>Enter OTP</h2>
+
+  <input type="text" maxlength="6" placeholder="Enter 6-digit OTP" [formControl]="otp" name="otp" />
+
+
+  <p *ngIf="errorMsg" class="error-text">{{ errorMsg }}</p>
+
+  <div class="flex justify-end">
+    <button (click)="verifyOTP()" [disabled]="isVerifying || !otp.valid">
+      {{ isVerifying ? 'Verifying...' : 'Submit' }}
+    </button>
+  </div>
+</div>

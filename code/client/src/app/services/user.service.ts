@@ -33,6 +33,10 @@ export class UserService {
     return this.http.post(`${this.apiUrl}/Auth/Verify-otp`, { email, otp });
   }
 
+  OtpConfirmation(id: string, data: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/user/confirm-otp`, { id, data });
+  }
+
   changePassword(email: string, newPassword: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/Auth/Change-password`, { email, newPassword });
   }
@@ -139,7 +143,7 @@ export class UserService {
     const userData = localStorage.getItem('user');
     return userData ? JSON.parse(userData)._id : '';
   }
-  getScoreCardsCounts():Observable<any> {
+  getScoreCardsCounts(): Observable<any> {
     return this.http.get(`${this.apiUrl}/admin/get-counts`)
   }
 

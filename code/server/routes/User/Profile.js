@@ -419,14 +419,76 @@ router.delete("/accept-booking-req/:id", async (req, res) => {
 	}
 });
 
+router.post("/confirm-otp", async (req, res) => {
+	const { id } = req.body;
+	const otp= req.body.data;
+	console.log(`${otp} \t ${id}`);
+
+	if (!otp || !id) {
+		return res.status(400).json({ message: "OTP and ID are required" });
+	}
+	const request = await Request.findById(id).populate("requesterId");
+	if (!request) return res.status(404).json({ message: "Request not found" });
+	const user = await User.findById(request.requesterId);
+	if (!user) return res.status(404).json({ message: "User not found" });
+
+	try {
+		if (
+			user.otp !== otp ||
+			!user.otpExpiresAt ||
+			user.otpExpiresAt < new Date()
+		) {
+			return res.status(400).json({ message: "Invalid or expired OTP" });
+		}
+
+		// Update request stage
+		request.stage = "Completed";
+		await request.save();
+
+		// Clear OTP
+		user.otp = null;
+		user.otpExpiresAt = null;
+		await user.save();
+
+		res.status(200).json({ message: "Stage updated successfully!" });
+	} catch (error) {
+		console.error(error);
+		return res.status(500).json({ message: "Internal server error" });
+	}
+});
+
 router.get("/modify-stage/:id", async (req, res) => {
 	try {
 		const rid = req.params.id;
-		const request = await Request.findByIdAndUpdate(rid, {
-			stage: "Completed",
-		});
-		await request.save();
-		return res.status(200).json({ message: "updated succesfully.." });
+		// const request = await Request.findByIdAndUpdate(rid, {
+		// 	stage: "Completed",
+		// });
+		const requester = await Request.findById(rid).populate(
+			"requesterId  swapperId _id"
+		);
+		if (!requester)
+			return res.status(404).json({ message: "Requested user not found" });
+
+		const user = await User.findById(requester.requesterId);
+		console.log(`${user.firstname}  ${user.lastname}\n`);
+
+		const otp = Math.floor(100000 + Math.random() * 900000).toString();
+		const expiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 min
+		user.otp = otp;
+		user.otpExpiresAt = expiresAt;
+		await user.save();
+
+		const swapper = await User.findById(requester.swapperId);
+
+		// Email details
+		const toEmail = user.email;
+		const subject = "Skill Exchanege Confirmation";
+		const message = `Dear ${user.firstname}, \n\n If your skill exchange is completed by ${swapper.firstname} ${swapper.lastname} with request Id: ${requester._id}. Kindly provide OTP to them to confirm the completion \nYour OTP for confirmation is: ${otp}. It expires in 10 minutes.`;
+
+		// Send OTP via email
+		await sendEmail(toEmail, subject, message);
+
+		return res.status(200).json({ message: "please wait &  confirm OTP " });
 	} catch (error) {
 		console.log(error);
 		return res.status(500).json({ message: "Internal server error" });

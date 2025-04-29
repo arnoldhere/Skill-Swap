@@ -198,20 +198,36 @@
                   Waiting to Pay
                 </button>
               </td>
+
               <td>
-                <button class="btn btn-primary btn-md p-2 m-1" (click)="stageModify(req._id)"
-                  *ngIf="req.payment === 'Accepted' && req.status === 'Accepted' && req.stage== 'Pending' ">
-                  {{req.stage}}
+                <!-- If stage is Pending and all conditions are met -->
+                <button class="btn btn-danger btn-md p-2 m-1"
+                  *ngIf="req.payment === 'Accepted' && req.status === 'Accepted' && req.stage === 'Pending'"
+                  (click)="stageModify(req._id)">
+                  Mark as Completed
                 </button>
-                <button class="btn btn-primary btn-md p-2 m-1"
-                  *ngIf="req.payment === 'Pending' && req.status === 'Pending'" disabled>
-                  {{req.stage}}
+
+                <!-- If stage is In Progress -->
+                <button class="btn btn-success btn-md p-2 m-1"
+                  *ngIf="req.payment === 'Accepted' && req.status === 'Accepted' && req.stage === 'In Progress'"
+                  (click)="stageModify(req._id)">
+                  Mark as Completed
                 </button>
-                <button class="btn btn-primary btn-md p-2 m-1" (click)="stageModify(req._id)"
-                  *ngIf="req.payment === 'Accepted' && req.status === 'Accepted' && req.stage=== 'Completed' " disabled>
-                  {{req.stage}}
+
+                <!-- If stage is Completed -->
+                <button class="btn btn-secondary btn-md p-2 m-1"
+                  *ngIf="req.payment === 'Accepted' && req.status === 'Accepted' && req.stage === 'Completed'" disabled>
+                  Completed
+                </button>
+
+                <!-- If status or payment not accepted -->
+                <button class="btn btn-outline-secondary btn-md p-2 m-1"
+                  *ngIf="req.payment !== 'Accepted' || req.status !== 'Accepted'" disabled>
+                  {{ req.stage }}
                 </button>
               </td>
+
+
             </tr>
           </tbody>
         </table>
