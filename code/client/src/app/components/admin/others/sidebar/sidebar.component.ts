@@ -18,7 +18,7 @@ export class SidebarComponent {
     { label: 'Dashboard', icon: 'dashboard', link: '/admin/dashboard', active: false },
     { label: 'Users', icon: 'people', link: '/admin/users', active: false },
     { label: 'Skill Category', icon: 'category', link: '/admin/skill-categories', active: false },
-    { label: 'Feedback', icon: 'feedback', link: '/admin/feedback', active: false },
+    { label: 'Feedback', icon: 'feedback', link: '/admin/feedbacks', active: false },
   ];
 
   constructor() {

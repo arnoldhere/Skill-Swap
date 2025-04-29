@@ -1,0 +1,51 @@
+<app-header></app-header>
+<app-sidebar></app-sidebar>
+<div class="user-wrapper">
+  <div class="card">
+    <div class="card-header">
+      <h2>All Feedback & Ratings</h2>
+
+      <div class="controls">
+        <input type="text" placeholder="Search ..." [(ngModel)]="searchTerm" class="search-box" />
+
+        <select [(ngModel)]="itemsPerPage" class="dropdown">
+          <option [value]="4">4 per page</option>
+          <option [value]="6">6 per page</option>
+          <option [value]="10">10 per page</option>
+        </select>
+
+      </div>
+    </div>
+
+    <div class="table-wrapper">
+      <table class="user-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th (click)="changeSort('subject')">Subject</th>
+            <th (click)="changeSort('feedback')">Feedback</th>
+            <th (click)="changeSort('rating')">Rating</th>
+            <th (click)="changeSort('user')">user</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let f of filteredfeeds() | paginate: { itemsPerPage, currentPage }; let i = index">
+            <td>{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
+            <td>{{ f.subject }}</td>
+            <td>{{ f.feedback }}</td>
+            <td>{{ f.rating }}</td>
+            <td>{{ f.user.firstname }} {{f.user.lastname}}</td>
+            <td>
+              <!-- <button class="view-btn" (click)="viewUser(user._id)"><span><i class="fa-solid fa-eye"></i></span>
+                View</button> -->
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div *ngIf="filteredfeeds().length === 0" class="no-data">No data found.</div>
+    </div>
+
+    <pagination-controls (pageChange)="currentPage = $event" [autoHide]="true" previousLabel="«" nextLabel="»">
+    </pagination-controls>
+  </div>
+</div>

@@ -134,6 +134,12 @@ export const routes: Routes = [
         data: { roles: ['admin'] } // Only admins can access
       },
       {
+        path:"feedbacks" ,
+        loadComponent:()=> import("./components/admin/feedbacks/feedbacks.component").then(c=>c.FeedbacksComponent),
+        canActivate: [AuthGuard],
+        data: { roles: ['admin'] } // Only admins can access
+      },
+      {
         path: "profile",
         loadComponent: () => import("./components/admin/profile/profile.component").then(c => c.ProfileComponent),
         canActivate: [AuthGuard],
