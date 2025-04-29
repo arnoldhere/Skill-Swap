@@ -10,7 +10,7 @@ const Fees = require("../models/Fees");
 // 🧑‍💼 Get All Users
 router.get("/get-users", async (req, res) => {
 	try {
-		const users = await User.find({ role: "user" }).sort({ createdAt: -1 });
+		const users = await User.find({ role: "user" }).sort({ createdAt: 1 });
 		res.status(200).json(users);
 	} catch (err) {
 		res

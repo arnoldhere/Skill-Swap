@@ -55,12 +55,14 @@ export class BrowseSkillComponent implements OnInit {
     });
   }
 
-  chat(userId: string): void {
-    // You can navigate to chat page or open chat modal
-    console.log('Chat with:', userId);
-    this.router.navigate(['/chat', userId]);
+  connect(userId: string, name: string) {
+    this.toast.info("Please wait....")
+    const receiverId = userId
+    const senderId = localStorage.getItem("id")
+    setTimeout(() => {
+      this.router.navigate(['/user/chat', senderId, receiverId, name]);
+    }, 2000);
   }
-
   view(userId: string): void {
     this.router.navigate(['/user/user-details', userId]); // Navigates to the user details page
   }

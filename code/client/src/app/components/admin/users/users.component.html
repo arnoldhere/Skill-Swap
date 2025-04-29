@@ -23,6 +23,7 @@
         <thead>
           <tr>
             <th>#</th>
+            <th (click)="changeSort('name')">Name</th>
             <th (click)="changeSort('email')">Email</th>
             <th (click)="changeSort('phone')">Phone</th>
             <th (click)="changeSort('location')">Location</th>
@@ -31,6 +32,7 @@
         <tbody>
           <tr *ngFor="let user of filteredUsers() | paginate: { itemsPerPage, currentPage }; let i = index">
             <td>{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
+            <td>{{ user.firstname }} {{user.lastname}}</td>
             <td>{{ user.email }}</td>
             <td>{{ user.phone }}</td>
             <td>{{ user.location?.city || '-' }}, {{ user.location?.state || '-' }}</td>

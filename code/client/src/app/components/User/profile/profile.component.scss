@@ -643,3 +643,37 @@ $transition-speed: 0.7s;
     transform: translateY(0);
   }
 }
+
+
+.controls {
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+
+  .search-box {
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    width: 200px;
+  }
+
+  .dropdown {
+    padding: 0.5rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+  }
+
+  .download-btn {
+    padding: 0.5rem 1rem;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+
+    &:hover {
+      background-color: #1e40af;
+    }
+  }
+}

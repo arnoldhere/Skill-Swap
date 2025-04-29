@@ -6,11 +6,10 @@ import { HeaderComponent } from "../others/header/header.component";
 import { Router } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 import { SidebarComponent } from "../others/sidebar/sidebar.component";
-import { CommissionChartComponent } from "../../charts/commission-chart/commission-chart.component";
 
 @Component({
   selector: 'app-dashboard',
-  imports: [ReactiveFormsModule, FormsModule, CommonModule, HeaderComponent, SidebarComponent, CommissionChartComponent],
+  imports: [ReactiveFormsModule, FormsModule, CommonModule, HeaderComponent, SidebarComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })

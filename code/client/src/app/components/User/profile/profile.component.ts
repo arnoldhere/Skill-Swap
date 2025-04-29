@@ -20,7 +20,8 @@ import { EditBioSectionComponent } from "./tools/edit-bio-section/edit-bio-secti
 declare var Razorpay: any;
 import { environment } from '../../../../../src/environments/environment';
 import { OtpConfirmationComponent } from "../otp-confirmation/otp-confirmation.component";
-
+import { MatFormField, MatLabel } from "@angular/material/form-field";
+import { NgxPaginationModule } from "ngx-pagination";
 
 @Component({
   selector: "app-profile",
@@ -39,6 +40,7 @@ import { OtpConfirmationComponent } from "../otp-confirmation/otp-confirmation.c
     MatChipsModule,
     ReactiveFormsModule,
     RouterLink,
+    NgxPaginationModule
   ],
   templateUrl: "./profile.component.html",
   styleUrls: ["./profile.component.scss"],
@@ -63,7 +65,11 @@ export class ProfileComponent implements OnInit {
   activeSection: string = 'overview';
   exchangeRequests: any = null;
   bookingRequests: any = null;
-
+  currentPage = 1;
+  itemsPerPage = 4;
+  searchTerm = '';
+  sortColumn = '';
+  sortDirection: 'asc' | 'desc' = 'asc';
 
   constructor(
     private toast: ToastService,
@@ -317,6 +323,71 @@ export class ProfileComponent implements OnInit {
         this.toast.error(err.message || "Error sending OTP");
       }
     });
+  }
+
+
+  filteredExchangeRequests(): any[] {
+    let filtered = this.exchangeRequests.filter((req: any) => {
+      const term = this.searchTerm.toLowerCase();
+      return (
+        req.skill?.toLowerCase().includes(term) ||
+        req.status?.toLowerCase().includes(term) ||
+        req.swapper?.toLowerCase().includes(term) ||
+        req.date?.toLowerCase().includes(term) ||
+        req.note?.toLowerCase().includes(term) ||
+        req.payment?.toLowerCase().includes(term) ||
+        req.stage?.toLowerCase().includes(term)
+      );
+    });
+
+    if (this.sortColumn) {
+      filtered.sort((a: any, b: any) => {
+        const valA = a[this.sortColumn]?.toString().toLowerCase() || '';
+        const valB = b[this.sortColumn]?.toString().toLowerCase() || '';
+        return this.sortDirection === 'asc'
+          ? valA.localeCompare(valB)
+          : valB.localeCompare(valA);
+      });
+    }
+
+    return filtered;
+  }
+
+  filteredBookingRequests(): any[] {
+    let filtered = this.bookingRequests.filter((req: any) => {
+      const term = this.searchTerm.toLowerCase();
+      return (
+        req.skill?.toLowerCase().includes(term) ||
+        req.status?.toLowerCase().includes(term) ||
+        req.requester?.toLowerCase().includes(term) ||
+        req.date?.toLowerCase().includes(term) ||
+        req.note?.toLowerCase().includes(term) ||
+        req.payment?.toLowerCase().includes(term) ||
+        req.stage?.toLowerCase().includes(term)
+      );
+    });
+
+    if (this.sortColumn) {
+      filtered.sort((a: any, b: any) => {
+        const valA = a[this.sortColumn]?.toString().toLowerCase() || '';
+        const valB = b[this.sortColumn]?.toString().toLowerCase() || '';
+        return this.sortDirection === 'asc'
+          ? valA.localeCompare(valB)
+          : valB.localeCompare(valA);
+      });
+    }
+
+    return filtered;
+  }
+
+
+  changeSort(column: string) {
+    if (this.sortColumn === column) {
+      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.sortColumn = column;
+      this.sortDirection = 'asc';
+    }
   }
 
 }

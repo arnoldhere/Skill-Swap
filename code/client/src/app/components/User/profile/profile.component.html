@@ -106,20 +106,30 @@
     <h2 class="section-title">Your Requests</h2>
     <div class="requests-table-container">
       <ng-container *ngIf="exchangeRequests.length> 0 ; else noRequests">
-        <table class="requests-table">
+        <div class="controls">
+          <input type="text" placeholder="Search categories..." [(ngModel)]="searchTerm" class="search-box" />
+          <select [(ngModel)]="itemsPerPage" class="dropdown">
+            <option [value]="4" selected>4 per page</option>
+            <option [value]="6">6 per page</option>
+            <option [value]="10">10 per page</option>
+          </select>
+        </div>
+
+        <table class="user-table table table-stripped table-hover requests-table">
           <thead>
             <tr>
-              <th>Skill</th>
-              <th>Status</th>
-              <th>Swapper</th>
-              <th>Date & Time</th>
-              <th>Note</th>
-              <th>Payment/Action</th>
-              <th>Stage</th>
+              <th (click)="changeSort('skill')">Skill</th>
+              <th (click)="changeSort('status')">Status</th>
+              <th (click)="changeSort('swapper')">Swapper</th>
+              <th (click)="changeSort('date')">Date & Time</th>
+              <th (click)="changeSort('note')">Note</th>
+              <th (click)="changeSort('payment')">Payment/Action</th>
+              <th (click)="changeSort('stage')">Stage</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let req of exchangeRequests">
+            <tr
+              *ngFor="let req of filteredExchangeRequests() | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }; let i = index">
               <td>{{ req.skillId.name }}</td>
               <td>{{ req.status }}</td>
               <td>{{ req.swapperId.firstname }} {{ req.swapperId.lastname }} <br />📧 {{ req.swapperId.email }}</td>
@@ -153,20 +163,29 @@
     </div>
   </div>
 
+
   <div class="request-content-wrapper" @fadeIn>
     <h2 class="section-title">Your Bookings</h2>
     <div class="requests-table-container">
       <ng-container *ngIf="bookingRequests.length > 0 ; else noRequests">
+        <div class="controls">
+          <input type="text" placeholder="Search categories..." [(ngModel)]="searchTerm" class="search-box" />
+          <select [(ngModel)]="itemsPerPage" class="dropdown">
+            <option [value]="4" selected>4 per page</option>
+            <option [value]="6">6 per page</option>
+            <option [value]="10">10 per page</option>
+          </select>
+        </div>
         <table class="requests-table">
           <thead>
             <tr>
-              <th>Skill</th>
-              <th>Status</th>
-              <th>Requester</th>
-              <th>Date & Time</th>
-              <th>Note</th>
-              <th>Payment/Action</th>
-              <th>Stage</th>
+              <th (click)="changeSort('skill')">Skill</th>
+              <th (click)="changeSort('status')">Status</th>
+              <th (click)="changeSort('requester')">Requester</th>
+              <th (click)="changeSort('date')">Date & Time</th>
+              <th (click)="changeSort('note')">Note</th>
+              <th (click)="changeSort('payment')">Payment/Action</th>
+              <th (click)="changeSort('stage')">Stage</th>
             </tr>
           </thead>
           <tbody>

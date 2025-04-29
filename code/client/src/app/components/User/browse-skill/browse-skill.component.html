@@ -27,9 +27,10 @@
       </div>
 
       <div class="btn-group">
-        <button class="chat-btn" (click)="chat(user._id)">
-          <i class="fa-brands fa-rocketchat"></i> Chat
-        </button>
+        <button class="connect-btn btn btn-danger" (click)="connect(user._id , user.firstname)"><span><i
+          class="fa-brands fa-rocketchat"></i></span>
+      Chat</button>
+
         <button class="view-btn" (click)="view(user._id)">
           <i class="fa-solid fa-eye"></i> View
         </button>
