@@ -11,6 +11,7 @@ const Payment = require("../models/Payment");
 router.post("/create-order", async (req, res) => {
 	const { requestId } = req.body;
 
+	try {
 	// 1. Fetch request with populated skillId and swapperId (user)
 	const request = await Request.findById(requestId).populate(
 		"skillId swapperId"
@@ -31,7 +32,6 @@ router.post("/create-order", async (req, res) => {
 	// 4. Calculate amount
 	const amount = userSkill.fees * 100; // Razorpay needs amount in paise
 
-	try {
 		// 5. Create Razorpay order
 		const options = {
 			amount,
